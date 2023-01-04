@@ -1,1 +1,1 @@
-# cleanSmoke
+# clearsmoke
