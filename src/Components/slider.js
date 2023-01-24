@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import "../Styles/slider.css"
 
-const ImageSlider = ({slides}) => {
+const ImageSlider = ({slides, parentWidth}) => {
+    const timerRef =useRef(null)
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const sliderStyles = {
@@ -9,13 +10,11 @@ const ImageSlider = ({slides}) => {
         position: "relative"
     }
     const slideStyles = {
-        width: "100%",
+        // width: "100%",
         height: "100%",
         borderRadius: "10px",
-        backgroundPosition: "center",
+        backgroundPosition: "center bottom 60%",
         backgroundSize: "cover",
-        backgroundPosition: "bottom 60% right 50%",
-        // backgroundRepeat: "no-repeat",
         backgroundImage: `url(${slides[currentIndex].url})`,
     }
 
@@ -59,27 +58,66 @@ const ImageSlider = ({slides}) => {
 
     }
 
+    const slidesContainerStyles = {
+        display: "flex",
+        height: "100%",
+        transition: "transform ease-out 0.3s",
+    }
+
     const GoToPrevious = () => {
         const isFirstSlide = currentIndex === 0
         const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
     }
 
-    const GoToNext = () => {
+    const GoToNext = useCallback(() => {
         const isLastSlide = currentIndex === slides.length - 1;
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
-    }
+    }, [currentIndex, slides]);
 
     const goToSlide = slideIndex => {
         setCurrentIndex(slideIndex);
+    }
+
+    const getSlideStylesWidthBackground = (slideIndex) => ({
+        ...slideStyles,
+        backgroundImage: `url(${slides[slideIndex].url})`,
+        width: `${parentWidth}px`,
+    });
+
+    const getSlideContainerStylesWithWidth = () => ({
+        ...slidesContainerStyles,
+        width: parentWidth * slides.length,
+        transform: `translateX(${-(currentIndex * parentWidth)}px)`,
+    });
+
+    useEffect(() => {
+        if (timerRef.current){
+            clearTimeout(timerRef.current);
+        }
+        timerRef.current = setTimeout(() => {
+            GoToNext();
+        }, 2000)
+
+        return () => clearTimeout(timerRef.current);
+    }, [GoToNext])
+
+    const slidesContainerOverflowStyles = {
+        overflow: "hidden",
+        height: "100%",
     }
 
     return(
         <div style={sliderStyles}>
             <div style={leftArrowStyles} onClick={GoToPrevious}>⇦</div>
             <div style={rightArrowStyles} onClick={GoToNext}>⇨</div>
-            <div style={slideStyles}>
+            <div style={slidesContainerOverflowStyles}>
+                <div style={getSlideContainerStylesWithWidth()}>
+                    {slides.map((_, slideIndex) => (
+                        <div key={slideIndex} style={getSlideStylesWidthBackground(slideIndex)}></div>
+                    ))}
+                </div>
             </div>
             <div style={dotsContainerStyles}>
                 {slides.map((slides, slideIndex) => (

@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './Components/NavBar';
+import NavBar from './Components/NavBar/NavBar';
 import React from 'react';
 import ImageSlider from './Components/slider';
 
@@ -24,7 +23,7 @@ const containerStyles = {
       <React.Fragment>
           <NavBar></NavBar>
           <div style={containerStyles}>
-            <ImageSlider slides={slides}/>
+            <ImageSlider slides={slides} parentWidth={1900}/>
           </div>
       </React.Fragment>
   );

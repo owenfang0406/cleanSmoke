@@ -1,0 +1,88 @@
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 2rem;
+    background-color: var(--mainColor);
+    color: var(--textColor);
+    z-index: 3;
+    
+}
+
+.NavAnchor {
+    margin: 0 2rem;
+    color: var(--textColor);
+    text-decoration: none;
+}
+
+.NavAnchor:hover {
+    color: var(--secondaryColor);
+}
+
+
+.navBtn {
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--textColor);
+    visibility: hidden;
+    opacity: 0;
+    font-size: 1.8rem;
+}
+
+.LogoContainer {
+    max-width: 80px;
+    max-height: 80px;
+    overflow: hidden;
+}
+
+.LogoContainer:hover {
+    cursor: pointer;
+}
+
+.LogoImg {
+    padding-top: 5%;
+    width: 95%;
+    height: 95%;
+    transform: scale(1.65);
+}
+
+.smallNavBtn{
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.smallHeaderNav {
+    position: fixed;
+    flex-direction: column;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: var(--mainColor);
+    transition: 1s;
+    transform: translateY(-100vh);
+}
+
+.responsive_nav {
+    transform: none;
+}
+
+.smallNavCloseBtn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+}
+
+.smallNavAnchor {
+    font-size: 1.6rem;
+}

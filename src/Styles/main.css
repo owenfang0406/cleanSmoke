@@ -14,7 +14,11 @@
     --textColor: #FBF7F4;
 }
 
-header {
+/* .responsive_nav {
+    transform: none;
+} */
+
+/* header {
     position: relative;
     display: flex;
     align-items: center;
@@ -101,4 +105,4 @@ header .nav-btn {
     nav a {
         font-size: 1.6rem;
     }
-}
+} */
