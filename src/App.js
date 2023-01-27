@@ -2,6 +2,8 @@ import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import React from 'react';
 import ImageSlider from './Components/slider';
+import Footer from './Components/Footer/Footer';
+import { useEffect, useState } from 'react';
 
 function App() {
   const slides = [
@@ -11,11 +13,22 @@ function App() {
     {url: '../slider/image4.jpg'},
     {url: '../slider/image5.jpg'},
   ];
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  console.log(viewportWidth)
 
 const containerStyles = {
-  width: "90%",
+  // width: "90%",
   height: "500px",
-  margin: "30px auto",
+  margin: "30px 15px",
   zIndex: "0",
 };
 
@@ -23,8 +36,9 @@ const containerStyles = {
       <React.Fragment>
           <NavBar></NavBar>
           <div style={containerStyles}>
-            <ImageSlider slides={slides} parentWidth={1900}/>
+            <ImageSlider slides={slides} parentWidth={viewportWidth}/>
           </div>
+          <Footer></Footer>
       </React.Fragment>
   );
 }

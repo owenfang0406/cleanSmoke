@@ -19,6 +19,7 @@
 
 .NavAnchor:hover {
     color: var(--secondaryColor);
+    border-bottom: 2px black solid;
 }
 
 

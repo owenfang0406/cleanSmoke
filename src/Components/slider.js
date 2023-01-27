@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import "../Styles/slider.css"
+import styles from "./slider.module.css";
+
 
 const ImageSlider = ({slides, parentWidth}) => {
     const timerRef =useRef(null)
@@ -12,7 +13,7 @@ const ImageSlider = ({slides, parentWidth}) => {
     const slideStyles = {
         // width: "100%",
         height: "100%",
-        borderRadius: "10px",
+        // borderRadius: "10px 10px",
         backgroundPosition: "center bottom 60%",
         backgroundSize: "cover",
         backgroundImage: `url(${slides[currentIndex].url})`,
@@ -121,7 +122,9 @@ const ImageSlider = ({slides, parentWidth}) => {
             </div>
             <div style={dotsContainerStyles}>
                 {slides.map((slides, slideIndex) => (
-                    <div key={slideIndex} style={dotStyles} onClick={()=> goToSlide(slideIndex)}></div>
+                    <div key={slideIndex} style={dotStyles} 
+                    className={slideIndex === currentIndex ? `${styles.active}` : ""}
+                    onClick={()=> goToSlide(slideIndex)}></div>
                 ))}
             </div>
         </div>
