@@ -3,22 +3,28 @@
     display: flex;
     flex-wrap: wrap;
     /* background-color: aquamarine; */
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-}
-
-.imgContainer {
-    width: 50%;
-    height: 500px;
     padding: 0px 15px;
 }
 
+.imgContainer {
+    width: 49%;
+    height: 500px;
+    position: relative;
+}
+
 .imgs {
+    position: absolute;
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 5%;
+}
+
+.offset1{
+    object-position: 50% 50%;
 }
 
 @media (max-width: 600px) {
