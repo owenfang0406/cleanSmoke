@@ -4,6 +4,8 @@ import React from 'react';
 import ImageSlider from './Components/slider';
 import Footer from './Components/Footer/Footer';
 import { useEffect, useState } from 'react';
+import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
+import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js'
 
 function App() {
   const slides = [
@@ -38,6 +40,8 @@ const containerStyles = {
           <div style={containerStyles}>
             <ImageSlider slides={slides} parentWidth={viewportWidth}/>
           </div>
+          <IndexSlong1></IndexSlong1>
+          <IndexShowcase parentWidth={viewportWidth}></IndexShowcase>
           <Footer></Footer>
       </React.Fragment>
   );
