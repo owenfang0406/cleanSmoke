@@ -9,7 +9,7 @@ function IndexShowcase({parentWidth}) {
             <img className={`${styles.imgs} ${styles.offset1}`} src={require("./One.jpg")}></img>
         </div>
         <div className={ `${styles.imgContainer}`}>
-            <img className={styles.imgs} src={require("./Two.jpg")}></img>
+            <img className={`${styles.imgs} ${styles.offset2}`} src={require("./Three.jpg")}></img>
         </div>
     </div>
   )

@@ -27,6 +27,29 @@
     <title>ClearSmoke</title>
   </head>
   <body>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDaHlO84JS-V2jNtrhe9DCwOFq9iShnXoc",
+        authDomain: "clearsome-d2515.firebaseapp.com",
+        projectId: "clearsome-d2515",
+        storageBucket: "clearsome-d2515.appspot.com",
+        messagingSenderId: "957302702642",
+        appId: "1:957302702642:web:c2404cd78b6c934a1a322b",
+        measurementId: "G-5D9PHG5SGW"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
     <script src="/build/static/js/main.ace3c832.js"></script>
     <div id="root"></div>
     <!--
