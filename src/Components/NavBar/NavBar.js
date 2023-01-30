@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import "../../Styles/main.css"
 import styles from "./NavBar.module.css";
 import { Link } from "react-router-dom";
+import LogInButton from "../LogIn/LogInButton";
 
 function NavBar() {
     const navRef = useRef();
@@ -42,6 +43,7 @@ function NavBar() {
             <button className={isSmall ? `${styles.navBtn} ${styles.smallNavBtn}` : `${styles.navBtn}`} onClick={showNavBar}>
                 <FaBars></FaBars>
             </button>
+            <LogInButton></LogInButton>
         </header>
     );
 }

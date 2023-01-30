@@ -5,6 +5,9 @@ import App from './App';
 import Gallery from './Pages/gallery';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SignUp from './Components/SignUp/SignUp';
+import LogIn from './Components/LogIn/LogInButton';
+import SignIn from './Components/LogIn/LogInPage';
 
 const router = createBrowserRouter(
   [
@@ -15,6 +18,14 @@ const router = createBrowserRouter(
     {
       path: "/gallery",
       element: <Gallery/>,
+    },
+    {
+      path: "/login",
+      element: <SignIn/>
+    },
+    {
+      path: "/signup",
+      element: <SignUp/>
     },
   ]
 );

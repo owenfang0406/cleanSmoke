@@ -15,7 +15,7 @@ const ImageSlider = ({slides, parentWidth}) => {
         height: "100%",
         // borderRadius: "10px 10px",
         backgroundPosition: "center bottom 48%",
-        backgroundSize: "70% auto",
+        backgroundSize: "cover",
         backgroundImage: `url(${slides[currentIndex].url})`,
     }
 

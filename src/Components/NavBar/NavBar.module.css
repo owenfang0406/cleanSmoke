@@ -31,7 +31,8 @@
     outline: none;
     color: var(--textColor);
     visibility: hidden;
-    opacity: 0;
+    /* opacity: 0; */
+    display: none;
     font-size: 1.8rem;
 }
 
@@ -54,7 +55,8 @@
 
 .smallNavBtn{
     visibility: visible;
-    opacity: 1;
+    /* opacity: 1; */
+    display: block;
 }
 
 

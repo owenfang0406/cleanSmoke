@@ -5,7 +5,10 @@ import ImageSlider from './Components/slider';
 import Footer from './Components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
-import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js'
+import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
+import LogIn from './Components/LogIn/LogInButton.js';
+import AuthDetails from './Components/SignOut.js/AuthDetails';
+
 
 function App() {
   const slides = [
@@ -29,7 +32,7 @@ function App() {
 
 const containerStyles = {
   // width: "90%",
-  height: "500px",
+  height: "600px",
   margin: "30px 15px",
   zIndex: "0",
 };
@@ -43,6 +46,7 @@ const containerStyles = {
           <IndexSlong1></IndexSlong1>
           <IndexShowcase parentWidth={viewportWidth}></IndexShowcase>
           <Footer></Footer>
+          <AuthDetails/>
       </React.Fragment>
   );
 }
