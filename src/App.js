@@ -28,7 +28,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  console.log(viewportWidth)
+  // console.log(viewportWidth)
 
 const containerStyles = {
   // width: "90%",

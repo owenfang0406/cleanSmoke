@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from './Components/SignUp/SignUp';
 import LogIn from './Components/LogIn/LogInButton';
 import SignIn from './Components/LogIn/LogInPage';
-
+import Newpage from './Pages/newpage';
 const router = createBrowserRouter(
   [
     {
@@ -16,8 +16,14 @@ const router = createBrowserRouter(
       element: <App/>,
     },
     {
-      path: "/gallery",
+      path: "/gallery/*",
       element: <Gallery/>,
+      children: [
+        {
+          path: "next",
+          element: <Newpage/>,
+        },
+      ],
     },
     {
       path: "/login",
@@ -27,6 +33,10 @@ const router = createBrowserRouter(
       path: "/signup",
       element: <SignUp/>
     },
+    {
+      path: "/gallery/future",
+      element: <LogIn/>
+    }
   ]
 );
 
