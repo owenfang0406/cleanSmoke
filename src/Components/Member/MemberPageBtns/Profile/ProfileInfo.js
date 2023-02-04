@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {UserContext} from "../../../../index";
 import styles from "./ProfilePage.module.css";
+import AvatarUpload from './AvatarUpload';
 
 function ProfileInfo() {
   const { authUser, userSignOut } = useContext(UserContext);
@@ -15,6 +16,10 @@ function ProfileInfo() {
 
   return (
     <div className={styles.wrapper}>
+      <div>
+        <div></div>
+        <AvatarUpload></AvatarUpload>
+      </div>
       <div>
         <label>Email: </label>
         <input type="email" value={email} disabled></input>
