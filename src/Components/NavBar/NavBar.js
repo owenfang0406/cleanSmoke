@@ -20,7 +20,7 @@ function NavBar() {
         // navRef.current.classList.remove("responsive_nav");
         setIsClicked(!isClicked);
     }
-
+    
     const LogoPath = "./Logo.png"
 
     const responsiveNavBar = isClicked ? [styles.responsive_nav,] : [];
@@ -40,10 +40,12 @@ function NavBar() {
                     <FaTimes></FaTimes>
                 </button>
             </nav>
+            <div className={styles.iconCon}>
             <button className={isSmall ? `${styles.navBtn} ${styles.smallNavBtn}` : `${styles.navBtn}`} onClick={showNavBar}>
                 <FaBars></FaBars>
             </button>
             <LogInButton></LogInButton>
+            </div>
         </header>
     );
 }

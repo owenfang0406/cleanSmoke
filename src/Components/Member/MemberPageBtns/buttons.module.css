@@ -1,0 +1,20 @@
+.Btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    font-family: sans-serif;
+    color: var(--secondaryColor);
+    border-radius: 5px;
+}
+
+.Btn:hover {
+    background-color: var(--mainColor);
+    color: var(--textColor);
+    cursor: pointer;
+}
+
+.links {
+    text-decoration: none;
+}

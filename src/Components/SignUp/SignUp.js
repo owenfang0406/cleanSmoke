@@ -52,13 +52,13 @@ function SignUp() {
                 </div>
                 <div className={styles.signinOptions}>
                     <div className={styles.google}>
-                        <img className={styles.icon} src={require('./google.png')}></img><span>Sign in with Google</span>
+                        <img className={styles.icon} src={require('./google.png')}></img><span>Sign up with Google</span>
                     </div>
                     <div className={styles.google}>
-                    <img className={styles.icon} src={require('./facebook.png')}></img><span>Sign in with FaceBook</span>
+                    <img className={styles.icon} src={require('./facebook.png')}></img><span>Sign up with FaceBook</span>
                     </div>
                     <div className={styles.google}>
-                    <img className={styles.icon} src={require('./twitter.png')}></img><span>Sign in with Twitter</span>
+                    <img className={styles.icon} src={require('./twitter.png')}></img><span>Sign up with Twitter</span>
                     </div>
                 </div>
                 <div id='errormsg' className={styles.err}>

@@ -3,6 +3,7 @@
     width: 100%;
     max-width: 1800px;
     margin: 0px auto;
+    margin-top: 30px;
 }
 
 .formText {
@@ -52,6 +53,7 @@
     font-size: 16px;
     padding: 5px 0px;
     padding-left: 5px;
+    appearance: none;
 }
 
 .password {
@@ -101,6 +103,7 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    margin-top: 50px;
 }
 .google {
     display: flex;
@@ -122,4 +125,19 @@
     margin: 0px 20px;
     width: 20px;
     height: 20px;
+}
+
+@media screen and (max-width: 700px)  {
+    .h1 {
+        font-size: 24px;
+    }
+
+    .formText {
+        max-width: 80%;
+    }
+
+    .form {
+        max-width: 80%;
+        
+    }
 }

@@ -89,3 +89,14 @@
 .smallNavAnchor {
     font-size: 1.6rem;
 }
+
+.iconCon {
+    display: flex;
+    max-width: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0 1rem;
+    }
+}

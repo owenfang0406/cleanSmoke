@@ -1,0 +1,24 @@
+.wrapper {
+    display: flex;
+    position: relative;
+    /* background-color: beige; */
+    width: 100%;
+    height: 100%;
+}
+
+.btnContainer {
+    /* background-color: blue; */
+    width: calc(30%);
+    padding: 30px 30px;
+    /* height: 100vh; */
+}
+
+.btnSubCon {
+    background-color: white;
+    line-height: 40px;
+    width: 100%;
+}
+
+.displayArea {
+    width: 70%;
+}

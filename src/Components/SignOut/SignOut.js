@@ -1,10 +1,12 @@
-import React from 'react'
-import { app } from '../firebase-config'
+import React, {useContext} from 'react'
+import {UserContext} from "../../index";
 
 function SignOut() {
-    const auth = app.auth()
+  const { userSignOut, authUser } = useContext(UserContext);
+  console.log(authUser)
+  console.log(userSignOut)
   return (
-    <button onClick={() => auth.signOut()}>SignOut</button>
+    authUser ? <button onClick={userSignOut}>SignOut</button> : <div>Please Log in</div>
   )
 }
 
