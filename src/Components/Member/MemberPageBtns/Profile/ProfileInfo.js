@@ -20,7 +20,7 @@ function ProfileInfo() {
     <div className={styles.wrapper}>
       <div className={styles.infoCon}>
         <div className={styles.avatarWrapper}>
-          <Link to="/member/profile/updateAvatar">
+          <Link to="/member/updateAvatar">
             <div className={styles.avatarCon}>
               <img className={styles.avatar} src={avatarURL? avatarURL : ""}></img>
               <div className={styles.editBtn}>

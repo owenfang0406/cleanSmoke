@@ -15,6 +15,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
 import { getDoc, doc, getDocs, collection } from 'firebase/firestore';
 import { db } from './Components/firebase-config';
+import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 
 export const UserContext = createContext({});
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter(
         {
           path: "booking",
           element:<ProfileInfo/>,
+        },
+        {
+          path: "updateAvatar",
+          element:<AvatarUpload/>,
         }
       ]
     }
@@ -83,6 +88,7 @@ const Index = () => {
                   console.log("Document data:", avatarURL.data().avatarURL);
                 } else {
                   // doc.data() will be undefined in this case
+                  setAvatarURL(null);
                   console.log("No such document!");
                 }
               }
@@ -95,7 +101,7 @@ const Index = () => {
             listen();
             }
             })
-    }, []);
+    }, [authUser, avatarURL]);
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)

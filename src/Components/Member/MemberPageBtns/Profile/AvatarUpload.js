@@ -4,12 +4,28 @@ import { ref, uploadBytes, list, deleteObject, getDownloadURL } from "firebase/s
 import { UserContext } from "../../../../index";
 import { v4 } from 'uuid';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import styles from "./AvatarUpload.module.css";
 
 function AvatarUpload() {
   const { authUser, userSignOut, updateNewURL } = useContext(UserContext);
   const [imageUpload, setImageUpload] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewURl] = useState(null);
+  const [error, setError] = useState(null);
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0])
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      setPreviewURl(e.target.result);
+      console.log(e.target);
+    }
+      reader.readAsDataURL(e.target.files[0]);
+  }
   const uploadImage = () => {
-    if (imageUpload == null) return;
+    if (imageUpload == null) {
+        setError("No photo selected");
+        return
+    };
     const dbCollection = collection(db, `${authUser.email}`);
     const dbRef = doc(db, `${authUser.email}`, "avatar");
     const folderRef = ref(storage,`avatar/${authUser.email}/`);
@@ -24,6 +40,10 @@ function AvatarUpload() {
               id: dbRef.id
             });
             alert("url: " + downloadURl);
+            setImageUpload(null);
+            setSelectedFile(null);
+            setPreviewURl(null);
+            setError("");
           })
         })
         return
@@ -40,6 +60,10 @@ function AvatarUpload() {
               });
               updateNewURL(downloadURl);
               alert("url: " + downloadURl);
+              setImageUpload(null);
+              setSelectedFile(null);
+              setPreviewURl(null);
+              setError("");
             })
           })
         })
@@ -50,9 +74,32 @@ function AvatarUpload() {
   return (
     <div>
       <div>
-        <input type="file" onChange={(e) => {
-          setImageUpload(e.target.files[0])}}></input>
-        <button onClick={uploadImage}>Submit</button>
+        {previewUrl ? (
+        <div className={styles.wrapper}>
+          <div className={styles.previewCon}>
+            <img className={styles.preview} src={previewUrl} alt="Preview" />
+          </div>
+        </div>
+        ) : (
+          <div className={styles.wrapper}>
+            <div className={styles.previewCon}>
+              <div className={styles.previewText}>No image selected</div>
+            </div>
+        </div>
+        )}
+        <div className={styles.UploadForm}>
+          <label for="file" className={styles.uploadBtn}>
+            <span className={styles.UploadStr}>Choose</span>
+            <input type="file" accept="image/*" onChange={(e) => {
+              setImageUpload(e.target.files[0]);
+              handleFileChange(e);
+              }}></input>
+          </label>
+          {error !== "" && <div className={styles.errorMsg}>{error}</div>}
+          <button type='submit' className={styles.submitBtn} onClick={uploadImage}>
+            <span className={styles.submitStr}>Submit</span>
+          </button>
+        </div>
       </div>
     </div>
   )

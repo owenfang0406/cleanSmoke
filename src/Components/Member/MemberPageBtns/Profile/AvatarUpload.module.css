@@ -1,0 +1,99 @@
+.wrapper {
+    border: 3px solid rgb(235, 235, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    margin: 50px auto;
+}
+
+.previewCon {
+    width: 450px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.UploadForm input[type="file"] {
+    width: 64px;
+    opacity: 0;
+    height: 22px;
+    cursor: pointer;
+}
+
+.UploadForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.uploadBtn {
+    display: flex;
+    position: relative;
+    padding: 8px 16px;
+    border: 2px solid #cccccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color:white;
+    background-color: var(--mainColor);
+    cursor: pointer;
+    margin: 0px 20px;
+}
+
+.submitBtn {
+    display: flex;
+    position: relative;
+    padding: 8px 16px;
+    border: 2px solid #cccccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color:white;
+    background-color:var(--mainColor);
+    cursor: pointer;
+    margin: 0px 20px;
+}
+
+.submitBtn:hover {
+    border-color: #999;
+    opacity: 0.8;
+}
+
+.uploadBtn:hover {
+    border-color: #999;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.UploadStr {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+.submitStr {
+    width: 64px;
+    height: 22px;
+}
+
+.preview {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.previewText {
+    color:  rgb(204, 204, 206);
+    font-size: 24px;
+    font-weight: 500;
+    font-family: 'sans-serif';
+}
+
+.errorMsg {
+    color: var(--mainColor);
+}
