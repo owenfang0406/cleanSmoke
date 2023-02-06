@@ -13,7 +13,8 @@ import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-
+import { getDoc, doc, getDocs, collection } from 'firebase/firestore';
+import { db } from './Components/firebase-config';
 
 export const UserContext = createContext({});
 
@@ -60,26 +61,52 @@ const router = createBrowserRouter(
 
 const Index = () => {
   const [authUser, setAuthUser] = useState(null);
+  const [avatarURL, setAvatarURL] = useState(null);
+
+  // const dbRef = doc(db, `${authUser.email}`, "avatar");
+  // const getAvatar = async () => {
+  //   const avatarURL = await getDocs(dbRef)
+  //   console.log(avatarURL)
+  // }
   useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
+    const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
+              console.log(user);
               setAuthUser(user);
+              const dbRef = doc(db, `${user.email}`, "avatar");
+              const dbCollection = collection(db, `${user.email}`);
+              const getAvatar = async () => {
+                const avatarURL = await getDoc(dbRef);
+                console.dir(avatarURL)
+                if (avatarURL.exists()) {
+                  setAvatarURL(avatarURL.data().avatarURL);
+                  console.log("Document data:", avatarURL.data().avatarURL);
+                } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+                }
+              }
+              getAvatar();
             }else {
               setAuthUser(null);
+              setAvatarURL(null);
             }
-            console.log(user);
           return () => {
             listen();
             }
             })
     }, []);
 
+  const updateNewURL = (newURL) => {
+    setAvatarURL(newURL)
+  }
+
   const userSignOut = () => {
       signOut(auth).then(()=> {
         console.log("logged out!")
       }).catch(err=> console.log(err))};
   return (
-    <UserContext.Provider value={{ authUser, userSignOut }}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL }}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );

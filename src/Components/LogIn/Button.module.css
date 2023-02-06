@@ -7,6 +7,7 @@
     /* position: absolute;
     top: 20px;
     right: 20px; */
+    border-radius: 50%;
     border: none;
 }
 
@@ -14,5 +15,6 @@
     cursor: pointer;
     background-color: var(--textColor);
     color: var(--mainColor);
+    opacity: 0.8;
     border-radius: 50%;
 }
