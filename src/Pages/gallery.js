@@ -3,15 +3,13 @@ import NavBar from '../Components/NavBar/NavBar'
 import Footer from '../Components/Footer/Footer'
 import { Link, Outlet, Route, Routes } from 'react-router-dom'
 import Newpage from './newpage'
-import ParallaxDisplay from '../Components/Parallax/Parallax'
-import CSSParallax from '../Components/Parallax/CSSParallax'
+import PricingMenu from '../Components/AD/Pricing/PricingMenu'
 
 function Gallery() {
   return (
     <>
     <NavBar></NavBar>
-    {/* <ParallaxDisplay></ParallaxDisplay> */}
-    <CSSParallax></CSSParallax>
+    <PricingMenu></PricingMenu>
     <div>gallery</div>
     <Link to="/gallery/next"><button>go to next page</button></Link>
     <br></br>
