@@ -97,3 +97,10 @@
 .errorMsg {
     color: var(--mainColor);
 }
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        width: 300px;
+        height: 300px;
+    }
+}

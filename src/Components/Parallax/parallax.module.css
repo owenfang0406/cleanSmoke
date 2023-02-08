@@ -1,0 +1,36 @@
+.animation {
+    height: 1000px;
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+
+.animation_layer {
+    height: 1000px;
+    background-position: center center;
+    background-size: auto 1038px;
+    background-repeat: repeat-x;
+    width: 100%;
+    position: absolute;
+}
+
+.parallax {
+    position: fixed;
+}
+
+.mountainView {
+    background-image: url(./parallaxImgs/city.jpg);
+}
+
+.photographer {
+    background-image: url(./parallaxImgs/taipei101.png);
+    background-repeat: no-repeat;
+    left: 0px;
+    height: 500px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.splash {
+    background-image: url(./parallaxImgs/splash.png);
+}

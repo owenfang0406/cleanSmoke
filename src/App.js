@@ -6,10 +6,7 @@ import Footer from './Components/Footer/Footer';
 import { useEffect, useState, createContext } from 'react';
 import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
 import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
-import LogIn from './Components/LogIn/LogInButton.js';
-import { auth } from './Components/firebase-config';
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import AuthDetails from './Components/SignOut/AuthDetails';
+import CSSParallax from './Components/Parallax/CSSParallax';
 
 
 // export const UserContext = createContext({});
@@ -61,6 +58,7 @@ const containerStyles = {
   return (
       <React.Fragment>
           <NavBar parentWidth={viewportWidth}></NavBar>
+          <CSSParallax></CSSParallax>
           <div style={containerStyles}>
             <ImageSlider slides={slides} parentWidth={viewportWidth}/>
           </div>

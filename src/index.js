@@ -6,14 +6,13 @@ import Gallery from './Pages/gallery';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from './Components/SignUp/SignUp';
-import LogIn from './Components/LogIn/LogInButton';
 import SignIn from './Components/LogIn/LogInPage';
 import Newpage from './Pages/newpage';
 import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-import { getDoc, doc, getDocs, collection } from 'firebase/firestore';
+import { getDoc, doc, collection } from 'firebase/firestore';
 import { db } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 
@@ -65,14 +64,10 @@ const router = createBrowserRouter(
 );
 
 const Index = () => {
+  // const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const [avatarURL, setAvatarURL] = useState(null);
 
-  // const dbRef = doc(db, `${authUser.email}`, "avatar");
-  // const getAvatar = async () => {
-  //   const avatarURL = await getDocs(dbRef)
-  //   console.log(avatarURL)
-  // }
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -107,10 +102,12 @@ const Index = () => {
     setAvatarURL(newURL)
   }
 
+
   const userSignOut = () => {
       signOut(auth).then(()=> {
-        console.log("logged out!")
+        console.log("Logged Out!")
       }).catch(err=> console.log(err))};
+
   return (
     <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL }}>
       <RouterProvider router={router}></RouterProvider>
