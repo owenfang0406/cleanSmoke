@@ -1,0 +1,15 @@
+.logOutBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--secondaryColor);
+    border-radius: 5px;
+}
+
+.logOutBtn:hover {
+    background-color: var(--mainColor);
+    color: var(--textColor);
+    cursor: pointer;
+}

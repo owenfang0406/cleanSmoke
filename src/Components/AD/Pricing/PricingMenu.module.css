@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&family=Rowdies:wght@400;700&family=Sulphur+Point:wght@300;400&display=swap');
+.deflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(320deg, #f27121, #e94057, #8a2387);
+    flex-direction: column;
+}
+
+.heading {
+    width: 60%;
+    margin-bottom:  2vw;
+}
+
+.h1s {
+    font-size: 3vw;
+    font-family: 'Sulphur Point';
+    text-align: center;;
+    padding: 0 20px;
+    text-decoration: underline;
+    text-decoration-color:  #f27121;
+    text-underline-offset: .5vw;
+}
+
+.h2s {
+    font-size: 4vw;
+    font-family: 'Sulphur Point';
+    line-height: 1;
+    margin-bottom: 2vw;
+    color: #eee;
+    position: relative;
+    display: inline-block;
+
+}
+
+.h2s::after {
+    content: "";
+    width: 1.5vw;
+    height: 4px;
+    background-color: #f27121;
+    left: .5vw;
+    bottom: -5px;
+    position: absolute;
+}
+
+.slider_wrapper {
+    width: 60%;
+    overflow: hidden;
+    display: flex;
+    padding: 20px;
+}
+
+.inner_carousel {
+    display: inline-flex;
+}
+
+.cards {
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    padding: 30px 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16)
+                0 3px 6px rgba(0, 0, 0, 0.23);
+    pointer-events: none;
+}
+
+.cards + .cards {
+    margin-left: 1.5vw;
+}
+
+.card_header {
+    margin-bottom: 16px;
+}
+
+.title {
+    font-family: 'Sulphur Point';
+    font-size: 1vw;
+    font-weight: bold;
+    color: #000;
+}
+
+.sub_title {
+    font-family: 'Sulphur Point';
+    font-size: 1vw;
+    color: #eee;
+}
+
+.card_img {
+    width: 100%;
+    height: 250px;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
+.imgs {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card_footer {
+    color: #bdbdbd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa {
+    width: 36px;
+    height: 36px;
+}
+
+.fa + .fa {
+    margin-left: 16px;
+}
+
+@media screen and (max-width: 416px) {
+    .heading {
+        width: 95%;
+    }
+    
+    .h1s {
+        font-size: 5vw;
+    }
+
+    .h2s::after {
+        width: 6vw;
+    }
+
+    .h2s {
+        font-size: 10vw;
+        margin-bottom: 8vw;
+    }
+
+    .title {
+        font-size: 6vw;
+    }
+
+    .sub_title {
+        font-size: 5vw;
+    }
+
+    .slider_wrapper {
+        width: 100%;
+    }
+
+    .cards {
+        margin-left: 5vw;
+    }
+}
