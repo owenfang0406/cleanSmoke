@@ -15,6 +15,7 @@ import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo'
 import { getDoc, doc, collection } from 'firebase/firestore';
 import { db } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
+import About from './Pages/About';
 
 export const UserContext = createContext({});
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter(
           element:<AvatarUpload/>,
         }
       ]
+    },
+    {
+      path: "/about",
+      element: <About/>,
     }
   ]
 );

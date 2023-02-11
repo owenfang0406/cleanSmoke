@@ -4,6 +4,7 @@ import styles from "./MasonryGallery.module.css";
 import styled from '@emotion/styled'
 import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
+import ImagePage from './ImagePage';
 
 const ArrowLeft = styled.div`
   width: 30px;
@@ -27,12 +28,20 @@ const images = [
 ]
 
 function MasonryGallery() {
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     img: '',
     i: 0
-  })
+  });
+
   const viewImage = (img, i) => {
     setData({img, i})
+    console.log(open)
+  }
+
+  const showImgPage = (image, i) => {
+    viewImage(image, i);
+    setOpen(true);
   }
   const imgAction = (action) => {
     let i = data.i;
@@ -45,6 +54,7 @@ function MasonryGallery() {
     }
     if (!action) {
           setData({img: '', i: 0});
+          setOpen(false)
     } 
   }
 
@@ -52,7 +62,7 @@ function MasonryGallery() {
     return (
 
       <>
-        {data.img &&
+        {/* {data.img &&
               <div 
               className={styles.mainCon}>
                 <div className={styles.imgCon}>
@@ -67,8 +77,10 @@ function MasonryGallery() {
                 </div>
               </div>
 
-        }
-
+        } */}
+        <ImagePage open={open} onClose={() => setOpen(false)} imgAction={imgAction}
+        data={data}
+        ></ImagePage>
         <div className={styles.wrapper}>
           <ResponsiveMasonry
               columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
@@ -80,8 +92,7 @@ function MasonryGallery() {
                           src={image}
                           style={{width: "100%", display: "block", cursor: "pointer"}}
                           alt=""
-                          onClick={()=> viewImage(image, i)}
-                      />
+                          onClick={()=> showImgPage(image, i)}/>
                   ))}
               </Masonry>
           </ResponsiveMasonry>

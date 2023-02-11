@@ -34,7 +34,7 @@ function NavBar() {
             <nav className={[...responsiveNavBar, ...shouldChangeNav].join(' ')}  ref={navRef} onClick={hideNavbar}>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Home</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/gallery" >Gallery</Link>
-                <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">About</Link>
+                <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/about">About</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Appoint</Link>
                 <button className={isSmall ? `${styles.smallNavCloseBtn} ${styles.navBtn} ${styles.smallNavBtn}` : `${styles.smallNavCloseBtn} ${styles.navBtn}`} onClick={showNavBar}>
                     <FaTimes></FaTimes>
