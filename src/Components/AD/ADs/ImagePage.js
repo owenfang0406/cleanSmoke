@@ -1,11 +1,12 @@
 import React from 'react'
 import styles from "./MasonryGallery.module.css";
+import ReactDOM from 'react-dom';
 import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 
 function ImagePage({ open, onClose, imgAction, data}) {
     if(!open) return null
-  return (
+  return ReactDOM.createPortal (
     <div 
     className={styles.mainCon}>
       <div className={styles.imgCon}>
@@ -18,7 +19,8 @@ function ImagePage({ open, onClose, imgAction, data}) {
       <div className={styles.commentCon}>
 
       </div>
-    </div>
+    </div>,
+    document.getElementById("ImgPortal")
   )
 }
 

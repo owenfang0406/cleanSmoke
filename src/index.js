@@ -12,8 +12,8 @@ import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-import { getDoc, doc, collection } from 'firebase/firestore';
-import { db } from './Components/firebase-config';
+import { getDoc, doc, collection, Timestamp } from 'firebase/firestore';
+import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 import About from './Pages/About';
 
@@ -72,14 +72,43 @@ const Index = () => {
   // const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const [avatarURL, setAvatarURL] = useState(null);
+  const [profiles, setProfiles] = useState({
+    birth: '',
+    name: '',
+    gender: '',
+  })
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
               console.log(user);
               setAuthUser(user);
-              const dbRef = doc(db, `${user.email}`, "avatar");
-              const dbCollection = collection(db, `${user.email}`);
+              const dbRef = doc(db, `${user.uid}`, "avatar");
+              const dbProfileRef = doc(db, `${user.uid}`, "profiles")
+              const dbCollection = collection(db, `${user.uid}`);
+              const getProfiles = async () => {
+                const profiles = await getDoc(dbProfileRef);
+                if (profiles.exists()) {
+                  const ntObject = profiles.data().birth;
+                  const name = profiles.data().name;
+                  const gender = profiles.data().gender;
+                  // const timestamp = Timestamp.fromMillis(ntObject.seconds * 1000 + ntObject.nanoseconds / 1000000);
+                  // const birthdate = timestamp.toDate().toLocaleDateString('zh-TW'
+                  // ,{year: 'numeric', month: '2-digit', day: '2-digit'});
+                  
+                  setProfiles({
+                    ...profiles,
+                    birth: ntObject,
+                    name: name,
+                    gender: gender,
+                  })
+                }else {
+                  // doc.data() will be undefined in this case
+                  setProfiles({});
+                  console.log("No such document!");
+                }
+
+              }
               const getAvatar = async () => {
                 const avatarURL = await getDoc(dbRef);
                 console.dir(avatarURL)
@@ -93,6 +122,7 @@ const Index = () => {
                 }
               }
               getAvatar();
+              getProfiles();
             }else {
               setAuthUser(null);
               setAvatarURL(null);
@@ -101,7 +131,7 @@ const Index = () => {
             listen();
             }
             })
-    }, [authUser, avatarURL]);
+    }, [authUser, avatarURL, profiles]);
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)
@@ -114,7 +144,7 @@ const Index = () => {
       }).catch(err=> console.log(err))};
 
   return (
-    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL }}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles }}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );

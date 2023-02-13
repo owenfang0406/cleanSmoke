@@ -28,9 +28,11 @@ function NavBar() {
 
     return(
         <header className={isSmall ? `${styles.header}` : `${styles.header}`} >
-            <div className={styles.LogoContainer}>
-                <img className={styles.LogoImg} src={require("./Logo.png")} alt="清煙"></img>
-            </div>
+            <Link to="/">
+                <div className={styles.LogoContainer}>
+                        <img className={styles.LogoImg} src={require("./Logo.png")} alt="清煙"></img>
+                </div>
+            </Link>
             <nav className={[...responsiveNavBar, ...shouldChangeNav].join(' ')}  ref={navRef} onClick={hideNavbar}>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Home</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/gallery" >Gallery</Link>

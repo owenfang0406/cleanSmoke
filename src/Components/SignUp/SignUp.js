@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import styles from "./LoginPage.module.css";
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
+import { v4 } from 'uuid';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 
 function SignUp() {
     const [showSignUp, setShowSignUp] = useState(false);
@@ -20,6 +22,7 @@ function SignUp() {
             .then((userCredential) => {
                 if (email === userCredential.user.email){
                     console.log(userCredential)
+                    console.log(userCredential.uid)
                     console.log(userCredential.user.email);
                     navigate("/")
                 }

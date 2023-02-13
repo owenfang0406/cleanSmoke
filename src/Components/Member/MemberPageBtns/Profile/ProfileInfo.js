@@ -3,11 +3,47 @@ import {UserContext} from "../../../../index";
 import styles from "./ProfilePage.module.css";
 import AvatarUpload from './AvatarUpload';
 import { MdModeEdit, MdArrowForwardIos } from "react-icons/md";
+import { doc, setDoc, collection, addDoc, updateDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import EditForm from './EditForm';
+import { db } from '../../../firebase-config';
 
 function ProfileInfo() {
-  const { authUser, userSignOut, avatarURL } = useContext(UserContext);
+  const { authUser, userSignOut, avatarURL, profiles } = useContext(UserContext);
   const [email, setEmail] = useState(authUser? authUser.email : "");
+  // const [wouldUpdate, setWouldUpdate] = useState("");
+  const [showEditForm, setShowEditForm] = useState(false)
+  const shouldShowNameForm = showEditForm;
+  // const profileData = {
+  //   avatarURL: avatarURL,
+  //   email: authUser.email,
+  //   gender: profiles.gender,
+  //   name: wouldUpdate
+  // }
+  // const setUpdateInfo = (string) => {
+  //   setWouldUpdate(string)
+  // }
+  // console.log(wouldUpdate)
+  // const updateProfile = (e, ref) => {
+  //   const updatedRef = doc(db, ref.uid, "profiles");
+  //   e.preventdefault()
+  //   setDoc(
+  //     updatedRef,
+  //     {
+  //       name: 123
+  //     },
+  //     { merge:true }
+  //   ).then(docRef => {
+  //     console.log("Document Field has been updated successfully");
+  //   }).catch(error => {
+  //     console.log(error);
+  //   })
+  // }
+  const formActions = (action) => {
+    if (!action) {
+      setShowEditForm(false)
+    }
+  }
 
   useEffect(() => {
     if (authUser){
@@ -39,24 +75,24 @@ function ProfileInfo() {
           <input className={`${styles.inputs}`} type="email" value={email} disabled></input>
           <MdArrowForwardIos className={styles.inputIcons}/>
         </div>
-        <div className={styles.inputCon}>
-          <Link to="/member/profile/updateName" className={styles.links}>
+        <div className={styles.inputCon} onClick={() => setShowEditForm(true)}>
             <label>Name: </label>
-            <input className={styles.inputs} disabled></input>
+            <input className={styles.inputs} disabled value={profiles.name}></input>
             <MdArrowForwardIos className={styles.inputIcons}/>
-          </Link>
         </div>
         <div className={styles.inputCon}>
           <label>Birthday: </label>
-          <input className={styles.inputs} disabled></input>
+          <input className={styles.inputs} disabled value={profiles.birth}></input>
           <MdArrowForwardIos className={styles.inputIcons}/>
         </div>
         <div className={styles.inputCon}>
           <label>Gender: </label>
-          <input className={styles.inputs} disabled></input>
+          <input className={styles.inputs} disabled value={profiles.gender}></input>
           <MdArrowForwardIos className={styles.inputIcons}/>
         </div>
       </div>
+      {shouldShowNameForm && <EditForm formActions={formActions} type="text" ShouldShow={showEditForm} LabelName="Name"
+      ></EditForm>}
     </div>
   )
 }
