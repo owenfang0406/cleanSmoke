@@ -6,7 +6,7 @@ import { db } from '../../../firebase-config';
 import { UserContext } from "../../../../index";
 import { doc, setDoc, collection, addDoc, updateDoc } from 'firebase/firestore';
 
-function EditForm({LabelName, type, ShouldShow, formActions }) {
+function EditForm({LabelName, type, ShouldShow, formActions, updateProfiles }) {
   const { authUser, profiles, avatarURL } = useContext(UserContext);
   const ProfilesObject = {
     email: authUser.email,
@@ -32,6 +32,7 @@ function EditForm({LabelName, type, ShouldShow, formActions }) {
     setDoc(updatedRef,
       profileData,
     ).then(docRef => {
+      updateProfiles(profileData);
       console.log(docRef)
       console.log("Document Field has been updated successfully");
       formActions();

@@ -16,6 +16,8 @@ import { getDoc, doc, collection, Timestamp } from 'firebase/firestore';
 import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 import About from './Pages/About';
+import Appointment from './Pages/Appointment';
+import Pay from './Components/AD/Pay/Pay';
 
 export const UserContext = createContext({});
 
@@ -62,9 +64,19 @@ const router = createBrowserRouter(
       ]
     },
     {
-      path: "/about",
+      path: "/about/*",
       element: <About/>,
-    }
+    },
+    {
+      path: "/appoint/*",
+      element: <Appointment/>,
+      children: [
+        {
+          path: "pay",
+          element: <Pay/>,
+        }
+      ]
+    },
   ]
 );
 
@@ -87,14 +99,12 @@ const Index = () => {
               const dbProfileRef = doc(db, `${user.uid}`, "profiles")
               const dbCollection = collection(db, `${user.uid}`);
               const getProfiles = async () => {
-                const profiles = await getDoc(dbProfileRef);
+                // const profiles = await getDoc(dbProfileRef);
+                console.log("test")
                 if (profiles.exists()) {
                   const ntObject = profiles.data().birth;
                   const name = profiles.data().name;
                   const gender = profiles.data().gender;
-                  // const timestamp = Timestamp.fromMillis(ntObject.seconds * 1000 + ntObject.nanoseconds / 1000000);
-                  // const birthdate = timestamp.toDate().toLocaleDateString('zh-TW'
-                  // ,{year: 'numeric', month: '2-digit', day: '2-digit'});
                   
                   setProfiles({
                     ...profiles,
@@ -103,7 +113,6 @@ const Index = () => {
                     gender: gender,
                   })
                 }else {
-                  // doc.data() will be undefined in this case
                   setProfiles({});
                   console.log("No such document!");
                 }
@@ -123,6 +132,7 @@ const Index = () => {
               }
               getAvatar();
               getProfiles();
+              
             }else {
               setAuthUser(null);
               setAvatarURL(null);
@@ -137,6 +147,11 @@ const Index = () => {
     setAvatarURL(newURL)
   }
 
+  const updateProfiles = (newProfiles) => {
+    setProfiles(newProfiles);
+    console.log(newProfiles);
+  }
+
 
   const userSignOut = () => {
       signOut(auth).then(()=> {
@@ -144,7 +159,7 @@ const Index = () => {
       }).catch(err=> console.log(err))};
 
   return (
-    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles }}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles}}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );
