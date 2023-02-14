@@ -1,4 +1,4 @@
-import React, {useEffect, useState, createContext} from 'react';
+import React, {useEffect, useState, createContext, useMemo} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -12,7 +12,7 @@ import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-import { getDoc, doc, collection, Timestamp } from 'firebase/firestore';
+import { doc, collection, getDoc } from 'firebase/firestore';
 import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 import About from './Pages/About';
@@ -90,58 +90,59 @@ const Index = () => {
     gender: '',
   })
 
+  const dbProfileRef = useMemo(() => {
+    if (authUser) {
+      return doc(db, `${authUser.uid}`, "profiles");
+    }
+    return null;
+  }, [authUser]);
+
+  const getProfiles = useMemo(async () => {
+    if (dbProfileRef) {
+      const profiles = await getDoc(dbProfileRef);
+      if (profiles.exists()) {
+        const { birth, name, gender } = profiles.data();
+        console.log(birth, name, gender);
+        return { birth, name, gender };
+      } else {
+        console.log("No such document!");
+        return {};
+      }
+    }
+    return null;
+  }, [dbProfileRef]);
+
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-              console.log(user);
-              setAuthUser(user);
-              const dbRef = doc(db, `${user.uid}`, "avatar");
-              const dbProfileRef = doc(db, `${user.uid}`, "profiles")
-              const dbCollection = collection(db, `${user.uid}`);
-              const getProfiles = async () => {
-                // const profiles = await getDoc(dbProfileRef);
-                console.log("test")
-                if (profiles.exists()) {
-                  const ntObject = profiles.data().birth;
-                  const name = profiles.data().name;
-                  const gender = profiles.data().gender;
-                  
-                  setProfiles({
-                    ...profiles,
-                    birth: ntObject,
-                    name: name,
-                    gender: gender,
-                  })
-                }else {
-                  setProfiles({});
-                  console.log("No such document!");
-                }
+      console.log("UseEffectStart")
+      console.log("useEffectauthUser"+authUser);
+      console.log("useEffectavatarURL"+avatarURL);
+      console.log("useEffectprofiles"+profiles)
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+        setAvatarURL(null);
+      }
+    });
 
-              }
-              const getAvatar = async () => {
-                const avatarURL = await getDoc(dbRef);
-                console.dir(avatarURL)
-                if (avatarURL.exists()) {
-                  setAvatarURL(avatarURL.data().avatarURL);
-                  console.log("Document data:", avatarURL.data().avatarURL);
-                } else {
-                  // doc.data() will be undefined in this case
-                  setAvatarURL(null);
-                  console.log("No such document!");
-                }
-              }
-              getAvatar();
-              getProfiles();
-              
-            }else {
-              setAuthUser(null);
-              setAvatarURL(null);
-            }
-          return () => {
-            listen();
-            }
-            })
-    }, [authUser, avatarURL, profiles]);
+    if (authUser) {
+      const dbRef = doc(db, `${authUser.uid}`, "avatar");
+      const getAvatar = async () => {
+        const avatarURL = await getDoc(dbRef);
+        if (avatarURL.exists()) {
+          setAvatarURL(avatarURL.data().avatarURL);
+        } else {
+          setAvatarURL(null);
+          console.log("No such document!");
+        }
+      }
+      getAvatar();
+    }
+    return () => {
+        listen();
+        }
+    }, [authUser, avatarURL, getProfiles]);
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)

@@ -6,8 +6,8 @@ import { db } from '../../../firebase-config';
 import { UserContext } from "../../../../index";
 import { doc, setDoc, collection, addDoc, updateDoc } from 'firebase/firestore';
 
-function EditForm({LabelName, type, ShouldShow, formActions, updateProfiles }) {
-  const { authUser, profiles, avatarURL } = useContext(UserContext);
+function EditForm({LabelName, type, ShouldShow, formActions }) {
+  const { authUser, profiles, avatarURL, updateProfiles} = useContext(UserContext);
   const ProfilesObject = {
     email: authUser.email,
     name: profiles.name,
