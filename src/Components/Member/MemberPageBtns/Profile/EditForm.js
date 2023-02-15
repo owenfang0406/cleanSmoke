@@ -33,7 +33,6 @@ function EditForm({LabelName, type, ShouldShow, formActions }) {
       profileData,
     ).then(docRef => {
       updateProfiles(profileData);
-      console.log(docRef)
       console.log("Document Field has been updated successfully");
       formActions();
       setWouldUpdate("");

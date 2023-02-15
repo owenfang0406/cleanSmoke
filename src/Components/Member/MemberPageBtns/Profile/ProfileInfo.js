@@ -14,6 +14,7 @@ function ProfileInfo() {
   // const [wouldUpdate, setWouldUpdate] = useState("");
   const [showEditForm, setShowEditForm] = useState(false)
   const shouldShowNameForm = showEditForm;
+  console.log(profiles)
   // const profileData = {
   //   avatarURL: avatarURL,
   //   email: authUser.email,

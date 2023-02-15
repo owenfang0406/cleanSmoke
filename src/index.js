@@ -12,7 +12,7 @@ import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-import { doc, collection, getDoc } from 'firebase/firestore';
+import { doc, collection, getDoc, getDocs } from 'firebase/firestore';
 import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
 import About from './Pages/About';
@@ -89,6 +89,7 @@ const Index = () => {
     name: '',
     gender: '',
   })
+  const [orders,setOrders] = useState([]);
 
   const dbProfileRef = useMemo(() => {
     if (authUser) {
@@ -97,12 +98,44 @@ const Index = () => {
     return null;
   }, [authUser]);
 
+
+  const getOrdersRef = useMemo(() => {
+    if (authUser) {
+      return doc(db,`${authUser.uid}`, "test" )
+    }
+    return null;
+  }, [authUser])
+
+  const getOrders = useMemo(async () => {
+    if (getOrdersRef) {
+      const Orders = await getDoc(getOrdersRef);
+      if(Orders.exists()) {
+        const orderList = Orders.data().Orders;
+        setOrders(orderList)
+        console.log(orderList)
+        return orderList
+      }else {
+        console.log("No such document!");
+        return [];
+      }
+    }
+    return [];
+  },
+    [getOrdersRef]);
+
   const getProfiles = useMemo(async () => {
     if (dbProfileRef) {
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
         const { birth, name, gender } = profiles.data();
         console.log(birth, name, gender);
+        setProfiles(
+          {
+            birth: birth,
+            name: name,
+            gender: gender,
+          }
+        )
         return { birth, name, gender };
       } else {
         console.log("No such document!");
@@ -138,11 +171,12 @@ const Index = () => {
         }
       }
       getAvatar();
+
     }
     return () => {
         listen();
         }
-    }, [authUser, avatarURL, getProfiles]);
+    }, [authUser, avatarURL, getProfiles, getOrders]);
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)
@@ -160,7 +194,7 @@ const Index = () => {
       }).catch(err=> console.log(err))};
 
   return (
-    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles}}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders}}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );

@@ -64,6 +64,10 @@
     padding: 5px 10px;
 }
 
+.inputs:disabled {
+  background-color: white;
+}
+
 .selector {
     text-align: center;
     width: 100px;
