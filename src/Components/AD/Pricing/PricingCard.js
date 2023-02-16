@@ -41,10 +41,10 @@ function PricingCard({shadow="#a0c5fa",
       const appointmentFormPopup = shouldShowAppointmentForm && createPortal(
         <AppointmentForm 
         selectedPrice={selectedPrice} 
-        shouldShowAppointmentForm={shouldShowAppointmentForm}
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
-        SetSelectedPrice={SetSelectedPrice} />,
+        SetSelectedPrice={SetSelectedPrice}
+        toggleAppointmentForm={toggleAppointmentForm} />,
         portalContainer
       );
   return (

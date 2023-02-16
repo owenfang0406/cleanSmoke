@@ -6,12 +6,21 @@ import { UserContext } from "../../../index";
 import { db } from '../../firebase-config';
 import { doc, setDoc, collection, addDoc, updateDoc,arrayUnion } from 'firebase/firestore';
 import { v4 } from 'uuid';
+import PayForm from './PayForm';
+import { MdOutlineClose } from "react-icons/md";
 
-function AppointmentForm({ selectedOption, shouldShowAppointmentForm, selectedPrice, SetSelectedPrice, setSelectedOption}) {
+function AppointmentForm({
+    selectedOption,
+    selectedPrice, 
+    SetSelectedPrice, 
+    setSelectedOption,
+    toggleAppointmentForm
+    }) {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
     const { authUser, profiles, orders } = useContext(UserContext);
     const [phone, setPhone] = useState(null)
     const [showPage1, setShowPage1] = useState(true);
+    const ShouldShowPage2 = showPage1
     const [participants, setParticipant] = useState(0);
     const OrderObject = {
         date: selectedDate,
@@ -28,13 +37,19 @@ function AppointmentForm({ selectedOption, shouldShowAppointmentForm, selectedPr
         setShowPage1(true);
     }
 
+    const goToPayPage = (e) => {
+        e.preventDefault();
+        setShowPage1(false)
+    }
+
     const handlePayFormSubmit = (e) => {
         e.preventDefault();
         const OrderID = v4();
-        const OrderRef = doc(db,`${authUser.uid}`, "test");
+        const OrderRef = doc(db,`${authUser.uid}`, "Orders");
         const OrdersArray = Object.values(orders);
         console.log(orders);
         const OrdersObject = {
+            OrderID: OrderID,
             Email: authUser.email,
             Option: selectedOption,
             Phone: phone,
@@ -57,8 +72,11 @@ function AppointmentForm({ selectedOption, shouldShowAppointmentForm, selectedPr
 
   return (
     <div className={styles.wrapper}>
+        {ShouldShowPage2 ? (
         <form className={`${styles.FormCon} ${styles.fadeIn}`}>
-            <div className={styles.formHeader}>Your Selection</div>
+            <div className={styles.formHeader}>Your Selection
+            <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
+            </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Your option: </label>
                 {/* <select className={styles.selector} value={selectedOption} onChange={handleOptionChange}>
@@ -94,9 +112,21 @@ function AppointmentForm({ selectedOption, shouldShowAppointmentForm, selectedPr
                 <input className={styles.inputs} type="text" value={selectedPrice} disabled></input>
             </div>
             <div className={styles.buttonCon}>
-                <button onClick={handlePayFormSubmit} className={styles.submitButton} type='submit'>Pay</button>
+                <button onClick={goToPayPage} className={styles.submitButton} type='button'>Pay</button>
             </div>
-        </form>
+        </form>) :
+        (
+             <form className={styles.FormCon} onSubmit={handlePayFormSubmit}>
+                <div className={styles.formHeader}>Payment Form
+                <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
+                </div>
+                <PayForm></PayForm>
+                <div className={styles.buttonCon}>
+                <button onClick={handleBackButtonClick} className={styles.submitButton} type='button'>Back</button>
+                <button className={styles.submitButton} type="submit">Pay</button>
+                </div>
+            </form>
+        )}
     </div>
   )
 }

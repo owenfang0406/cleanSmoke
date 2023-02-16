@@ -25,6 +25,11 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>ClearSmoke</title>
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
+    <script>
+      // Initialize the TapPay SDK
+      TPDirect.setupSDK(126860, 'app_ZFhYVNHg3dczlnSMualtrT6e7y7ZMhR1t8HS40wPgh4Hdy6DLafcBhN693f9', 'sandbox');
+    </script>
     <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
@@ -55,7 +60,6 @@
     </script>
   </head>
   <body>
-    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script src="/build/static/js/main.ace3c832.js"></script>
     <div id="root"></div>
     <div id="ImgPortal"></div>

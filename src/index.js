@@ -101,7 +101,7 @@ const Index = () => {
 
   const getOrdersRef = useMemo(() => {
     if (authUser) {
-      return doc(db,`${authUser.uid}`, "test" )
+      return doc(db,`${authUser.uid}`, "Orders" )
     }
     return null;
   }, [authUser])

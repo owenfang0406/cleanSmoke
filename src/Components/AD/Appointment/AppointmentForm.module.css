@@ -11,6 +11,7 @@
 }
 
 .FormCon {
+    position: relative;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -20,6 +21,7 @@
     height: 50%;
     box-shadow: 0 8px 14px -6px black;
     transform: 0.4s ease-in-out;
+    padding-top: 100px;
 }
 
 .FormCon:hover {
@@ -27,17 +29,19 @@
 }
 
 .formHeader {
+    position: absolute;
+    top:30px;
     width: 90%;
     font-family: 'Sulphur Point';
     font-size: 38px;
     font-weight: 500;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     text-decoration: underline;
     text-decoration-color: var(--mainColor);
     text-underline-offset: 5px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
 }
 
 .inputCon {
@@ -86,6 +90,14 @@
     justify-content: end;
     align-items: center;
     margin-right: 150px;
+}
+
+.closeBtn {
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  opacity: 0.5;
 }
 
 .submitButton {

@@ -5,13 +5,15 @@ import { Link, Outlet, Route, Routes } from 'react-router-dom'
 import Newpage from './newpage'
 import PricingMenu from '../Components/AD/Pricing/PricingMenu'
 import MasonryGallery from '../Components/AD/ADs/MasonryGallery'
+import PayForm from '../Components/AD/Appointment/PayForm'
 
 function Gallery() {
   return (
     <>
     <NavBar></NavBar>
     {/* <PricingMenu></PricingMenu> */}
-    <MasonryGallery></MasonryGallery>
+    {/* <MasonryGallery></MasonryGallery> */}
+    {/* <PayForm></PayForm> */}
     {/* <div>gallery</div>
     <Link to="/gallery/next"><button>go to next page</button></Link>
     <br></br>

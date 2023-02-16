@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./AppointmentForm.module.css"
 import { Link } from 'react-router-dom'
 import Pay from '../Pay/Pay';
@@ -22,6 +22,9 @@ function XAppointmentForm({clickedButton, selectedOption, shouldShowAppointmentF
         e.preventDefault();
     }
 
+    useEffect(() => {
+        TPDirect.setupSDK({})        
+    })
   return (
     <div className={styles.wrapper}>
         {showPage1 ? (
