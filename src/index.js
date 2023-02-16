@@ -18,6 +18,7 @@ import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUploa
 import About from './Pages/About';
 import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
+import BookingHistory from './Components/Member/BookingHistory';
 
 export const UserContext = createContext({});
 
@@ -55,7 +56,7 @@ const router = createBrowserRouter(
         },
         {
           path: "booking",
-          element:<ProfileInfo/>,
+          element:<BookingHistory/>,
         },
         {
           path: "updateAvatar",
@@ -90,6 +91,10 @@ const Index = () => {
     gender: '',
   })
   const [orders,setOrders] = useState([]);
+  const [refreshOrders, setRefreshOrders] = useState(false)
+  const handleRefreshOrders = () => {
+    setRefreshOrders(!refreshOrders);
+  }
 
   const dbProfileRef = useMemo(() => {
     if (authUser) {
@@ -104,7 +109,7 @@ const Index = () => {
       return doc(db,`${authUser.uid}`, "Orders" )
     }
     return null;
-  }, [authUser])
+  }, [authUser, refreshOrders])
 
   const getOrders = useMemo(async () => {
     if (getOrdersRef) {
@@ -194,7 +199,9 @@ const Index = () => {
       }).catch(err=> console.log(err))};
 
   return (
-    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders}}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders
+      ,handleRefreshOrders
+    }}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );

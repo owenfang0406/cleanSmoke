@@ -17,7 +17,7 @@ function AppointmentForm({
     toggleAppointmentForm
     }) {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
-    const { authUser, profiles, orders } = useContext(UserContext);
+    const { authUser, profiles, orders, handleRefreshOrders } = useContext(UserContext);
     const [phone, setPhone] = useState(null)
     const [showPage1, setShowPage1] = useState(true);
     const ShouldShowPage2 = showPage1
@@ -64,6 +64,7 @@ function AppointmentForm({
         }
         )
         .then(() => {
+        handleRefreshOrders();
         alert("success!")
             }
         ).catch((err) => {
