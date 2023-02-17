@@ -22,9 +22,6 @@ function AppointmentForm({
     const [showPage1, setShowPage1] = useState(true);
     const ShouldShowPage2 = showPage1
     const [participants, setParticipant] = useState(0);
-    const OrderObject = {
-        date: selectedDate,
-      }
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
         SetSelectedPrice(event.target.value);
@@ -46,16 +43,20 @@ function AppointmentForm({
         e.preventDefault();
         const OrderID = v4();
         const OrderRef = doc(db,`${authUser.uid}`, "Orders");
-        const OrdersArray = Object.values(orders);
+        let OrdersArray = [];
+        if (orders && orders.length > 0) {
+            OrdersArray = Object.values(orders);
+        }
         console.log(orders);
         const OrdersObject = {
             OrderID: OrderID,
+            Date: selectedDate,
             Email: authUser.email,
             Option: selectedOption,
             Phone: phone,
             Participants: participants,
             Price: selectedPrice,
-            payment:false,
+            Payment:false,
             }
         ;
 
