@@ -1,4 +1,4 @@
-import React, {useEffect, useState, createContext} from 'react';
+import React, {useEffect, useState, createContext, useMemo} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -12,9 +12,13 @@ import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo';
-import { getDoc, doc, collection } from 'firebase/firestore';
-import { db } from './Components/firebase-config';
+import { doc, collection, getDoc, getDocs } from 'firebase/firestore';
+import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
+import About from './Pages/About';
+import Appointment from './Pages/Appointment';
+import Pay from './Components/AD/Pay/Pay';
+import BookingHistory from './Components/Member/BookingHistory';
 
 export const UserContext = createContext({});
 
@@ -52,14 +56,28 @@ const router = createBrowserRouter(
         },
         {
           path: "booking",
-          element:<ProfileInfo/>,
+          element:<BookingHistory/>,
         },
         {
           path: "updateAvatar",
           element:<AvatarUpload/>,
         }
       ]
-    }
+    },
+    {
+      path: "/about/*",
+      element: <About/>,
+    },
+    {
+      path: "/appoint/*",
+      element: <Appointment/>,
+      children: [
+        {
+          path: "pay",
+          element: <Pay/>,
+        }
+      ]
+    },
   ]
 );
 
@@ -67,39 +85,111 @@ const Index = () => {
   // const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const [avatarURL, setAvatarURL] = useState(null);
+  const [profiles, setProfiles] = useState({
+    birth: '',
+    name: '',
+    gender: '',
+  })
+  const [orders,setOrders] = useState([]);
+  const [refreshOrders, setRefreshOrders] = useState(false)
+  const handleRefreshOrders = () => {
+    setRefreshOrders(!refreshOrders);
+  }
+
+  const dbProfileRef = useMemo(() => {
+    if (authUser) {
+      return doc(db, `${authUser.uid}`, "profiles");
+    }
+    return null;
+  }, [authUser]);
+
+
+  const getOrdersRef = useMemo(() => {
+    if (authUser) {
+      return doc(db,`${authUser.uid}`, "Orders" )
+    }
+    return null;
+  }, [authUser, refreshOrders])
+
+  const getOrders = useMemo(async () => {
+    if (getOrdersRef) {
+      const Orders = await getDoc(getOrdersRef);
+      if(Orders.exists()) {
+        const orderList = Orders.data().Orders;
+        setOrders(orderList)
+        console.log(orderList)
+        return orderList
+      }else {
+        console.log("No such document!");
+        return [];
+      }
+    }
+    return [];
+  },
+    [getOrdersRef]);
+
+  const getProfiles = useMemo(async () => {
+    if (dbProfileRef) {
+      const profiles = await getDoc(dbProfileRef);
+      if (profiles.exists()) {
+        const { birth, name, gender } = profiles.data();
+        console.log(birth, name, gender);
+        setProfiles(
+          {
+            birth: birth,
+            name: name,
+            gender: gender,
+          }
+        )
+        return { birth, name, gender };
+      } else {
+        console.log("No such document!");
+        return {};
+      }
+    }
+    return null;
+  }, [dbProfileRef]);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-              console.log(user);
-              setAuthUser(user);
-              const dbRef = doc(db, `${user.email}`, "avatar");
-              const dbCollection = collection(db, `${user.email}`);
-              const getAvatar = async () => {
-                const avatarURL = await getDoc(dbRef);
-                console.dir(avatarURL)
-                if (avatarURL.exists()) {
-                  setAvatarURL(avatarURL.data().avatarURL);
-                  console.log("Document data:", avatarURL.data().avatarURL);
-                } else {
-                  // doc.data() will be undefined in this case
-                  setAvatarURL(null);
-                  console.log("No such document!");
-                }
-              }
-              getAvatar();
-            }else {
-              setAuthUser(null);
-              setAvatarURL(null);
-            }
-          return () => {
-            listen();
-            }
-            })
-    }, [authUser, avatarURL]);
+      console.log("UseEffectStart")
+      console.log("useEffectauthUser"+authUser);
+      console.log("useEffectavatarURL"+avatarURL);
+      console.log("useEffectprofiles"+profiles)
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+        setAvatarURL(null);
+      }
+    });
+
+    if (authUser) {
+      const dbRef = doc(db, `${authUser.uid}`, "avatar");
+      const getAvatar = async () => {
+        const avatarURL = await getDoc(dbRef);
+        if (avatarURL.exists()) {
+          setAvatarURL(avatarURL.data().avatarURL);
+        } else {
+          setAvatarURL(null);
+          console.log("No such document!");
+        }
+      }
+      getAvatar();
+
+    }
+    return () => {
+        listen();
+        }
+    }, [authUser, avatarURL, getProfiles, getOrders]);
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)
+  }
+
+  const updateProfiles = (newProfiles) => {
+    setProfiles(newProfiles);
+    console.log(newProfiles);
   }
 
 
@@ -109,7 +199,9 @@ const Index = () => {
       }).catch(err=> console.log(err))};
 
   return (
-    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL }}>
+    <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders
+      ,handleRefreshOrders
+    }}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>
   );

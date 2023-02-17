@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&family=Rowdies:wght@400;700&family=Sulphur+Point:wght@300;400&display=swap');
+
+.wrapper {
+    /* background-color: aqua; */
+    width: 90%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-wrap: wrap;
+}
+
+.FormCon {
+    display: flex;
+    justify-content: center;
+    align-self: center; 
+}
+
+.msgCon {
+    z-index: 5;
+    width: 90%;
+    display: flex;
+    position: relative;
+}
+
+.inputCon {
+    height: 100px;
+}
+
+.labels {
+    font-size: 20px;
+    color: black;
+    letter-spacing: 0.1rem;
+    font-family: 'Sulphur Point';
+    font-weight: bold;
+    text-underline-offset: 2px;
+    text-decoration: underline 2px var(--mainColor);
+}
+
+.payButton {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    padding: 8px 16px;
+    border: 2px solid #cccccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Sulphur Point';
+    font-weight: 500;
+    color:white;
+    background-color: var(--mainColor);
+    cursor: pointer;
+    margin: 0px 20px;
+}
+
+.payButton:hover {
+    border-color: #999;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.checkmark {
+    margin-top: 50px;
+    stroke: #00a77d;
+    stroke-width: 5px;
+    fill: none;
+    /* stroke-dasharray: 40;
+    stroke-dashoffset: 40; */
+    transition: stroke-dashoffset 0.3s linear;
+}
+
+.animate {
+    stroke-dashoffset: 0;
+    }
+
+/* @keyframes checkmark {
+0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+}
+100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    }
+} */
+  

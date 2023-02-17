@@ -5,6 +5,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import styles from "./LoginPage.module.css";
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
+import { db } from '../firebase-config';
+import { v4 } from 'uuid';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 
 function SignUp() {
     const [showSignUp, setShowSignUp] = useState(false);
@@ -19,9 +22,19 @@ function SignUp() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 if (email === userCredential.user.email){
-                    console.log(userCredential)
-                    console.log(userCredential.user.email);
-                    navigate("/")
+                    const updatedRef = doc(db,`${userCredential.user.uid}`, "profiles");
+                    const DefaultProfilesObject = {
+                        email: email,
+                        name: 'user',
+                        birth: '',
+                        gender: '',
+                      }
+                    setDoc(updatedRef,
+                        DefaultProfilesObject,
+                        ).then((resp)=> {
+                        navigate("/");
+                    }
+                    )
                 }
             }).catch(error => {
                 setError(error.message)

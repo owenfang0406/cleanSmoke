@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { storage, db } from '../../../firebase-config';
 import { ref, uploadBytes, list, deleteObject, getDownloadURL } from "firebase/storage";
 import { UserContext } from "../../../../index";
@@ -7,7 +7,7 @@ import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import styles from "./AvatarUpload.module.css";
 
 function AvatarUpload() {
-  const { authUser, userSignOut, updateNewURL } = useContext(UserContext);
+  const { authUser, updateNewURL } = useContext(UserContext);
   const [imageUpload, setImageUpload] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewURl] = useState(null);
@@ -26,10 +26,10 @@ function AvatarUpload() {
         setError("No photo selected");
         return
     };
-    const dbCollection = collection(db, `${authUser.email}`);
-    const dbRef = doc(db, `${authUser.email}`, "avatar");
-    const folderRef = ref(storage,`avatar/${authUser.email}/`);
-    const imageRef = ref(storage, `avatar/${authUser.email}/${imageUpload.name + v4()}`);
+    const dbCollection = collection(db, `${authUser.uid}`);
+    const dbRef = doc(db, `${authUser.uid}`, "avatar");
+    const folderRef = ref(storage,`avatar/${authUser.uid}/`);
+    const imageRef = ref(storage, `avatar/${authUser.uid}/${imageUpload.name + v4()}`);
     list(folderRef).then((res)=>{
       if (res.items.length === 0) {
         uploadBytes(imageRef, imageUpload).then(()=>{
@@ -37,7 +37,8 @@ function AvatarUpload() {
           getDownloadURL(imageRef).then((downloadURl) =>{
             setDoc(dbRef,{
               avatarURL: downloadURl,
-              id: dbRef.id
+              uid: authUser.uid,
+              email: authUser.email
             });
             alert("url: " + downloadURl);
             setImageUpload(null);
@@ -56,7 +57,8 @@ function AvatarUpload() {
             getDownloadURL(imageRef).then((downloadURl) =>{
               setDoc(dbRef,{
                 avatarURL: downloadURl,
-                id: dbRef.id
+                uid: authUser.uid,
+                email: authUser.email
               });
               updateNewURL(downloadURl);
               alert("url: " + downloadURl);

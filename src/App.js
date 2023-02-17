@@ -7,6 +7,7 @@ import { useEffect, useState, createContext } from 'react';
 import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
 import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
 import CSSParallax from './Components/Parallax/CSSParallax';
+import PricingMenu from './Components/AD/Pricing/PricingMenu';
 
 
 // export const UserContext = createContext({});
@@ -64,6 +65,7 @@ const containerStyles = {
           </div>
           <IndexSlong1></IndexSlong1>
           <IndexShowcase parentWidth={viewportWidth}></IndexShowcase>
+          {/* <PricingMenu></PricingMenu> */}
           <Footer></Footer>
       </React.Fragment>
   );
