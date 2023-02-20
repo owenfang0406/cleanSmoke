@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import ImagePage from './ImagePage';
+import PostModal from './PostModal';
 
 const ArrowLeft = styled.div`
   width: 30px;
@@ -36,7 +37,6 @@ function MasonryGallery() {
 
   const viewImage = (img, i) => {
     setData({img, i})
-    console.log(open)
   }
 
   const showImgPage = (image, i) => {
@@ -62,22 +62,6 @@ function MasonryGallery() {
     return (
 
       <>
-        {/* {data.img &&
-              <div 
-              className={styles.mainCon}>
-                <div className={styles.imgCon}>
-                  <IoMdClose className={styles.closeBtn} onClick={() => imgAction()}></IoMdClose>
-                  <BiChevronLeft className={styles.arrows} onClick={() => imgAction('previous-img')}>↼</BiChevronLeft>
-                  <img src={data.img} className={styles.imgs}>
-                  </img>
-                  <BiChevronRight className={styles.arrows} onClick={() => imgAction('next-img')}></BiChevronRight>
-                </div>
-                <div className={styles.commentCon}>
-
-                </div>
-              </div>
-
-        } */}
         <ImagePage open={open} onClose={() => setOpen(false)} imgAction={imgAction}
         data={data}
         ></ImagePage>

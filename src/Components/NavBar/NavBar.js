@@ -1,12 +1,15 @@
 import {FaBars, FaTimes} from "react-icons/fa";
+import { MdAddCircleOutline } from "react-icons/md";
 import { useMediaQuery } from 'react-responsive';
-import { useRef, useState } from "react";
 import "../../Styles/main.css"
 import styles from "./NavBar.module.css";
 import { Link } from "react-router-dom";
 import LogInButton from "../LogIn/LogInButton";
+import {UserContext} from "../../index";
+import React, { useRef, useState, useContext } from 'react'
 
 function NavBar() {
+    const { toggleModal } = useContext(UserContext);
     const navRef = useRef();
     const isSmall = useMediaQuery({maxWidth: 1000});
     const [isClicked, setIsClicked] = useState(false);
@@ -46,7 +49,12 @@ function NavBar() {
             <button className={isSmall ? `${styles.navBtn} ${styles.smallNavBtn}` : `${styles.navBtn}`} onClick={showNavBar}>
                 <FaBars></FaBars>
             </button>
-            <LogInButton></LogInButton>
+            <div className="flex w-[100px] justify-between items-center bg-white-300 cursor-pointer">
+                <MdAddCircleOutline 
+                onClick={toggleModal}
+                className="w-[50px] text-4xl"></MdAddCircleOutline>
+                <LogInButton></LogInButton>
+            </div>
             </div>
         </header>
     );

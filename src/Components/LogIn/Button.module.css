@@ -4,12 +4,13 @@
     font-size: 30px;
     background-color: var(--mainColor);
     color: var(--textColor);
-    /* position: absolute;
-    top: 20px;
-    right: 20px; */
     border-radius: 50%;
     border: none;
     object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .button:hover {
