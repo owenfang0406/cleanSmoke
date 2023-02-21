@@ -31,6 +31,16 @@
     --textColor: #FBF7F4;
 }
 
+/* .img-portal {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100vh;
+    overflow-y: scroll;
+} */
+
 /* .responsive_nav {
     transform: none;
 } 

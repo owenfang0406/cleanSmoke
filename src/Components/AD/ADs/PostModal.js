@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import styles from "./PostModal.module.css"
 import { UserContext } from "../../../index";
@@ -10,20 +10,20 @@ import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 function PostModal() {
     const { authUser, userSignOut, avatarURL, profiles, setPostModalOpen, postModalOpen, toggleModal } = useContext(UserContext);
     const filePickerRef = useRef(null)
+    const popUpRef = useRef(null)
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false)
     const captionRef = useRef(null)
-    console.log(avatarURL)
-    console.log(authUser)
-    const stopPropagation = (e) => {
-        e.stopPropagation();
-    };
+    // console.log(avatarURL)
+    // console.log(authUser)
 
-    const handleCloseModal = (e) => {
-        e.preventDefault();
-        if (e.target.id != "wrapper") return
-        toggleModal();
-    }
+    const handleClick = (event) => {
+        if (postModalOpen) {
+            if (!popUpRef.current.contains(styles.wrapper)) {
+                toggleModal();
+            }
+        }
+    };
 
     const uploadPost = async () => {
         if(loading) return;
@@ -36,7 +36,7 @@ function PostModal() {
             timestamp: serverTimestamp(),
         })
 
-        console.log("New doc added wit ID", docRef.id)
+        // console.log("New doc added wit ID", docRef.id)
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
@@ -47,7 +47,7 @@ function PostModal() {
             } )
         })
 
-        // setOpen(false)
+        toggleModal();
         setLoading(false)
         setSelectedFile(null)
     }
@@ -69,15 +69,23 @@ function PostModal() {
         filePickerRef.current.click()
     }
 
+    useEffect(() => {
+        document.addEventListener("click", handleClick);
+        
+        return () => {
+        document.removeEventListener("click", handleClick);
+        };
+    }, [])
+
     if (!postModalOpen) return null
     return ReactDOM.createPortal(
     <div 
-    // onClick={(e) => handleCloseModal(e)}
     className={styles.wrapper}
-    id="wrapper"
+    ref={popUpRef}
     >
-        <div className="flex flex-wrap justify-center items-center bg-white w-96 h-96">
-            <div className="w-full h-[220px] flex justify-center items-center">
+        <div 
+        className="flex flex-wrap justify-center items-center bg-white w-96 h-96">
+            <div className="w-full h-[250px] flex justify-center items-center">
             {selectedFile ? 
                 (
                         <img 
@@ -95,8 +103,8 @@ function PostModal() {
                 </div>
                 )}
             </div>
-            <div className="flex-col">
-                <div className="mt-5 sm:mt-6">
+            <div className="flex items-center justify-center flex-wrap">
+                <div className="w-full mt-5 sm:mt-6">
                     <label>
                         <input
                         ref={captionRef}

@@ -9,7 +9,7 @@ import {UserContext} from "../../index";
 import React, { useRef, useState, useContext } from 'react'
 
 function NavBar() {
-    const { toggleModal } = useContext(UserContext);
+    const { setPostModalOpen } = useContext(UserContext);
     const navRef = useRef();
     const isSmall = useMediaQuery({maxWidth: 1000});
     const [isClicked, setIsClicked] = useState(false);
@@ -51,7 +51,7 @@ function NavBar() {
             </button>
             <div className="flex w-[100px] justify-between items-center bg-white-300 cursor-pointer">
                 <MdAddCircleOutline 
-                onClick={toggleModal}
+                onClick={() => setPostModalOpen(true)}
                 className="w-[50px] text-4xl"></MdAddCircleOutline>
                 <LogInButton></LogInButton>
             </div>

@@ -84,7 +84,6 @@ const router = createBrowserRouter(
 );
 
 const Index = () => {
-  // const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const [avatarURL, setAvatarURL] = useState(null);
   const [profiles, setProfiles] = useState({
@@ -179,6 +178,7 @@ const Index = () => {
         }
       }
       getAvatar();
+      console.log(postModalOpen)
 
     }
     return () => {
