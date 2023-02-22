@@ -20,6 +20,8 @@ import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
 
+
+
 export const UserContext = createContext({});
 
 const router = createBrowserRouter(
@@ -82,7 +84,6 @@ const router = createBrowserRouter(
 );
 
 const Index = () => {
-  // const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
   const [avatarURL, setAvatarURL] = useState(null);
   const [profiles, setProfiles] = useState({
@@ -90,6 +91,7 @@ const Index = () => {
     name: '',
     gender: '',
   })
+  const [postModalOpen, setPostModalOpen] = useState(false)
   const [orders,setOrders] = useState([]);
   const [refreshOrders, setRefreshOrders] = useState(false)
   const handleRefreshOrders = () => {
@@ -176,6 +178,7 @@ const Index = () => {
         }
       }
       getAvatar();
+      console.log(postModalOpen)
 
     }
     return () => {
@@ -185,6 +188,10 @@ const Index = () => {
 
   const updateNewURL = (newURL) => {
     setAvatarURL(newURL)
+  }
+
+  const toggleModal = () => {
+    setPostModalOpen(!postModalOpen)
   }
 
   const updateProfiles = (newProfiles) => {
@@ -200,7 +207,7 @@ const Index = () => {
 
   return (
     <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders
-      ,handleRefreshOrders
+      ,handleRefreshOrders, toggleModal, setPostModalOpen, postModalOpen
     }}>
       <RouterProvider router={router}></RouterProvider>
     </UserContext.Provider>

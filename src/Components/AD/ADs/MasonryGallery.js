@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import styles from "./MasonryGallery.module.css";
 import styled from '@emotion/styled'
 import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
-import ImagePage from './ImagePage';
+import PostsContainer from './PostsContainer';
+import PostModal from './PostModal';
+import { db } from '../../firebase-config';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 
 const ArrowLeft = styled.div`
   width: 30px;
@@ -12,87 +15,46 @@ const ArrowLeft = styled.div`
   color: white;
   border-radius: 5px;
 `
-const images = [
-  "https://picsum.photos/2000/2000",
-  "https://picsum.photos/3000/2000",
-  "https://picsum.photos/2000/1500",
-  "https://picsum.photos/3000/1500",
-  "https://picsum.photos/1000/2000",
-  "https://picsum.photos/1500/2000",
-  "https://picsum.photos/2000/2000",
-  "https://picsum.photos/3000/2000",
-  "https://picsum.photos/2000/1500",
-  "https://picsum.photos/3000/1500",
-  "https://picsum.photos/1000/2000",
-  "https://picsum.photos/1500/2000",
-]
 
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState({
-    img: '',
-    i: 0
-  });
+  const [posts, setPosts] = useState([])
 
-  const viewImage = (img, i) => {
-    setData({img, i})
-    console.log(open)
-  }
+  useEffect(() => {
+    return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
+      setPosts(snapshot.docs)
+    })
+  }, [db])
+
 
   const showImgPage = (image, i) => {
-    viewImage(image, i);
     setOpen(true);
-  }
-  const imgAction = (action) => {
-    let i = data.i;
-    if (action === 'next-img') {
-          setData({img: images[i  + 1], i: i + 1});
-    }
-
-    if (action === 'previous-img') {
-          setData({img: images[i - 1], i: i - 1});
-    }
-    if (!action) {
-          setData({img: '', i: 0});
-          setOpen(false)
-    } 
   }
 
   
     return (
 
       <>
-        {/* {data.img &&
-              <div 
-              className={styles.mainCon}>
-                <div className={styles.imgCon}>
-                  <IoMdClose className={styles.closeBtn} onClick={() => imgAction()}></IoMdClose>
-                  <BiChevronLeft className={styles.arrows} onClick={() => imgAction('previous-img')}>↼</BiChevronLeft>
-                  <img src={data.img} className={styles.imgs}>
-                  </img>
-                  <BiChevronRight className={styles.arrows} onClick={() => imgAction('next-img')}></BiChevronRight>
-                </div>
-                <div className={styles.commentCon}>
-
-                </div>
-              </div>
-
-        } */}
-        <ImagePage open={open} onClose={() => setOpen(false)} imgAction={imgAction}
-        data={data}
-        ></ImagePage>
+        {
+          <PostsContainer
+          posts={posts}
+          open={open} 
+          setOpen={setOpen}
+          onClose={() => setOpen(false)} 
+          ></PostsContainer>
+        }
         <div className={styles.wrapper}>
           <ResponsiveMasonry
               columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
           >
               <Masonry gutter='20px'>
-                  {images.map((image, i) => (
+                  {posts && posts.map((post) => (
                       <img
-                          key={i}
-                          src={image}
+                          key={post.id}
+                          src={post.data().image}
                           style={{width: "100%", display: "block", cursor: "pointer"}}
                           alt=""
-                          onClick={()=> showImgPage(image, i)}/>
+                          onClick={()=> showImgPage(post.image, post.id)}/>
                   ))}
               </Masonry>
           </ResponsiveMasonry>

@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&family=Rowdies:wght@400;700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .navBtn {
+        @apply hidden h-6 md:inline-flex
+        cursor-pointer hover:scale-125 
+        transition-all duration-150 ease-out
+    }
+
+    .btn {
+        @apply h-7 hover:scale-125 cursor-pointer
+        transition-all duration-150 ease-out
+    }
+}
+
 * {
     padding: 0px;
     margin: 0px;
@@ -13,6 +30,16 @@
     --secondaryColor: #050505;
     --textColor: #FBF7F4;
 }
+
+/* .img-portal {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100vh;
+    overflow-y: scroll;
+} */
 
 /* .responsive_nav {
     transform: none;
