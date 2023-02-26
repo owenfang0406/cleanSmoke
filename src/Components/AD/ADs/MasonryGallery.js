@@ -19,6 +19,7 @@ const ArrowLeft = styled.div`
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState([])
+  const [clickedImgID, setClickedImgID] = useState("")
 
   useEffect(() => {
     return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
@@ -29,6 +30,8 @@ function MasonryGallery() {
 
   const showImgPage = (image, i) => {
     setOpen(true);
+    setClickedImgID(i)
+    console.log(clickedImgID)
   }
 
   
@@ -41,6 +44,7 @@ function MasonryGallery() {
           open={open} 
           setOpen={setOpen}
           onClose={() => setOpen(false)} 
+          clickedImgID={clickedImgID}
           ></PostsContainer>
         }
         <div className={styles.wrapper}>

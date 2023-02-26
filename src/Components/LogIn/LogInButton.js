@@ -5,11 +5,11 @@ import styles from "./Button.module.css";
 import {UserContext} from "../../index";
 
 function LogInButton() {
-  const { authUser, userSignOut, avatarURL } = useContext(UserContext);
+  const { authUser, userSignOut, profiles } = useContext(UserContext);
   return (
     authUser ?
-      avatarURL ? 
-      <Link to="/member"><img className={styles.button} src={avatarURL}>
+      profiles.avatarURL ? 
+      <Link to="/member"><img className={styles.button} src={profiles.avatarURL}>
       </img></Link>
       : 
       <Link to="/member">

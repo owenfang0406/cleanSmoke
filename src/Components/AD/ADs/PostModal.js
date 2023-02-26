@@ -1,6 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import styles from "./PostModal.module.css"
+import { MdClose } from 'react-icons/md';
 import { UserContext } from "../../../index";
 import { CameraIcon } from '@heroicons/react/24/outline'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
@@ -16,14 +17,7 @@ function PostModal() {
     const captionRef = useRef(null)
     // console.log(avatarURL)
     // console.log(authUser)
-
-    const handleClick = (event) => {
-        if (postModalOpen) {
-            if (!popUpRef.current.contains(styles.wrapper)) {
-                toggleModal();
-            }
-        }
-    };
+    console.log(profiles)
 
     const uploadPost = async () => {
         if(loading) return;
@@ -32,7 +26,7 @@ function PostModal() {
         const docRef = await addDoc(collection(db, 'posts'), {
             username: profiles.name,
             caption: captionRef.current.value,
-            profileImg: avatarURL,
+            profileImg: profiles.avatarURL,
             timestamp: serverTimestamp(),
         })
 
@@ -69,22 +63,18 @@ function PostModal() {
         filePickerRef.current.click()
     }
 
-    useEffect(() => {
-        document.addEventListener("click", handleClick);
-        
-        return () => {
-        document.removeEventListener("click", handleClick);
-        };
-    }, [])
 
     if (!postModalOpen) return null
     return ReactDOM.createPortal(
     <div 
     className={styles.wrapper}
     ref={popUpRef}
-    >
+    >  
         <div 
-        className="flex flex-wrap justify-center items-center bg-white w-96 h-96">
+        className="flex relative flex-wrap justify-center items-center bg-white w-96 h-96">
+            <MdClose className={styles.closeBtn}
+            onClick={()=>setPostModalOpen(false)}
+            ></MdClose>
             <div className="w-full h-[250px] flex justify-center items-center">
             {selectedFile ? 
                 (
@@ -115,6 +105,7 @@ function PostModal() {
                         <input
                         ref={filePickerRef}
                         type="file"
+                        accept=".png, .jpg, .jpeg, .gif"
                         hidden
                         onChange={addImageToPost}
                         ></input>

@@ -6,7 +6,7 @@ import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import Post from './Post';
 
-function PostsContainer({ posts, open, setOpen }) {
+function PostsContainer({ posts, open, setOpen, clickedImgID }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef(null);
 
@@ -15,7 +15,7 @@ function PostsContainer({ posts, open, setOpen }) {
     console.log(event)
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
     } else {
@@ -26,7 +26,12 @@ function PostsContainer({ posts, open, setOpen }) {
     };
   }, [open]);
 
-
+  useEffect(() => {
+    if(clickedImgID) {
+      const ele = document.getElementById(clickedImgID)
+      ele.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [clickedImgID])
 
 
     if(!open) return null

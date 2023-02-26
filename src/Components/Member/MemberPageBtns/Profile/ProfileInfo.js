@@ -9,37 +9,12 @@ import EditForm from './EditForm';
 import { db } from '../../../firebase-config';
 
 function ProfileInfo() {
-  const { authUser, userSignOut, avatarURL, profiles } = useContext(UserContext);
+  const { authUser, userSignOut, profiles } = useContext(UserContext);
   const [email, setEmail] = useState(authUser? authUser.email : "");
   // const [wouldUpdate, setWouldUpdate] = useState("");
   const [showEditForm, setShowEditForm] = useState(false)
   const shouldShowNameForm = showEditForm;
   console.log(profiles)
-  // const profileData = {
-  //   avatarURL: avatarURL,
-  //   email: authUser.email,
-  //   gender: profiles.gender,
-  //   name: wouldUpdate
-  // }
-  // const setUpdateInfo = (string) => {
-  //   setWouldUpdate(string)
-  // }
-  // console.log(wouldUpdate)
-  // const updateProfile = (e, ref) => {
-  //   const updatedRef = doc(db, ref.uid, "profiles");
-  //   e.preventdefault()
-  //   setDoc(
-  //     updatedRef,
-  //     {
-  //       name: 123
-  //     },
-  //     { merge:true }
-  //   ).then(docRef => {
-  //     console.log("Document Field has been updated successfully");
-  //   }).catch(error => {
-  //     console.log(error);
-  //   })
-  // }
   const formActions = (action) => {
     if (!action) {
       setShowEditForm(false)
@@ -59,7 +34,7 @@ function ProfileInfo() {
         <div className={styles.avatarWrapper}>
           <Link to="/member/updateAvatar">
             <div className={styles.avatarCon}>
-              <img className={styles.avatar} src={avatarURL? avatarURL : ""}></img>
+              <img className={styles.avatar} src={profiles.avatarURL? profiles.avatarURL : ""}></img>
               <div className={styles.editBtn}>
                 <MdModeEdit className={styles.editIcon}></MdModeEdit>
               </div>
@@ -71,7 +46,7 @@ function ProfileInfo() {
         <div className={styles.infoTitle}>
             Profile Information
         </div>
-        <div className={styles.inputCon}>
+        <div className={styles.inputCon} onClick={() => setShowEditForm(true)}>
           <label>Email: </label>
           <input className={`${styles.inputs}`} type="email" value={email} disabled></input>
           <MdArrowForwardIos className={styles.inputIcons}/>
@@ -81,12 +56,12 @@ function ProfileInfo() {
             <input className={styles.inputs} disabled value={profiles.name}></input>
             <MdArrowForwardIos className={styles.inputIcons}/>
         </div>
-        <div className={styles.inputCon}>
+        <div className={styles.inputCon} onClick={() => setShowEditForm(true)}>
           <label>Birthday: </label>
           <input className={styles.inputs} disabled value={profiles.birth}></input>
           <MdArrowForwardIos className={styles.inputIcons}/>
         </div>
-        <div className={styles.inputCon}>
+        <div className={styles.inputCon} onClick={() => setShowEditForm(true)}>
           <label>Gender: </label>
           <input className={styles.inputs} disabled value={profiles.gender}></input>
           <MdArrowForwardIos className={styles.inputIcons}/>

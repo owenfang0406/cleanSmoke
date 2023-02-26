@@ -24,7 +24,7 @@ function Post({username, img , id, userImg, caption}) {
         await addDoc(collection(db, 'posts', id, 'comments'), {
             comment: commentToSend,
             username: profiles.name,
-            userImg: avatarURL,
+            userImg: profiles.avatarURL,
             timestamp: serverTimestamp(),
         })
     }
@@ -61,7 +61,9 @@ function Post({username, img , id, userImg, caption}) {
     }), [db, id])
  
   return (
-    <div className="bg-white my-7 border rounded-sm w-full h-full overflow-scroll">  
+    <div className="bg-white my-7 border rounded-sm w-full h-full overflow-scroll"
+    id={id}
+    >  
         <div className="flex items-center p-5 w-full h-[10%]">
             <img src={userImg}
             className="rounded-full object-cover h-12 w-12 border p-1 mr-3"

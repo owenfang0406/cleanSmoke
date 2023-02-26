@@ -61,7 +61,7 @@ function PricingCard({shadow="#a0c5fa",
           </Price>
           <Duration>
             <span>
-              {duration === "m" ? "/ mo" : "/ yr"}
+              {duration === "hd" ? "/0.5day " : "/ Day"}
             </span>
           </Duration>
         </PriceContainer>

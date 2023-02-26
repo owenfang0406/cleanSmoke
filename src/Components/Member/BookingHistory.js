@@ -3,7 +3,7 @@ import {UserContext} from "../../index";
 import styles from "./BookingHistory.module.css"
 
 function BookingHistory() {
-    const { orders} = useContext(UserContext)
+    const {orders} = useContext(UserContext)
     console.log(orders)
     const rows = orders.map((order, index) => {
         return (<tr key={index} className={styles.trs}>
@@ -16,13 +16,13 @@ function BookingHistory() {
   return (
     <div className={styles.wrapper}>
       <table className={styles.tableCon}>
-        <thead>
-          <td className={styles.tdHeader}>Date</td>
-          <td className={styles.tdHeader}>Option</td>
-          <td className={styles.tdHeader}>Price</td>
-          <td className={styles.tdHeader}>Participants</td>
-        </thead>
-        <tbody>
+        {/* <thead className={styles.tableHead}>
+          <div className={styles.tdHeader}>Date</div>
+          <div className={styles.tdHeader}>Option</div>
+          <div className={styles.tdHeader}>Price</div>
+          <div className={styles.tdHeader}>Participants</div>
+        </thead> */}
+        <tbody className={styles.tableBody}>
           {rows}
         </tbody>
       </table>

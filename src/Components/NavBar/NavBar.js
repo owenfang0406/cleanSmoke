@@ -9,18 +9,15 @@ import {UserContext} from "../../index";
 import React, { useRef, useState, useContext } from 'react'
 
 function NavBar() {
-    const { setPostModalOpen } = useContext(UserContext);
+    const { setPostModalOpen, authUser} = useContext(UserContext);
     const navRef = useRef();
     const isSmall = useMediaQuery({maxWidth: 1000});
     const [isClicked, setIsClicked] = useState(false);
-
     const showNavBar = () => {
-        // navRef.current.classList.toggle("responsive_nav");
         setIsClicked(!isClicked);
     }
 
-    const hideNavbar =()=>{
-        // navRef.current.classList.remove("responsive_nav");
+    const hideNavbar = () => {
         setIsClicked(!isClicked);
     }
     
@@ -39,7 +36,7 @@ function NavBar() {
             <nav className={[...responsiveNavBar, ...shouldChangeNav].join(' ')}  ref={navRef} onClick={hideNavbar}>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Home</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/gallery" >Gallery</Link>
-                <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/about">About</Link>
+                <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/about">Chats</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/appoint">Appoint</Link>
                 <button className={isSmall ? `${styles.smallNavCloseBtn} ${styles.navBtn} ${styles.smallNavBtn}` : `${styles.smallNavCloseBtn} ${styles.navBtn}`} onClick={showNavBar}>
                     <FaTimes></FaTimes>
@@ -50,9 +47,20 @@ function NavBar() {
                 <FaBars></FaBars>
             </button>
             <div className="flex w-[100px] justify-between items-center bg-white-300 cursor-pointer">
-                <MdAddCircleOutline 
-                onClick={() => setPostModalOpen(true)}
-                className="w-[50px] text-4xl"></MdAddCircleOutline>
+                {authUser ? (
+                    <Link to="/gallery">
+                    <MdAddCircleOutline 
+                    onClick={() => setPostModalOpen(true)}
+                    className="w-[50px] text-4xl">
+                    </MdAddCircleOutline>
+                    </Link>) : (
+                    <Link to="/login">
+                    <MdAddCircleOutline 
+                    className="w-[50px] text-4xl">
+                    </MdAddCircleOutline>
+                    </Link>
+                ) }
+                
                 <LogInButton></LogInButton>
             </div>
             </div>

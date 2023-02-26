@@ -19,6 +19,7 @@ import About from './Pages/About';
 import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
+import { ChatContextProvider } from './Components/AuthContext/ChatContext';
 
 
 
@@ -90,17 +91,21 @@ const Index = () => {
     birth: '',
     name: '',
     gender: '',
+    email: '',
+    avatarURL: '',
+    uid: '',
   })
   const [postModalOpen, setPostModalOpen] = useState(false)
-  const [orders,setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [refreshOrders, setRefreshOrders] = useState(false)
+
   const handleRefreshOrders = () => {
     setRefreshOrders(!refreshOrders);
   }
 
   const dbProfileRef = useMemo(() => {
     if (authUser) {
-      return doc(db, `${authUser.uid}`, "profiles");
+      return doc(db, 'users', `${authUser.uid}`);
     }
     return null;
   }, [authUser]);
@@ -108,42 +113,42 @@ const Index = () => {
 
   const getOrdersRef = useMemo(() => {
     if (authUser) {
-      return doc(db,`${authUser.uid}`, "Orders" )
+      return collection(db, 'users',`${authUser.uid}`, 'Orders')
     }
     return null;
   }, [authUser, refreshOrders])
 
   const getOrders = useMemo(async () => {
     if (getOrdersRef) {
-      const Orders = await getDoc(getOrdersRef);
-      if(Orders.exists()) {
-        const orderList = Orders.data().Orders;
-        setOrders(orderList)
-        console.log(orderList)
-        return orderList
-      }else {
-        console.log("No such document!");
-        return [];
-      }
+      const Orders = await getDocs(getOrdersRef);
+      setOrders([]);
+      Orders.forEach((doc) => {
+        const OrderObject = doc.data().Orders
+        setOrders((prevOrders) => [...prevOrders, OrderObject])
+      })
     }
     return [];
-  },
-    [getOrdersRef]);
-
+  }, [getOrdersRef]);
+  console.log(orders)
   const getProfiles = useMemo(async () => {
     if (dbProfileRef) {
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
-        const { birth, name, gender } = profiles.data();
-        console.log(birth, name, gender);
+        console.log(profiles.data().Profiles)
+        const { birth, name, gender, email, avatarURL, uid } = profiles.data().Profiles;
+        console.log(birth, name, gender, email, avatarURL);
         setProfiles(
           {
             birth: birth,
             name: name,
             gender: gender,
+            email: email,
+            avatarURL: avatarURL,
+            uid: uid,
           }
         )
-        return { birth, name, gender };
+        // console.log(profiles)
+        return { birth, name, gender, email, avatarURL };
       } else {
         console.log("No such document!");
         return {};
@@ -178,7 +183,7 @@ const Index = () => {
         }
       }
       getAvatar();
-      console.log(postModalOpen)
+      // console.log(postModalOpen)
 
     }
     return () => {
@@ -209,7 +214,9 @@ const Index = () => {
     <UserContext.Provider value={{ authUser, userSignOut, avatarURL, updateNewURL, profiles , updateProfiles, orders
       ,handleRefreshOrders, toggleModal, setPostModalOpen, postModalOpen
     }}>
-      <RouterProvider router={router}></RouterProvider>
+        <ChatContextProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </ChatContextProvider>
     </UserContext.Provider>
   );
 };

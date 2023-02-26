@@ -8,29 +8,27 @@ import { doc, setDoc, collection, addDoc, updateDoc } from 'firebase/firestore';
 
 function EditForm({LabelName, type, ShouldShow, formActions }) {
   const { authUser, profiles, avatarURL, updateProfiles} = useContext(UserContext);
-  const ProfilesObject = {
-    email: authUser.email,
-    name: profiles.name,
-    birth: profiles.birth,
-    gender: profiles.gender,
-  }
   const defaultValue = LabelName.toLowerCase();
-  const [wouldUpdate, setWouldUpdate] = useState(ProfilesObject[defaultValue] ? ProfilesObject[defaultValue] : "");
-  const [date, setDate] = useState(ProfilesObject["birth"] ? ProfilesObject["birth"] : "");
-  const [gender, setGender] = useState(ProfilesObject.gender ? ProfilesObject.gender : "");
+  const [wouldUpdate, setWouldUpdate] = useState(profiles.name ? profiles.name : "");
+  const [date, setDate] = useState(profiles.birth ? profiles.birth : "");
+  const [gender, setGender] = useState(profiles.gender ? profiles.gender : "");
   const updatedColumnName = LabelName.toLowerCase();
-  console.log(ProfilesObject)
+
+  const profileData = {
+    ...profiles,
+    name: wouldUpdate,
+    birth: date,
+    gender: gender,
+  }
+
+  console.log(profiles)
+  console.log(authUser.uid)
+
   const updateProfile = (e) => {
-    const updatedRef = doc(db,`${authUser.uid}`, "profiles");
-    const profileData = {
-      ... ProfilesObject,
-      name: wouldUpdate,
-      birth: date,
-      gender: gender,
-    }
+    const updatedRef = doc(db, "users", `${authUser.uid}`);
     e.preventDefault();
     setDoc(updatedRef,
-      profileData,
+      {Profiles:profileData},
     ).then(docRef => {
       updateProfiles(profileData);
       console.log("Document Field has been updated successfully");
@@ -63,10 +61,10 @@ function EditForm({LabelName, type, ShouldShow, formActions }) {
                   <input 
                   className={styles.inputs} 
                   type="date"
+                  value={date}
                   onChange={(e) => {
                     setDate(e.target.value)
                   }}
-                  value={date}
                   ></input>
                 </div>
                 <div className={styles.firstCon}>

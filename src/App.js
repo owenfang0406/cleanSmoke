@@ -58,15 +58,17 @@ const containerStyles = {
 
   return (
       <React.Fragment>
+        <div className="scrollbar-none">
           <NavBar parentWidth={viewportWidth}></NavBar>
           <CSSParallax></CSSParallax>
-          <div style={containerStyles}>
+          {/* <div style={containerStyles}>
             <ImageSlider slides={slides} parentWidth={viewportWidth}/>
-          </div>
-          <IndexSlong1></IndexSlong1>
-          <IndexShowcase parentWidth={viewportWidth}></IndexShowcase>
+          </div> */}
+          {/* <IndexSlong1></IndexSlong1> */}
+          {/* <IndexShowcase parentWidth={viewportWidth}></IndexShowcase> */}
           {/* <PricingMenu></PricingMenu> */}
           <Footer></Footer>
+        </div>
       </React.Fragment>
   );
 }

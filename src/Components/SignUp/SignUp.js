@@ -22,15 +22,17 @@ function SignUp() {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 if (email === userCredential.user.email){
-                    const updatedRef = doc(db,`${userCredential.user.uid}`, "profiles");
+                    const updatedRef = doc(db, 'users',`${userCredential.user.uid}`);
                     const DefaultProfilesObject = {
                         email: email,
                         name: 'user',
-                        birth: '',
-                        gender: '',
-                      }
+                        birth: '1911-01-01',
+                        gender: 'Non-binary',
+                        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FDefaultIcon.jpeg?alt=media&token=3d2124b6-cb9e-4093-8374-9738bd2c6b53',
+                        uid: userCredential.user.uid,
+                    }
                     setDoc(updatedRef,
-                        DefaultProfilesObject,
+                        {Profiles:DefaultProfilesObject},
                         ).then((resp)=> {
                         navigate("/");
                     }
@@ -64,7 +66,7 @@ function SignUp() {
                     <button className={styles.signupBtn} type='submit'>Sign Up</button>
                 </div>
                 <div className={styles.signinOptions}>
-                    <div className={styles.google}>
+                    {/* <div className={styles.google}>
                         <img className={styles.icon} src={require('./google.png')}></img><span>Sign up with Google</span>
                     </div>
                     <div className={styles.google}>
@@ -72,7 +74,7 @@ function SignUp() {
                     </div>
                     <div className={styles.google}>
                     <img className={styles.icon} src={require('./twitter.png')}></img><span>Sign up with Twitter</span>
-                    </div>
+                    </div> */}
                 </div>
                 <div id='errormsg' className={styles.err}>
                     {error && <div>{error}</div>} 

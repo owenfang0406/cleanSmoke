@@ -51,7 +51,7 @@ function SignIn() {
                     <button className={styles.signupBtn} type='submit'>Sign In</button>
                 </div>
                 <div className={styles.signinOptions}>
-                    <div className={styles.google}>
+                    {/* <div className={styles.google}>
                         <img className={styles.icon} src={require('./google.png')}></img><span>Sign in with Google</span>
                     </div>
                     <div className={styles.google}>
@@ -59,7 +59,7 @@ function SignIn() {
                     </div>
                     <div className={styles.google}>
                     <img className={styles.icon} src={require('./twitter.png')}></img><span>Sign in with Twitter</span>
-                    </div>
+                    </div> */}
                 </div>
                 <div id='errormsg' className={styles.err}>
                     {error && <div>{error}</div>} 
