@@ -15,7 +15,7 @@ import ProfileInfo from './Components/Member/MemberPageBtns/Profile/ProfileInfo'
 import { doc, collection, getDoc, getDocs } from 'firebase/firestore';
 import { db, app } from './Components/firebase-config';
 import AvatarUpload from './Components/Member/MemberPageBtns/Profile/AvatarUpload';
-import About from './Pages/About';
+import ChatRoom from './Pages/ChatRoom';
 import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
@@ -68,8 +68,8 @@ const router = createBrowserRouter(
       ]
     },
     {
-      path: "/about/*",
-      element: <About/>,
+      path: "/chatting/*",
+      element: <ChatRoom/>,
     },
     {
       path: "/appoint/*",

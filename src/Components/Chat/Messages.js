@@ -22,13 +22,12 @@ function Messages() {
       })
 
     }
-
       return () => {
         if(unSub) {
           unSub()
         }
       }
-  },[data.chatID])
+  },[data.chatId])
 
   return (
     <div

@@ -6,17 +6,18 @@ import { UserContext } from "../../index";
 
 function Search() {
   const [username, setUsername] = useState("")
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState([])
   const [err, setErr] = useState(false)
   const { profiles } = useContext(UserContext);
   const handleSearch = async() => {
     const q = query(collection(db, 'users'), where("Profiles.name", "==", username))
 
     try {
+      setUser([]);
       const queryResults = await getDocs(q)
       queryResults.forEach((doc) => {
         console.log(doc.data())
-        setUser(doc.data().Profiles)
+        setUser((prev) => [...prev, doc.data().Profiles])
       })
     }catch(err) {
       console.log(err)
@@ -27,7 +28,7 @@ function Search() {
     e.code === "Enter" && handleSearch();
   }
 
-  const handleSelect = async() => {
+  const handleSelect = async(user) => {
     //check whether the group exists
     console.log(user)
     const combinedID = profiles.uid > user.uid ? profiles.uid + user.uid : user.uid + profiles.uid;
@@ -65,10 +66,12 @@ function Search() {
       console.log(err)
     }
 
-    setUser(null);
+    setUser([]);
     setUsername("");
     //create userChats for both
   }
+
+  console.log(user)
   return (
     <div className={styles.search}>
         <div className={styles.searchForm}>
@@ -80,12 +83,13 @@ function Search() {
              ></input>
         </div>
         {err && <span>User not found!</span>}
-        {user && <div className={styles.userChat} onClick={handleSelect}>
+        {user && user.map((user) => 
+            (<div className={styles.userChat} onClick={()=>handleSelect(user)}>
             <img className={styles.userChatImg} src={user.avatarURL} alt=''></img>
             <div className={styles.userChatInfo}>
                 <span>{user.name}</span>
             </div>
-        </div>}
+        </div>))}
     </div>
   )
 }

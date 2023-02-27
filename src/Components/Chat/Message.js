@@ -2,6 +2,8 @@ import React, {useContext, useEffect, useState, useRef} from 'react'
 import { UserContext } from '../../index'
 import { ChatContext } from '../AuthContext/ChatContext'
 import "./Message.scss"
+import Moment from 'react-moment'
+import 'moment-timezone';
 
 function Message({message}) {
   console.log(message)
@@ -9,9 +11,11 @@ function Message({message}) {
   const { data } = useContext(ChatContext)
   const ref = useRef();
 
+  const unixTimestamp = message.data.toMillis()/1000;
+
 
   useEffect(() => {
-    ref.current?.scrollIntoView({behavior:"smooth"})
+    ref.current?.scrollIntoView({behavior:"smooth", block: 'nearest'})
   }, [message])
 
   return (
@@ -22,7 +26,7 @@ function Message({message}) {
             src={message.senderId === profiles.uid ? profiles.avatarURL : data.user.avatarURL}
             alt=""
             ></img>
-            <span>just now</span>
+            <Moment unix fromNow>{unixTimestamp}</Moment>
         </div>
         <div className="messageContent">
             <p className="">{message.text}</p>

@@ -1,5 +1,6 @@
 import {FaBars, FaTimes} from "react-icons/fa";
 import { MdAddCircleOutline } from "react-icons/md";
+import { TbMessageCircle } from "react-icons/tb";
 import { useMediaQuery } from 'react-responsive';
 import "../../Styles/main.css"
 import styles from "./NavBar.module.css";
@@ -36,7 +37,7 @@ function NavBar() {
             <nav className={[...responsiveNavBar, ...shouldChangeNav].join(' ')}  ref={navRef} onClick={hideNavbar}>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Home</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/gallery" >Gallery</Link>
-                <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/about">Chats</Link>
+                {/* <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/chatting">Chats</Link> */}
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/appoint">Appoint</Link>
                 <button className={isSmall ? `${styles.smallNavCloseBtn} ${styles.navBtn} ${styles.smallNavBtn}` : `${styles.smallNavCloseBtn} ${styles.navBtn}`} onClick={showNavBar}>
                     <FaTimes></FaTimes>
@@ -46,19 +47,34 @@ function NavBar() {
             <button className={isSmall ? `${styles.navBtn} ${styles.smallNavBtn}` : `${styles.navBtn}`} onClick={showNavBar}>
                 <FaBars></FaBars>
             </button>
-            <div className="flex w-[100px] justify-between items-center bg-white-300 cursor-pointer">
+            <div className="flex w-[150px] justify-between items-center bg-white-300 cursor-pointer">
                 {authUser ? (
+                    <>
                     <Link to="/gallery">
                     <MdAddCircleOutline 
                     onClick={() => setPostModalOpen(true)}
                     className="w-[50px] text-4xl">
                     </MdAddCircleOutline>
-                    </Link>) : (
+                    </Link>
+                    <Link to="/chatting">
+                    <TbMessageCircle
+                    className="w-[50px] text-4xl"
+                    ></TbMessageCircle>
+                    </Link>
+                    </>
+                    ) : (
+                    <>
                     <Link to="/login">
                     <MdAddCircleOutline 
                     className="w-[50px] text-4xl">
                     </MdAddCircleOutline>
                     </Link>
+                    <Link to="/login">
+                    <TbMessageCircle
+                    className="w-[50px] text-4xl"
+                    ></TbMessageCircle>
+                    </Link>
+                    </>
                 ) }
                 
                 <LogInButton></LogInButton>

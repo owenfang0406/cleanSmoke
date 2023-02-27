@@ -6,7 +6,7 @@ import Sidebar from "../Components/Chat/SideBar"
 import Chat from "../Components/Chat/Chat"
 import styles from "./ChatRoom.module.css"
 
-function About() {
+function ChatRoom() {
   return (
     <>
     <NavBar></NavBar>
@@ -24,4 +24,4 @@ function About() {
   )
 }
 
-export default About
+export default ChatRoom

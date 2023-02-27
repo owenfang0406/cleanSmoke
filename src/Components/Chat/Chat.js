@@ -9,7 +9,7 @@ import { UserContext } from '../../index'
 function Chat() {
   const { data, user } = useContext(ChatContext)
   const { profiles } = useContext(UserContext);
-  console.log(data.user)
+  // console.log(data.user)
   return (
     <div className={styles.chat}>
       <div className={styles.chatInfo}>

@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import PostsContainer from './PostsContainer';
 import PostModal from './PostModal';
 import { db } from '../../firebase-config';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, getDocs } from 'firebase/firestore';
 
 const ArrowLeft = styled.div`
   width: 30px;
@@ -19,19 +19,50 @@ const ArrowLeft = styled.div`
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState([])
+  const [collectionPosts, setCollectionPosts] = useState([])
   const [clickedImgID, setClickedImgID] = useState("")
 
   useEffect(() => {
-    return onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
+    const unsubscribe = onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
       setPosts(snapshot.docs)
     })
+
+    const fetchPosts = async () => {
+      const docsSnapshot = await getDocs(collection(db, "posts"))
+      docsSnapshot.forEach((doc) => {
+        const PostObject = {
+          PostId: doc.id,
+          Post: doc.data()
+        }
+        setCollectionPosts((prev) => [...prev, PostObject])
+        console.log(doc.id, " => ", doc.data());
+      })
+    }
+    fetchPosts();
+
+    return () => {
+      unsubscribe()
+    }
   }, [db])
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const docsSnapshot = await getDocs(collection(db, "posts"))
+  //     docsSnapshot.forEach((doc) => {
+  //       console.log(doc.id, " => ", doc.data());
+  //     })
+  //   }
+  //   fetchPosts();
+  // }, [])
 
 
   const showImgPage = (image, i) => {
     setOpen(true);
     setClickedImgID(i)
     console.log(clickedImgID)
+    console.log(collectionPosts)
+    const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
+    console.log(postToShow)
   }
 
   

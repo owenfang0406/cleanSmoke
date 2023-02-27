@@ -8,6 +8,7 @@
         flex-direction: column;
         color: gray;
         font-weight: 300;
+        width: 110px;
         img{
             width: 40px;
             height: 40px;
@@ -34,6 +35,10 @@
 
     &.owner {
         flex-direction: row-reverse;
+
+        .messageInfo {
+            align-items: flex-end;
+        }
 
         .messageContent {
             align-items: flex-end;
