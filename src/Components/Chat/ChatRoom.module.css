@@ -196,3 +196,56 @@
     color: white;
     border-radius: 10xp 0px 10px 10px;
 }
+
+
+.confirmCon {
+    position: fixed;
+    width: 450px;
+    height: 300px;
+    top: 30%;
+    right: 30%;
+}
+
+.DeletePopUpCon{
+    width: 450px;
+    height: 300px;
+    background-color: white;
+    z-index: 10;
+    position: fixed;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.disclaimerCon {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    color: red;
+    font-weight: bold;
+}
+
+.DeletePopUpBtnCon {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    /* background-color: #3e3c61; */
+}
+
+.ConfirmBtn {
+    width: 50px;
+    border: 1px solid #2f2d52;
+    cursor: pointer;
+}
+
+.ConfirmBtn:hover {
+    background-color: #8da4f1;
+}

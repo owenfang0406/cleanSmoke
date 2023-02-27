@@ -9,7 +9,7 @@ function Chats() {
     const { profiles } = useContext(UserContext);
     const { dispatch } = useContext(ChatContext);
     const[chats, setChats] = useState([]);
-    console.log(profiles)
+    // console.log(profiles)
 
     useEffect(() => {
         let unsubscribe;
@@ -29,15 +29,15 @@ function Chats() {
     }, [profiles])
 
     const handleSelect = (u) => {
-        console.log(u)
+        // console.log(u)
         dispatch({type:"CHANGE_USER", payload: u})
     }
-
+    console.log(profiles.uid)
     console.log(chats)
-    console.log(Object.entries(chats))
+    // console.log(Object.entries(chats))
     return (
         <div className={styles.chats}>
-          {Object.entries(chats)?.sort((a,b) => b[1]?.date - a[1]?.date).map((chat) => (
+          {chats && Object.entries(chats)?.sort((a,b) => b[1]?.date - a[1]?.date).map((chat) => (
             chat[1] && chat[1].TheOtherUserInfo && (
               <div key={chat[0]} className={styles.userChat} onClick={() => handleSelect(chat[1].TheOtherUserInfo)}>
                 <img className={styles.userChatImg} src={chat[1].TheOtherUserInfo.avatarURL} alt=''></img>
