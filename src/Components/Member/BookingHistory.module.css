@@ -19,6 +19,18 @@
 
 }
 
+.tableHead {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.tableBody {
+    width: 100%;
+}
+
 .trs:nth-child(even) {
     background-color: var(--mainColor);
     color: var(--textColor);

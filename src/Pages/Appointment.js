@@ -24,15 +24,15 @@ function Appointment() {
             background="linear-gradient(120deg, #d4fc79, #96e6a1 100%)"
             shadow='#96e5a'
             currency="$"
-            duration="m"
+            duration="hd"
             price={3000}
-            subTitle="For Planned Projects"
-            priceText="Bring your designs to the next level and export them"
-            buttonContent = "Get Started"
+            subTitle="For Pre-Planned People"
+            priceText="Half-day 4 hours of photography"
+            buttonContent = "Select"
             data={[
-                {value: false, text: "3 new projects / month"},
-                {value:true, text:"Assets library"}, 
-                {value:false, text:"Basic Interaction"}
+                {value: false, text: "Changes before 3 days"},
+                {value:true, text:"Get 30 retouched photos"}, 
+                {value:false, text:"Get the whole RAW files"}
                 ]}
             ></PricingCard>
 
@@ -43,13 +43,14 @@ function Appointment() {
             currency="$"
             duration="m"
             price={5000}
-            subTitle="For Planned Projects"
-            priceText="Bring your designs to the next level and export them"
-            buttonContent = "Get Started"
+            subTitle="For Planned all day tour"
+            priceText="Enjoy a full 9 hours long tour with your photogrpher around"
+            buttonContent = "Select"
             data={[
-                {value: false, text: "3 new projects / month"},
-                {value:true, text:"Assets library"}, 
-                {value:false, text:"Basic Interaction"}
+                {value:true, text: "Changes before 3 days"},
+                {value:true, text:"Get 50 retouched photos"}, 
+                {value:true, text:"Suggested attire"},
+                {value:false, text:"Get the whole RAW files"},
                 ]}
             ></PricingCard>
 
@@ -60,13 +61,14 @@ function Appointment() {
             currency="$"
             duration="m"
             price={12000}
-            subTitle="For Planned Projects"
-            priceText="Bring your designs to the next level and export them"
-            buttonContent = "Get Started"
+            subTitle="Luxury Combo for one day photography"
+            priceText="Bring you to the next level and capture you like a pricess or pince"
+            buttonContent = "Select"
             data={[
-                {value: false, text: "3 new projects / month"},
-                {value:true, text:"Assets library"}, 
-                {value:false, text:"Basic Interaction"}
+                {value:true, text: "Changes before 7 days"},
+                {value:true, text: "Get 100 retouched photos"}, 
+                {value:true, text:"On-site makeup artist"},
+                {value:true, text: "Get the whole RAW files"}, 
                 ]}
             ></PricingCard>
         </MainCon>

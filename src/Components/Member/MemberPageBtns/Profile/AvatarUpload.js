@@ -7,7 +7,7 @@ import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import styles from "./AvatarUpload.module.css";
 
 function AvatarUpload() {
-  const { authUser, updateNewURL } = useContext(UserContext);
+  const { authUser, updateProfiles, profiles } = useContext(UserContext);
   const [imageUpload, setImageUpload] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewURl] = useState(null);
@@ -18,6 +18,7 @@ function AvatarUpload() {
     reader.onload = function(e) {
       setPreviewURl(e.target.result);
       console.log(e.target);
+      console.log(profiles)
     }
       reader.readAsDataURL(e.target.files[0]);
   }
@@ -27,7 +28,7 @@ function AvatarUpload() {
         return
     };
     const dbCollection = collection(db, `${authUser.uid}`);
-    const dbRef = doc(db, `${authUser.uid}`, "avatar");
+    const dbRef = doc(db, 'users', `${authUser.uid}`);
     const folderRef = ref(storage,`avatar/${authUser.uid}/`);
     const imageRef = ref(storage, `avatar/${authUser.uid}/${imageUpload.name + v4()}`);
     list(folderRef).then((res)=>{
@@ -35,10 +36,16 @@ function AvatarUpload() {
         uploadBytes(imageRef, imageUpload).then(()=>{
           alert("imgUploaded")
           getDownloadURL(imageRef).then((downloadURl) =>{
-            setDoc(dbRef,{
+            setDoc(dbRef,
+            {Profiles:{
+              ...profiles,
               avatarURL: downloadURl,
               uid: authUser.uid,
               email: authUser.email
+            }});
+            updateProfiles({
+              ...profiles,
+              avatarURL: downloadURl,
             });
             alert("url: " + downloadURl);
             setImageUpload(null);
@@ -55,12 +62,17 @@ function AvatarUpload() {
           uploadBytes(imageRef, imageUpload).then(()=>{
             alert("imgUploaded")
             getDownloadURL(imageRef).then((downloadURl) =>{
-              setDoc(dbRef,{
+              setDoc(dbRef,
+                {Profiles:{
+                  ...profiles,
+                  avatarURL: downloadURl,
+                  uid: authUser.uid,
+                  email: authUser.email
+                }});
+                updateProfiles({
+                ...profiles,
                 avatarURL: downloadURl,
-                uid: authUser.uid,
-                email: authUser.email
               });
-              updateNewURL(downloadURl);
               alert("url: " + downloadURl);
               setImageUpload(null);
               setSelectedFile(null);

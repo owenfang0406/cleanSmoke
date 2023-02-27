@@ -6,16 +6,17 @@ import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import Post from './Post';
 
-function PostsContainer({ posts, open, setOpen }) {
+function PostsContainer({ posts, open, setOpen, clickedImgID }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef(null);
+  const postToShow = posts.find((post) => post.id === clickedImgID)
 
   const handleScroll = (event) => {
     setScrollPosition(event.target.scrollTop);
     console.log(event)
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
     } else {
@@ -26,7 +27,13 @@ function PostsContainer({ posts, open, setOpen }) {
     };
   }, [open]);
 
-
+  useEffect(() => {
+    if(clickedImgID) {
+      console.log(postToShow)
+      // const ele = document.getElementById(clickedImgID)
+      // ele.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [clickedImgID])
 
 
     if(!open) return null
@@ -35,18 +42,18 @@ function PostsContainer({ posts, open, setOpen }) {
     className={styles.mainCon}
     onScroll={(e)=>handleScroll(e)} ref={containerRef}
     >
-      <MdClose 
+      <MdClose
       className={styles.closeBtn}
       onClick={()=>setOpen(false)}></MdClose>
-      <div className={styles.imgCon}>
-        {posts.map((post, index) => (<Post
-          key={post.id}
-          id={post.id}
-          username = {post.data().username}
-          userImg = {post.data().profileImg}
-          img={post.data().image}
-          caption={post.data().caption}
-          ></Post>))}
+      <div className={`${styles.imgCon} scrollbar-none`}>
+        {postToShow && <Post
+          key={postToShow.id}
+          id={postToShow.id}
+          username = {postToShow.data().username}
+          userImg = {postToShow.data().profileImg}
+          img={postToShow.data().image}
+          caption={postToShow.data().caption}
+          ></Post>}
       </div>
     </div>,
     document.getElementById("ImgPortal")

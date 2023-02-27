@@ -42,11 +42,11 @@ function AppointmentForm({
     const handlePayFormSubmit = (e) => {
         e.preventDefault();
         const OrderID = v4();
-        const OrderRef = doc(db,`${authUser.uid}`, "Orders");
-        let OrdersArray = [];
-        if (orders && orders.length > 0) {
-            OrdersArray = Object.values(orders);
-        }
+        const OrderRef = collection(db, "users", `${authUser.uid}`, "Orders");
+        // let OrdersArray = [];
+        // if (orders && orders.length > 0) {
+        //     OrdersArray = Object.values(orders);
+        // }
         console.log(orders);
         const OrdersObject = {
             OrderID: OrderID,
@@ -60,14 +60,15 @@ function AppointmentForm({
             }
         ;
 
-        setDoc(OrderRef, {
-            Orders: [...OrdersArray, OrdersObject],
+        setDoc(doc(OrderRef, OrderID), {
+            Orders: OrdersObject
         }
         )
         .then(() => {
         handleRefreshOrders();
         alert("success!")
-            }
+        toggleAppointmentForm();
+        }
         ).catch((err) => {
             alert(err);
         })};
