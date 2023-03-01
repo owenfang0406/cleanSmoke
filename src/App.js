@@ -8,6 +8,7 @@ import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
 import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
 import CSSParallax from './Components/Parallax/CSSParallax';
 import PricingMenu from './Components/AD/Pricing/PricingMenu';
+import HomePage from './Components/HomePage/HomePage';
 
 
 // export const UserContext = createContext({});
@@ -60,7 +61,8 @@ const containerStyles = {
       <React.Fragment>
         <div className="scrollbar-none">
           <NavBar parentWidth={viewportWidth}></NavBar>
-          <CSSParallax></CSSParallax>
+          {/* <CSSParallax></CSSParallax> */}
+          <HomePage></HomePage>
           {/* <div style={containerStyles}>
             <ImageSlider slides={slides} parentWidth={viewportWidth}/>
           </div> */}

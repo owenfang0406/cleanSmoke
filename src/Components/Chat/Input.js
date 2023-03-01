@@ -79,21 +79,16 @@ function Input() {
         }) 
         await setDoc(doc(db, "UserChats", profiles.uid), {
           [data.chatId]: {
-            lastMessage: {
-              text,
-            }
-          },
+            lastMessage: {text},
             date: serverTimestamp(),
+          },
         },{ merge: true })
 
         await setDoc(doc(db, "UserChats", data.user.uid), {
           [data.chatId]: {
-            lastMessage: {
-              text,
-            }
+            lastMessage: {text},
+            date: serverTimestamp(),
           },
-  
-          date: serverTimestamp(),
         },{ merge: true })
 
         setText("")

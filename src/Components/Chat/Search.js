@@ -52,8 +52,11 @@ function Search() {
             uid: profiles.uid,
             displayName: profiles.name,
             avatarURL: profiles.avatarURL
-          },
-          date: serverTimestamp()
+            },
+            lastMessage:{
+              text:"",
+            },
+            date: serverTimestamp(),
           },
         },{ merge: true })
 
@@ -63,8 +66,11 @@ function Search() {
             uid: user.uid,
             displayName: user.name,
             avatarURL: user.avatarURL
-          },
-          date: serverTimestamp()
+            },
+            lastMessage:{
+              text:"",
+            },
+            date: serverTimestamp()
           },
         },{ merge: true })
       }

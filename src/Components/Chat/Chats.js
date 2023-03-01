@@ -32,9 +32,9 @@ function Chats() {
         // console.log(u)
         dispatch({type:"CHANGE_USER", payload: u})
     }
-    console.log(profiles.uid)
-    console.log(chats)
+    // // console.log(profiles.uid)
     // console.log(Object.entries(chats))
+    // console.log(Object.entries(chats).sort((a,b) => b[1]?.date - a[1]?.date))
     return (
         <div className={styles.chats}>
           {chats && Object.entries(chats)?.sort((a,b) => b[1]?.date - a[1]?.date).map((chat) => (
