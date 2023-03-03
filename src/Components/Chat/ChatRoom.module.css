@@ -17,7 +17,11 @@
 }
 
 .chats {
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
+}
+
+.chatRoom {
+    overflow-y: scroll;
 }
 
 .chatInfo {
@@ -43,7 +47,6 @@
     background-color: #ddddf7;
     padding: 10px;
     height: calc(100% - 140px);
-    overflow-y: scroll;
 }
 
 .navbar {
@@ -110,6 +113,7 @@
     border: none;
     color: white;
     outline: none;
+    background-color: #3e3c61;
 }
 
 .userChatImg {

@@ -6,12 +6,13 @@ import styled from 'styled-components'
 import { Outlet } from 'react-router-dom'
 
 const MainCon = styled.div`
-    height: 100vh;
+    /* height: 100vh; */
     width: 100%;
     display: flex;
     justify-content: space-around;
-    align-items; center;
-    background-color: #f5f1ff;
+    flex-wrap: wrap;
+    margin: 150px 0px;
+    background-color: white
 `;
 
 function Appointment() {
@@ -21,7 +22,7 @@ function Appointment() {
         <MainCon>
             <PricingCard
             headerText="Option1"
-            background="linear-gradient(120deg, #d4fc79, #96e6a1 100%)"
+            background="linear-gradient(120deg, #b6312c, #ffd700)"
             shadow='#96e5a'
             currency="$"
             duration="hd"
@@ -38,7 +39,7 @@ function Appointment() {
 
             <PricingCard
             headerText="Option2"
-            background="linear-gradient(120deg, #d4fc79, #96e6a1 100%)"
+            background="linear-gradient(120deg, #b6312c, #ffd700, #808080)"
             shadow='#96e5a'
             currency="$"
             duration="m"
@@ -56,7 +57,7 @@ function Appointment() {
 
             <PricingCard
             headerText="Option3"
-            background="linear-gradient(120deg, #d4fc79, #96e6a1 100%)"
+            background="linear-gradient(120deg, #b6312c, #ffd700, #dcdcdc)"
             shadow='#96e5a'
             currency="$"
             duration="m"

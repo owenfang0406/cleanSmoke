@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber"
 import Cube from './Cube';
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
     const Section = styled.div`
     height: 100vh;
     width: 100%;
@@ -13,6 +14,9 @@ import styled from 'styled-components'
     `;
     const Left = styled.div`
      flex: 1;
+     @media only screen and (max-width: 768px) {
+        display: none;
+     }
     `;
     const Right = styled.div`
      flex: 1;
@@ -20,9 +24,24 @@ import styled from 'styled-components'
      flex-direction: column;
      justify-content: center;
      gap: 20px;
+     @media only screen and (max-width: 768px) {
+        flex: inherit;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 100px;
+     }
      `;
      const Title = styled.h1`
       font-size: 74px;
+      color: black;
+      font-family: 'Sulphur Point';
+      @media only screen and (max-width:1300px) {
+        font-size: 60px;
+     }
+      @media only screen and (max-width: 768px) {
+        font-size: 50px;
+     }
      `;
      const WhatWeDo = styled.div`
       display: flex;
@@ -31,7 +50,8 @@ import styled from 'styled-components'
      `;
      const Desc = styled.p`
      font-size: 24px;
-     color: lightgray;
+     color: black;
+     font-family: 'Sulphur Point';
      `;
      const Line = styled.img`
          width: 30px;
@@ -40,11 +60,14 @@ import styled from 'styled-components'
  
      `;
      const Subtitle = styled.h2`
-     color: var(--textColor);
+     color: var(--mainColor);
+     font-family: 'Sulphur Point';
+     font-weight: bolder;
      `;
      const Button = styled.button`
      background-color: var(--mainColor);
      color: white;
+     font-family: 'Sulphur Point';
      font-weight: 500;
      width: 300px;
      padding: 10px;
@@ -65,15 +88,15 @@ function Who() {
         </Canvas>
       </Left>
       <Right>
-        <Title>Think outside the square space</Title>
+        <Title>Experience creativity without limits.</Title>
         <WhatWeDo>
           <Line></Line>
           <Subtitle>Who we are</Subtitle>
         </WhatWeDo>
         <Desc>
-          a creative group of designers with a passion for the arts.
+          a creative group of designers with a passion for photography.
         </Desc>
-        <Button>See our works</Button>
+        <Link to="/gallery"><Button>See users' posts</Button></Link>
       </Right>
     </Section>
   )

@@ -38,3 +38,12 @@
     color: var(--textColor);
     display: flex;
 }
+
+@media screen and (max-width: 789px) {
+    .Footer {
+        height: 100px;
+    }
+    .FooterContainer {
+        padding: 10px 10px;
+    }
+}

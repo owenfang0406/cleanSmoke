@@ -9,10 +9,10 @@ function LogInButton() {
   return (
     authUser ?
       profiles.avatarURL ? 
-      <Link to="/member"><img className={styles.button} src={profiles.avatarURL}>
+      <Link to="/member/profile"><img className={styles.button} src={profiles.avatarURL}>
       </img></Link>
       : 
-      <Link to="/member">
+      <Link to="/member/profile">
         <button className={styles.button}>
           <FaUser />
         </button>

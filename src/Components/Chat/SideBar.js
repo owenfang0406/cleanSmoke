@@ -11,7 +11,9 @@ function SideBar() {
         <NavBar></NavBar>
         <Search></Search>
         </div>
-        <Chats></Chats>
+        <div className={styles.chatRoom}>
+          <Chats></Chats>
+        </div>
     </div>
   )
 }

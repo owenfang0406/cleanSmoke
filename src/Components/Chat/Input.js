@@ -101,7 +101,7 @@ function Input() {
     <div className={styles.chattingInputCon}>
         <input type="text" placeholder="Type something" value={text} onKeyDown={(e)=> handleKeyDown(e)} className={styles.typingArea} onChange={e => setText(e.target.value)}></input>
         <div className={styles.sendIconCon}>
-            <IoMdAttach></IoMdAttach>
+            {/* <IoMdAttach></IoMdAttach> */}
             <input type="file" accept="image/png, image/gif, image/jpeg" style={{display:"none"}} className={styles.fileSelector} id="file" onChange={(e) => setImg(e.target.files[0])}></input>
             <label htmlFor='file'>
             <BiImageAdd></BiImageAdd>
