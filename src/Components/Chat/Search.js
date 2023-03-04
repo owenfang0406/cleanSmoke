@@ -97,6 +97,7 @@ function Search() {
              ></input>
         </div>
         {err && <span>User not found!</span>}
+        <div className={styles.userQueryCon}>
         {user && user.map((user) => 
             (<div className={styles.userChat} onClick={
               ()=>{
@@ -109,6 +110,7 @@ function Search() {
                 <span>{user.name}</span>
             </div>
         </div>))}
+        </div>
     </div>
   )
 }

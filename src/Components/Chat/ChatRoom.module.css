@@ -3,12 +3,16 @@
     flex: 1;
     border-right:1px solid #3e3c61;
     background-color: #3e3c61;
-    overflow-y: scroll;
+    position: relative;
+    /* overflow-y: scroll; */
 }
 
 .topSideBar {
-    position: sticky;
+    position: absolute;
     top: 0px;
+    right: 0;
+    left: 0;
+    height: 120px;
     /* background-color:#2f2d52; */
 }
 
@@ -21,6 +25,11 @@
 }
 
 .chatRoom {
+    position: absolute;
+    top: 110px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
     overflow-y: scroll;
 }
 
@@ -93,6 +102,13 @@
 
 }
 
+.userQueryCon {
+    position: relative;
+    background-color: black;
+    z-index: 300;
+    overflow-y: scroll;
+}
+
 .userChat {
     padding: 10px;
     display: flex;
@@ -102,6 +118,7 @@
     cursor: pointer;
     height: 100%;
     overflow-y: scroll;
+    z-index: 10;
 }
 
 .userChat:hover {
