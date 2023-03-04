@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "./ChatRoom.module.css"
 import { FiTrash2 } from "react-icons/fi"
 import Messages from './Messages'
@@ -9,16 +9,17 @@ import { UserContext } from '../../index'
 function Chat() {
   const { data, user } = useContext(ChatContext)
   const { profiles } = useContext(UserContext);
+  const [showDeletePopup, setShowDeletePopup] = useState(false)
   // console.log(data.user)
   return (
     <div className={styles.chat}>
       <div className={styles.chatInfo}>
         <span>{data.user?.displayName}</span>
         <div className={styles.chatIcons}>
-          <FiTrash2 className={styles.chatIcon}></FiTrash2>
+          <FiTrash2 className={styles.chatIcon} onClick={()=>setShowDeletePopup(true)}></FiTrash2>
         </div>
       </div>
-      <Messages></Messages>
+      <Messages setShowDeletePopup={setShowDeletePopup} showDeletePopup={showDeletePopup}></Messages>
       <Input></Input>
     </div>
   )

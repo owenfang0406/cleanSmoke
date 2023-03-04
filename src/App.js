@@ -3,11 +3,12 @@ import NavBar from './Components/NavBar/NavBar';
 import React from 'react';
 import ImageSlider from './Components/slider';
 import Footer from './Components/Footer/Footer';
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext, useRef} from 'react';
 import IndexSlong1 from './Components/Slogan/IndexSlong1.js';
 import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
 import CSSParallax from './Components/Parallax/CSSParallax';
 import PricingMenu from './Components/AD/Pricing/PricingMenu';
+import HomePage from './Components/HomePage/HomePage';
 
 
 // export const UserContext = createContext({});
@@ -20,54 +21,55 @@ function App() {
     {url: '../slider/image5.jpg'},
   ];
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const footerRef = useRef(null);
+  const [showFooter, setShowFooter] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollPos = window.pageYOffset;
+  //     if (currentScrollPos < prevScrollPos) {
+  //       setShowFooter(true)
+  //     } else {
+  //       setShowFooter(false)
+  //     }
+  //     setPrevScrollPos(currentScrollPos);
+  //   };
+  
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [prevScrollPos]);
+
+
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-
+  
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+  
 
 const containerStyles = {
-  // width: "90%",
   height: "600px",
   margin: "30px 15px",
   zIndex: "0",
 };
 
-// const [authUser, setAuthUser] = useState(null);
-//   useEffect(() => {
-//         const listen = onAuthStateChanged(auth, (user) => {
-//             if (user) {
-//               setAuthUser(user);
-//             }else {
-//               setAuthUser(null);
-//             }
-//             console.log(user);
-//           return () => {
-//             listen();
-//             }
-//             })
-//     }, []);
-
-//   const userSignOut = () => {
-//       signOut(auth).then(()=> {
-//         console.log("logged out!")
-//       }).catch(err=> console.log(err))};
-
   return (
       <React.Fragment>
         <div className="scrollbar-none">
           <NavBar parentWidth={viewportWidth}></NavBar>
-          <CSSParallax></CSSParallax>
-          {/* <div style={containerStyles}>
-            <ImageSlider slides={slides} parentWidth={viewportWidth}/>
-          </div> */}
-          {/* <IndexSlong1></IndexSlong1> */}
-          {/* <IndexShowcase parentWidth={viewportWidth}></IndexShowcase> */}
-          {/* <PricingMenu></PricingMenu> */}
+          <HomePage></HomePage>
+          {/* <div ref={footerRef} style={{ height:"80px", display: showFooter ? 'block' : 'none' }}>
           <Footer></Footer>
+          </div> */}
         </div>
       </React.Fragment>
   );

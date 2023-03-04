@@ -7,9 +7,13 @@ import Chats from './Chats'
 function SideBar() {
   return (
     <div className={styles.sidebar}>
+        <div className={styles.topSideBar}>
         <NavBar></NavBar>
         <Search></Search>
-        <Chats></Chats>
+        </div>
+        <div className={styles.chatRoom}>
+          <Chats></Chats>
+        </div>
     </div>
   )
 }

@@ -8,7 +8,7 @@ export const ChatContextProvider = ({ children }) => {
     const { profiles } = useContext(UserContext)
 
     const INITIAL_STATE = { 
-        chatID:"null",
+        chatId:"null",
         user:{}
     }
 

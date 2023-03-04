@@ -45,7 +45,7 @@ function PostsContainer({ posts, open, setOpen, clickedImgID }) {
       <MdClose
       className={styles.closeBtn}
       onClick={()=>setOpen(false)}></MdClose>
-      <div className={`${styles.imgCon} scrollbar-none`}>
+      <div className={`${styles.imgCon} overflow-y-scroll overflow-hidden`}>
         {postToShow && <Post
           key={postToShow.id}
           id={postToShow.id}
