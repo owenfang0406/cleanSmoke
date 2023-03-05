@@ -16,6 +16,13 @@
             object-fit: cover;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+        .messageInfo {
+            width: inherit;
+        }
+    }
+    
     .messageContent {
         max-width: 80%;
         display: flex;

@@ -34,9 +34,9 @@ function Search() {
 
   const handleSelect = async(user) => {
     //check whether the group exists
-    console.log(user)
+    // console.log(user)
     const combinedID = profiles.uid > user.uid ? profiles.uid + user.uid : user.uid + profiles.uid;
-    console.log(combinedID)
+    // console.log(combinedID)
     try {
       const res = await getDoc(doc(db, "chats", combinedID));
       const res2 = await getDoc(doc(db, "UserChats", profiles.uid))
@@ -83,7 +83,7 @@ function Search() {
     //create userChats for both
   }
 
-  console.log(profiles.uid)
+  // console.log(profiles.uid)
   return (
     <div className={styles.search}>
         <div className={styles.searchForm}>
@@ -96,20 +96,22 @@ function Search() {
              value={username}
              ></input>
         </div>
+        <div>
         {err && <span>User not found!</span>}
+        </div>
         <div className={styles.userQueryCon}>
-        {user && user.map((user) => 
-            (<div className={styles.userChat} onClick={
-              ()=>{
-              handleSelect(user)}
-              }
-              key={user.uid}
-              >
-            <img className={styles.userChatImg} src={user.avatarURL} alt=''></img>
-            <div className={styles.userChatInfo}>
-                <span>{user.name}</span>
-            </div>
-        </div>))}
+          {user && user.map((user) => 
+              (<div className={styles.userQueryUserChat} onClick={
+                ()=>{
+                handleSelect(user)}
+                }
+                key={user.uid}
+                >
+              <img className={styles.userQueryUserChatImg} src={user.avatarURL} alt=''></img>
+              <div className={styles.userQueryUserChatInfo}>
+                  <span>{user.name}</span>
+              </div>
+          </div>))}
         </div>
     </div>
   )

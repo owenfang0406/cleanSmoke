@@ -9,7 +9,7 @@ function NavBar() {
         <span className={styles.logo}>Chat Room</span>
         <div className={styles.user}>
             <img className={styles.userImg} src={profiles.avatarURL} alt=''></img>
-            <span>{profiles.name}</span>
+            <span className={styles.currentUserName}>{profiles.name}</span>
             {/* <button className={styles.logOutBtn}>logOut</button> */}
         </div>
     </div>
