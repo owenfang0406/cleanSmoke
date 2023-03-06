@@ -410,6 +410,13 @@
     background-color: #8da4f1;
 }
 
+@media only screen and (max-width: 768px) {
+    .DeletePopUpCon {
+        width: 250px;
+        height: 200px;
+    }
+
+}
 
 @media only screen and (max-width: 768px) {
     .logo {

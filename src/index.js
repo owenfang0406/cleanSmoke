@@ -20,6 +20,7 @@ import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
 import { ChatContextProvider } from './Components/AuthContext/ChatContext';
+import BookMark from './Components/Member/BookMark';
 
 
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter(
         {
           path: "updateAvatar",
           element:<AvatarUpload/>,
+        },
+        {
+          path: "SavedPosts",
+          element: <BookMark/>,
         }
       ]
     },

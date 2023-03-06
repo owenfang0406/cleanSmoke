@@ -6,6 +6,7 @@ import SignOut from '../SignOut/SignOut'
 import styles from "./MemberPage.module.css";
 import ProfileBtn from './MemberPageBtns/ProfileBtn';
 import BookingBtn from './MemberPageBtns/BookingBtn';
+import BookMarkBtn from './MemberPageBtns/BookMarkBtn';
 import { Outlet } from 'react-router-dom';
 
 
@@ -22,6 +23,7 @@ function MemberPage() {
       <div className={styles.btnContainer}>
         <div className={styles.btnSubCon}><ProfileBtn></ProfileBtn></div>
         <div className={styles.btnSubCon}><BookingBtn></BookingBtn></div>
+        <div className={styles.btnSubCon}><BookMarkBtn></BookMarkBtn></div>
         <div className={styles.btnSubCon}><SignOut></SignOut></div>
       </div>
       <div className={styles.displayArea}>
