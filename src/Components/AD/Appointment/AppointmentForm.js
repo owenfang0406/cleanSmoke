@@ -155,20 +155,6 @@ function AppointmentForm({
                 ></input>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Phone: </label>
-                <input className={styles.inputs} type="text"
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Ex 0912345678"
-                ></input>
-            </div>
-            <div className={styles.inputCon}>
-                <label className={styles.labels}>Participant: </label>
-                <input className={styles.inputs} type="number"
-                onChange={(e) => setParticipant(e.target.value)}
-                placeholder="Ex 2"
-                ></input>
-            </div>
-            <div className={styles.inputCon}>
                 <label>photographer: </label>
                 <input 
                 onFocus={handleInputFocus}
@@ -191,11 +177,25 @@ function AppointmentForm({
                         className={styles.queryBox}
                         onClick={(e) => handleSelectChange(photographer, e)}
                         >
-                            <img src={photographer.avatarURL} className="w-6 h-6"></img>
+                            <img src={photographer.avatarURL} className="w-6 h-6 mr-4"></img>
                             <span>{photographer.name}</span>
                         </div>
                     ))}
                 </div>)}
+            </div>
+            <div className={styles.inputCon}>
+                <label className={styles.labels}>Phone: </label>
+                <input className={styles.inputs} type="text"
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Ex 0912345678"
+                ></input>
+            </div>
+            <div className={styles.inputCon}>
+                <label className={styles.labels}>Participant: </label>
+                <input className={styles.inputs} type="number"
+                onChange={(e) => setParticipant(e.target.value)}
+                placeholder="Ex 2"
+                ></input>
             </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Price: </label>

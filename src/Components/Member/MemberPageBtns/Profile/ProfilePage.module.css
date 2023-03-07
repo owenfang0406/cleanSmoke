@@ -131,3 +131,9 @@
     text-decoration: none;
     color: var(--secondaryColorx);
 }
+
+@media (max-width: 768px) { 
+    .infoListCon {
+        max-width: 100%;
+    }
+}

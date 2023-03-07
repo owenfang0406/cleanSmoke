@@ -72,7 +72,7 @@ function BookMark() {
     };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pb-60">
         {savedPosts && savedPosts.map((post) => (
             <SavedPost
               removeSavedPost={() => removeSavedPost(post.PostId)}
