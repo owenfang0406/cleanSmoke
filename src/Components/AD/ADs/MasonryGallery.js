@@ -9,12 +9,12 @@ import PostModal from './PostModal';
 import { db } from '../../firebase-config';
 import { collection, onSnapshot, orderBy, query, getDocs } from 'firebase/firestore';
 
-const ArrowLeft = styled.div`
-  width: 30px;
-  height: 30px;
-  color: white;
-  border-radius: 5px;
-`
+// const ArrowLeft = styled.div`
+//   width: 30px;
+//   height: 30px;
+//   color: white;
+//   border-radius: 5px;
+// `
 
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
@@ -59,10 +59,10 @@ function MasonryGallery() {
   const showImgPage = (image, i) => {
     setOpen(true);
     setClickedImgID(i)
-    console.log(clickedImgID)
-    console.log(collectionPosts)
-    const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
-    console.log(postToShow)
+    // console.log(clickedImgID)
+    // console.log(collectionPosts)
+    // const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
+    // console.log(postToShow)
   }
 
   

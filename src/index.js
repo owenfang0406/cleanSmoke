@@ -99,6 +99,7 @@ const Index = () => {
     email: '',
     avatarURL: '',
     uid: '',
+    photographer: '',
   })
   const [postModalOpen, setPostModalOpen] = useState(false)
   const [orders, setOrders] = useState([]);
@@ -140,8 +141,8 @@ const Index = () => {
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
         console.log(profiles.data().Profiles)
-        const { birth, name, gender, email, avatarURL, uid } = profiles.data().Profiles;
-        console.log(birth, name, gender, email, avatarURL);
+        const { birth, name, gender, email, avatarURL, uid, photographer } = profiles.data().Profiles;
+        // console.log(birth, name, gender, email, avatarURL);
         setProfiles(
           {
             birth: birth,
@@ -150,6 +151,7 @@ const Index = () => {
             email: email,
             avatarURL: avatarURL,
             uid: uid,
+            photographer: photographer,
           }
         )
         // console.log(profiles)

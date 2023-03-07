@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {UserContext} from "../../../index";
-import { BsThreeDots } from "react-icons/bs"
+import { BsThreeDots, BsCamera2 } from "react-icons/bs"
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import { BookmarkIcon as BookmarkIconFilled } from '@heroicons/react/24/solid'
@@ -9,7 +9,7 @@ import { addDoc, collection, serverTimestamp, onSnapshot, query, orderBy, setDoc
 import { db } from '../../firebase-config';
 import Moment from 'react-moment';
 
-function Post({username, img , id, userImg, caption}) {
+function Post({username, photographer, img, id, userImg, caption}) {
    const { authUser, userSignOut, avatarURL, profiles, setPostModalOpen, postModalOpen, toggleModal } = useContext(UserContext);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
@@ -100,6 +100,7 @@ function Post({username, img , id, userImg, caption}) {
     id={id}
     >     <div className='flex flex-wrap'>
             <div className="flex items-center p-5 w-full h-[10%]">
+                {photographer && <BsCamera2 className="h-5 w-5 mr-2"></BsCamera2>}
                 <img src={userImg}
                 className="rounded-full object-cover h-12 w-12 border p-1 mr-3"
                 ></img>

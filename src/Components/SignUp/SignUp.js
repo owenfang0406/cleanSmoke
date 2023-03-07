@@ -15,6 +15,7 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const [isPhotographer, setIsPhotographer] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,8 +29,9 @@ function SignUp() {
                         name: 'user',
                         birth: '1911-01-01',
                         gender: 'Non-binary',
-                        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FDefaultIcon.jpeg?alt=media&token=3d2124b6-cb9e-4093-8374-9738bd2c6b53',
+                        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2Fuser.png?alt=media&token=94360920-a87a-48cb-8222-0b3f66b36bb5',
                         uid: userCredential.user.uid,
+                        photographer:isPhotographer,
                     }
                     setDoc(updatedRef,
                         {Profiles:DefaultProfilesObject},
@@ -62,11 +64,16 @@ function SignUp() {
                     <label className={styles.password}>Password</label>
                     <input className={styles.emailInput} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter your password" value={password}></input>
                 </div>
+                <div className={styles.signUpIdentityCon}>
+                    <button type="button" className={`${styles.identityBtn} ${!isPhotographer ? styles.isPhotographer : ""}`} onClick={() => setIsPhotographer(false)}>User</button>
+                    <button type="button" className={`${styles.identityBtn} ${isPhotographer ? styles.isPhotographer : ""}`} onClick={() => setIsPhotographer(true)}>Photog</button>
+                </div>
+                <div className={styles.notes}>*Register as a photog enables clients to appoint with you here</div>
                 <div className={styles.btnCon}>
                     <button className={styles.signupBtn} type='submit'>Sign Up</button>
                 </div>
-                <div className={styles.signinOptions}>
-                    {/* <div className={styles.google}>
+                {/* <div className={styles.signinOptions}>
+                    <div className={styles.google}>
                         <img className={styles.icon} src={require('./google.png')}></img><span>Sign up with Google</span>
                     </div>
                     <div className={styles.google}>
@@ -74,8 +81,8 @@ function SignUp() {
                     </div>
                     <div className={styles.google}>
                     <img className={styles.icon} src={require('./twitter.png')}></img><span>Sign up with Twitter</span>
-                    </div> */}
-                </div>
+                    </div>
+                </div> */}
                 <div id='errormsg' className={styles.err}>
                     {error && <div>{error}</div>} 
                 </div>

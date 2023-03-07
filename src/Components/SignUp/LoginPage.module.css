@@ -90,6 +90,32 @@
     
 }
 
+.signUpIdentityCon {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.identityBtn {
+    font-size: 20px;
+    width: 50%;
+    color: var(--mainColor);
+    border-radius: 10px;
+}
+
+.isPhotographer {
+    color: white;
+    background-color: var(--mainColor);
+}
+
+.notes {
+    font-weight: 500;
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 30px;
+}
+
 .err {
     color: var(--mainColor);
     font-weight: bolder;

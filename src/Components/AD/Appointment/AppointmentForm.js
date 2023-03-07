@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import styles from "./AppointmentForm.module.css"
 import { Link } from 'react-router-dom'
 import Pay from '../Pay/Pay';
 import { UserContext } from "../../../index";
 import { db } from '../../firebase-config';
-import { doc, setDoc, collection, addDoc, updateDoc,arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, updateDoc, arrayUnion, getDocs, where, query } from 'firebase/firestore';
 import { v4 } from 'uuid';
 import PayForm from './PayForm';
 import { MdOutlineClose } from "react-icons/md";
@@ -18,10 +18,70 @@ function AppointmentForm({
     }) {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
     const { authUser, profiles, orders, handleRefreshOrders } = useContext(UserContext);
-    const [phone, setPhone] = useState(null)
+    const [phone, setPhone] = useState(null);
     const [showPage1, setShowPage1] = useState(true);
-    const ShouldShowPage2 = showPage1
+    const ShouldShowPage2 = showPage1;
     const [participants, setParticipant] = useState(0);
+    const [photographers, setPhotographers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [selectedPhotographerId, setSelectedPhotographerId] = useState("");
+    const [selectedPhotographer, setSelectedPhotographer] = useState(null);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null)
+    const inputRef = useRef(null);
+
+    const handleInputFocus = () => {
+        setShowDropdown(true);
+      };
+      
+      const handleInputBlur = () => {
+        setShowDropdown(false);
+      };
+    
+    const findPhotographer = async () => {
+        setPhotographers([]);
+        let q = collection(db, "users");
+        q = query(q, where("Profiles.photographer", "==", true));
+        const querySnapshot = await getDocs(q);
+        const photographerData = querySnapshot.docs.map((doc) => doc.data().Profiles);
+        setPhotographers(photographerData);
+        console.log(photographers)
+      };
+
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value)
+    }
+      
+    const filteredPhotographers = photographers.filter((photographer) =>
+        photographer.name.toLowerCase().includes(searchTerm.toLowerCase()))
+
+    useEffect(() => {
+        findPhotographer();
+    }, [])
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+          inputRef.current &&!inputRef.current.contains(event.target)
+          ) {
+            setShowDropdown(false);
+          }
+        };
+      
+        document.addEventListener("click", handleClickOutside);
+      
+        return () => {
+          document.removeEventListener("click", handleClickOutside);
+        };
+      }, [dropdownRef]);
+
+    const handleSelectChange = (photographer, event) => {
+        setSelectedPhotographer(photographer);
+        setSearchTerm(photographer.name);
+        setShowDropdown(false);
+        event.stopPropagation()
+    }
+
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
         SetSelectedPrice(event.target.value);
@@ -43,11 +103,6 @@ function AppointmentForm({
         e.preventDefault();
         const OrderID = v4();
         const OrderRef = collection(db, "users", `${authUser.uid}`, "Orders");
-        // let OrdersArray = [];
-        // if (orders && orders.length > 0) {
-        //     OrdersArray = Object.values(orders);
-        // }
-        console.log(orders);
         const OrdersObject = {
             OrderID: OrderID,
             Date: selectedDate,
@@ -56,6 +111,7 @@ function AppointmentForm({
             Phone: phone,
             Participants: participants,
             Price: selectedPrice,
+            PhotographerData: selectedPhotographer,
             Payment:false,
             }
         ;
@@ -102,13 +158,44 @@ function AppointmentForm({
                 <label className={styles.labels}>Phone: </label>
                 <input className={styles.inputs} type="text"
                 onChange={(e) => setPhone(e.target.value)}
+                placeholder="Ex 0912345678"
                 ></input>
             </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Participant: </label>
                 <input className={styles.inputs} type="number"
                 onChange={(e) => setParticipant(e.target.value)}
+                placeholder="Ex 2"
                 ></input>
+            </div>
+            <div className={styles.inputCon}>
+                <label>photographer: </label>
+                <input 
+                onFocus={handleInputFocus}
+                // onBlur={handleInputBlur}
+                ref={inputRef}
+                className={styles.inputs} 
+                value={searchTerm} 
+                type="text" 
+                placeholder='Search Photographer' 
+                onChange={(e) => handleInputChange(e)}>
+                </input>
+
+                {showDropdown && (<div className={styles.searchDropDown}
+                ref={dropdownRef}
+                >
+                    {filteredPhotographers.map((photographer) => (
+                        <div 
+                        key={photographer.uid} 
+                        value={photographer.uid} 
+                        className={styles.queryBox}
+                        onClick={(e) => handleSelectChange(photographer, e)}
+                        >
+                            <img src={photographer.avatarURL} className="w-6 h-6"></img>
+                            <span>{photographer.name}</span>
+                        </div>
+                    ))}
+                </div>)}
             </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Price: </label>
