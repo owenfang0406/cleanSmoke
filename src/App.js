@@ -9,6 +9,7 @@ import IndexShowcase from './Components/IndexShowcase/IndexShowcase.js';
 import CSSParallax from './Components/Parallax/CSSParallax';
 import PricingMenu from './Components/AD/Pricing/PricingMenu';
 import HomePage from './Components/HomePage/HomePage';
+import BottomBar from './Components/NavBar/BottomBar';
 
 
 // export const UserContext = createContext({});
@@ -67,10 +68,8 @@ const containerStyles = {
         <div className="scrollbar-none">
           <NavBar parentWidth={viewportWidth}></NavBar>
           <HomePage></HomePage>
-          {/* <div ref={footerRef} style={{ height:"80px", display: showFooter ? 'block' : 'none' }}>
-          <Footer></Footer>
-          </div> */}
         </div>
+        <BottomBar></BottomBar>
       </React.Fragment>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
 import styles from "./ChatRoom.module.css"
 import { db } from "../firebase-config"
 import { collection, doc, getDocs, query, serverTimestamp, setDoc, updateDoc, where, getDoc } from 'firebase/firestore'
@@ -9,11 +9,19 @@ function Search() {
   const [user, setUser] = useState([])
   const [err, setErr] = useState(false)
   const { profiles } = useContext(UserContext);
+  const [showUserQuery, setShowUserQuery] = useState(false);
+  const searchRef = useRef();
 
 
   const handleSearch = async(e) => {
+    setShowUserQuery(true)
     setUsername(()=>e.target.value)
-    const q = query(collection(db, 'users'), where("Profiles.name", "==", e.target.value))
+    // const q = query(collection(db, 'users'), where("Profiles.name", "==", e.target.value))
+    const q = query(
+      collection(db, "users"),
+      where("Profiles.name", ">=", e.target.value),
+      where("Profiles.name", "<=", e.target.value + "\uf8ff")
+    );
     
     try {
       setUser([]);
@@ -80,12 +88,29 @@ function Search() {
 
     setUser([]);
     setUsername("");
+    setShowUserQuery(false);
     //create userChats for both
   }
 
   // console.log(profiles.uid)
+  const handleClickOutside = (e) => {
+    if (searchRef.current && !searchRef.current.contains(e.target)) {
+      if (e.target.classList.contains(styles.searchFormInput)) {
+        setShowUserQuery(true);
+      } else {
+        setShowUserQuery(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
-    <div className={styles.search}>
+    <div ref={searchRef} className={styles.search}>
         <div className={styles.searchForm}>
             <input className={styles.searchFormInput} type="text"
              placeholder='find a user'
@@ -99,7 +124,7 @@ function Search() {
         <div>
         {err && <span>User not found!</span>}
         </div>
-        <div className={styles.userQueryCon}>
+        {showUserQuery && <div className={styles.userQueryCon}>
           {user && user.map((user) => 
               (<div className={styles.userQueryUserChat} onClick={
                 ()=>{
@@ -112,7 +137,7 @@ function Search() {
                   <span>{user.name}</span>
               </div>
           </div>))}
-        </div>
+        </div>}
     </div>
   )
 }

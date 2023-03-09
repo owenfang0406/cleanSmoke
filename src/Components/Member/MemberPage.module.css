@@ -51,6 +51,7 @@
         right: 0px;
         left: 0px;
         display: inline-flex;
+        box-shadow: 1px 1px 25px gray;
     }
     .displayArea {
         width: 100%;

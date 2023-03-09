@@ -8,10 +8,13 @@ import ProfileBtn from './MemberPageBtns/ProfileBtn';
 import BookingBtn from './MemberPageBtns/BookingBtn';
 import BookMarkBtn from './MemberPageBtns/BookMarkBtn';
 import { Outlet } from 'react-router-dom';
+import BottomBar from '../NavBar/BottomBar';
+import { useMediaQuery } from 'react-responsive';
 
 
 function MemberPage() {
   const { authUser, userSignOut } = useContext(UserContext);
+  const isSmall = useMediaQuery({maxWidth: 700});
   // console.log(userSignOut)
   // if (authUser) {
   //   console.log(authUser)
@@ -30,7 +33,8 @@ function MemberPage() {
         <Outlet></Outlet>
       </div>
     </div>
-    <Footer/>
+    <BottomBar></BottomBar>
+    {!isSmall && <Footer></Footer>}
     </>
   )
 }

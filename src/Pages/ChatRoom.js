@@ -5,9 +5,12 @@ import Comments from "../Components/AD/Comment/Comments"
 import Sidebar from "../Components/Chat/SideBar"
 import Chat from "../Components/Chat/Chat"
 import styles from "./ChatRoom.module.css"
+import BottomBar from '../Components/NavBar/BottomBar'
+import { useMediaQuery } from 'react-responsive';
 
 function ChatRoom() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const isSmall = useMediaQuery({maxWidth: 700});
   // const [isResizing, setIsResizing] = useState(false)
   // const [lastX, setLastX] = useState(null)
   // const [leftWidth, setLeftWidth] = useState(300)
@@ -62,7 +65,8 @@ function ChatRoom() {
         <Chat isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Chat>
       </div>
     </div>
-    <Footer></Footer>
+    <BottomBar></BottomBar>
+    {!isSmall && <Footer></Footer>}
     </>
   )
 }

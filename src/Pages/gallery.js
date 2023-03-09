@@ -8,8 +8,11 @@ import MasonryGallery from '../Components/AD/ADs/MasonryGallery'
 import PayForm from '../Components/AD/Appointment/PayForm'
 import { UserCircleIcon } from "@heroicons/react/24/solid"
 import PostModal from '../Components/AD/ADs/PostModal'
+import { useMediaQuery } from 'react-responsive';
+import BottomBar from '../Components/NavBar/BottomBar'
 
 function Gallery() {
+  const isSmall = useMediaQuery({maxWidth: 700});
   return (
     <>
     <NavBar></NavBar>
@@ -21,7 +24,8 @@ function Gallery() {
     <Link to="/gallery/next"><button>go to next page</button></Link>
     <br></br>
     <Outlet></Outlet> */}
-    <Footer></Footer>
+    <BottomBar></BottomBar>
+    {!isSmall && <Footer></Footer>}
     </>
   )
 }
