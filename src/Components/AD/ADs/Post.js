@@ -113,7 +113,7 @@ function Post({username, photographer, img, id, userImg, caption}) {
             </div>
         </div>
 
-        <div className="w-full bg-white h-full md:w-[40%] md:hidden">
+        <div className="w-full bg-white h-[30%] md:w-[40%] md:hidden">
             {authUser && (<div className="flex justify-between px-4 pt-4">
                 <div className="flex space-x-4">
                     {
@@ -121,7 +121,7 @@ function Post({username, photographer, img, id, userImg, caption}) {
                         : (<HeartIcon onClick={likePost} className="btn"></HeartIcon>)
                     }
                     <PaperAirplaneIcon className="btn"></PaperAirplaneIcon>
-                    <ChatBubbleOvalLeftEllipsisIcon className="btn"></ChatBubbleOvalLeftEllipsisIcon>
+                    {/* <ChatBubbleOvalLeftEllipsisIcon className="btn"></ChatBubbleOvalLeftEllipsisIcon> */}
                 </div>
                 { hasSaved ? (<BookmarkIconFilled className="btn" onClick={savePost}></BookmarkIconFilled>) 
                 : (<BookmarkIcon className="btn" onClick={savePost}></BookmarkIcon>) }
@@ -156,7 +156,8 @@ function Post({username, photographer, img, id, userImg, caption}) {
             )}
 
         {authUser && (<form className="flex items-center p-4 overflow-y-scroll">
-                <FaceSmileIcon className="h-7"></FaceSmileIcon>
+                {/* <FaceSmileIcon className="h-7"></FaceSmileIcon> */}
+                <img className="h-7 w-7 rounded-full" src={profiles.avatarURL}></img>
                 <input type="text" 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
@@ -214,9 +215,7 @@ function Post({username, photographer, img, id, userImg, caption}) {
             )}
 
         {authUser && (<form className="flex items-center p-4 overflow-y-scroll">
-                <img src={profiles.avatarURL}
-                className="rounded-full object-cover h-12 w-12 p-1 mr-3"
-                ></img>
+                <img className="h-9 w-9 rounded-full" src={profiles.avatarURL}></img>
                 <input type="text" 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}

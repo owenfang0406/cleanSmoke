@@ -16,7 +16,7 @@ function AppointmentForm({
     setSelectedOption,
     toggleAppointmentForm
     }) {
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0,10));
     const { authUser, profiles, orders, handleRefreshOrders } = useContext(UserContext);
     const [phone, setPhone] = useState(null);
     const [showPage1, setShowPage1] = useState(true);
@@ -29,6 +29,16 @@ function AppointmentForm({
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null)
     const inputRef = useRef(null);
+    const [isFormDataValid, setIsFormDataValid] = useState(false);
+
+
+    useEffect(() => {
+        const isNameValid = participants > 0;
+        const regex = /^[0-9]{10,}$/;
+        const isNumber = regex.test(phone);
+        const isPhotographer = selectedPhotographer != null;
+        setIsFormDataValid(isNameValid && isNumber && isPhotographer);
+      }, [participants, phone, selectedPhotographer]);
 
     const handleInputFocus = () => {
         setShowDropdown(true);
@@ -164,7 +174,9 @@ function AppointmentForm({
                 value={searchTerm} 
                 type="text" 
                 placeholder='Search Photographer' 
-                onChange={(e) => handleInputChange(e)}>
+                onChange={(e) => {
+                    handleInputChange(e)
+                    }}>
                 </input>
 
                 {showDropdown && (<div className={styles.searchDropDown}
@@ -186,14 +198,18 @@ function AppointmentForm({
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Phone: </label>
                 <input className={styles.inputs} type="text"
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                    setPhone(e.target.value)}}
                 placeholder="Ex 0912345678"
+                value={phone}
                 ></input>
             </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Participant: </label>
                 <input className={styles.inputs} type="number"
-                onChange={(e) => setParticipant(e.target.value)}
+                value={participants}
+                onChange={(e) => {
+                    setParticipant(e.target.value)}}
                 placeholder="Ex 2"
                 ></input>
             </div>
@@ -202,18 +218,42 @@ function AppointmentForm({
                 <input className={styles.inputs} type="text" value={selectedPrice} disabled></input>
             </div>
             <div className={styles.buttonCon}>
-                <button onClick={goToPayPage} className={styles.submitButton} type='button'>Pay</button>
+                <button onClick={goToPayPage} className={styles.submitButton} type='button' disabled={!isFormDataValid}>Next</button>
             </div>
         </form>) :
         (
-             <form className={styles.FormCon} onSubmit={handlePayFormSubmit}>
-                <div className={styles.formHeader}>Payment Form
+             <form className={styles.confirmFormCon} onSubmit={handlePayFormSubmit}>
+                <div className={styles.formHeader}>
                 <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
                 </div>
-                <PayForm></PayForm>
+                <div className={styles.dataPreviewCon}>
+                    <div className={styles.title}>Your Order Information</div>
+                    <div>
+                        Option: {selectedOption}
+                    </div>
+                    <div>
+                        Date: {selectedDate}
+                    </div>
+                    <div>
+                        Price: {selectedPrice}
+                    </div>
+                    <div>
+                        Phone Number: {phone}
+                    </div>
+                    <div>
+                        Photographer Name: {selectedPhotographer?.name}
+                    </div>
+                    <div>
+                        Photographer E-mail: {selectedPhotographer?.email}
+                    </div>
+                </div>
+                {/* <div className={styles.checkBox}>
+                    <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+                    <label htmlFor="checkbox">I have reviewed and agree to the terms and conditions</label>
+                </div> */}
                 <div className={styles.buttonCon}>
                 <button onClick={handleBackButtonClick} className={styles.submitButton} type='button'>Back</button>
-                <button className={styles.submitButton} type="submit">Pay</button>
+                <button className={styles.submitButton} type="submit" >Confirm</button>
                 </div>
             </form>
         )}

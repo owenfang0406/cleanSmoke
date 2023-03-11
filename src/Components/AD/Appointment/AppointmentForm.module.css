@@ -25,6 +25,20 @@
     padding-top: 100px;
 }
 
+.confirmFormCon {
+  position: relative;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  height: 80%;
+  box-shadow: 0 8px 14px -6px black;
+  transform: 0.4s ease-in-out;
+  padding-top: 100px;
+}
+
 .FormCon:hover {
     box-shadow: 0 8px 26px -6px black;
 }
@@ -153,6 +167,11 @@
     cursor: pointer;
 }
 
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
 .fadeIn {
     animation: fadeIn ease-in 0.5s;
     animation-fill-mode: forwards;
@@ -162,6 +181,17 @@
     animation: fadeOut ease-out 0.5s;
     animation-fill-mode: forwards;
   }
+
+.dataPreviewCon {
+  position: relative;
+  max-width: 90%;
+  /* border: 1px solid #777474; */
+  top: 0%;
+}
+
+.title {
+  border-bottom: 2px solid #777474;
+}
   
 @keyframes fadeIn {
     0% {
@@ -188,6 +218,12 @@
   }
 
   @media (max-width: 768px) {
+    .confirmFormCon {
+      width: 90%;
+      height: 90%;
+      padding-top: 200px;
+      justify-content: flex-start;
+    }
     .FormCon {
       width: 90%;
       height: 90%;
@@ -197,18 +233,22 @@
       font-size: 28px;
     }
     .inputCon {
-      flex-direction: column;
-      align-items: flex-start;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       width: 100%;
+      padding-left: 30px;
     }
     .labels {
       margin: 10px 0;
     }
     .inputs {
-      width: 100%;
+      width: 50%
     }
     .buttonCon {
-      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
       align-items: center;
       margin: 20px 0;
     }
@@ -217,8 +257,8 @@
     }
 
     .searchDropDown{
-      top: 100px;
-      left: 0px;
+      top: 50px;
+      left: 30px;
       right: inherit;
     }
   }

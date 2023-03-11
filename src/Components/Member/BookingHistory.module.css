@@ -38,12 +38,13 @@
     height: 30px;
     font-size: 38px;
     padding-bottom: 10px;
+    transform: translateY(-10px);
     /* background-color: bisque; */
 }
 
 .dropDownCon {
-    border-left: 5px grey solid;
-    padding-left: 10px;
+    /* border-left: 5px grey solid; */
+    /* padding-left: 10px; */
     margin: 30px 0px;
     width: 100%;
     position: relative;
@@ -52,6 +53,14 @@
     transform: scale(0.8);
     transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
 
+}
+
+.cancelBtn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    cursor: pointer;
+    font-size: 30px;
 }
 
 .dropDownCon.open {
@@ -76,6 +85,32 @@
       transform: scale(1);
     }
   }
+.clientInfoCon{
+  border-left: 5px grey solid;
+  padding-left: 10px;
+}
+
+.photogInfoCon {
+    border-left: 5px var(--mainColor) solid;
+    padding-left: 10px;
+}
+
+.photogTitle {
+    display: flex;
+}
+
+.photogAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.photogInfo {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
 
 .batchOperationBtnCon {
     width: 80%;
@@ -123,9 +158,9 @@
     font-weight: bold;
 }
 
-.tds {
+/* .tds {
     text-align: center;
-}
+} */
 
 .tdHeader {
     text-align: center;
