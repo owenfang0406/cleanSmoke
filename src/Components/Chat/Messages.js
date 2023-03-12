@@ -10,10 +10,10 @@ import { UserContext } from '../../index'
 function Messages({ setShowDeletePopup, showDeletePopup }) {
   const { profiles } = useContext(UserContext)
   const [messages, setMessages] = useState([])
-  const { data } = useContext(ChatContext)
+  const { data, dispatch } = useContext(ChatContext)
   const Disclaimer = "Your chat history will be permanently deleted, Are you going to proceed?"
   const [ isDeleting, setIsDeleting] = useState(false)
-  console.log(data)
+  // console.log(data)
  
   const DeleteChatHistory = async() => {
     if(!isDeleting){
@@ -28,12 +28,14 @@ function Messages({ setShowDeletePopup, showDeletePopup }) {
         }),
       ]);
       setIsDeleting(false);
+      dispatch({type:"RESET"})
+      setMessages([])
       // setMessages([]);
     }
   }
 
- console.log(data)
- console.log(messages)
+//  console.log(data)
+//  console.log(messages)
   useEffect(() => {
     let unSub
     if(data.chatId) {

@@ -26,4 +26,37 @@
 
 .displayArea {
     width: 90%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .btnSubCon {
+        margin-bottom: inherit;
+    }
+
+    .btnContainer {
+        background-color: white;
+        padding: 20px 10px;
+        z-index: 1;
+        position: sticky;
+        height: calc(15%);
+        width: 100%;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        display: inline-flex;
+        box-shadow: 1px 1px 25px gray;
+    }
+    .displayArea {
+        width: 100%;
+        /* overflow-y: scroll;
+        height: 100vh; */
+    }
+    
 }

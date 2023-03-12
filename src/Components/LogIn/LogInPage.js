@@ -8,8 +8,8 @@ import styles from "./LoginPage.module.css";
 
 function SignIn() {
     const [showSignUp, setShowSignUp] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("test1005@gmail.com");
+    const [password, setPassword] = useState("123456789");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -41,7 +41,9 @@ function SignIn() {
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.emailContainer}>
                     <label className={styles.email}>Email Address</label>
-                    <input className={styles.emailInput} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email"></input>
+                    <input className={styles.emailInput} 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email"></input>
                 </div>
                 <div>
                     <label className={styles.password}>Password</label>

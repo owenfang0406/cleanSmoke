@@ -204,8 +204,7 @@ function Works() {
                     <Subtitle>What we can provide</Subtitle>
                     </WhatWeDo>
                     <Desc>
-                    Ensure that you look and f
-                    eel your best in front of the camera.
+                    Ensure that you look and feel your best in front of the camera.
                     </Desc>
                     {/* <List>
                         {data.map(item => (

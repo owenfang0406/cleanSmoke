@@ -4,11 +4,12 @@ import { ChatContext } from '../AuthContext/ChatContext'
 import "./Message.scss"
 import Moment from 'react-moment'
 import 'moment-timezone';
+import styles from "./ChatRoom.module.css"
 
 function Message({message}) {
-  console.log(message)
-  const { profiles } = useContext(UserContext)
-  const { data } = useContext(ChatContext)
+  // console.log(message)
+  const { profiles } = useContext(UserContext);
+  const { data } = useContext(ChatContext);
   const ref = useRef();
 
   const unixTimestamp = message.data.toMillis()/1000;
@@ -26,10 +27,10 @@ function Message({message}) {
             src={message.senderId === profiles.uid ? profiles.avatarURL : data.user.avatarURL}
             alt=""
             ></img>
-            <Moment unix fromNow>{unixTimestamp}</Moment>
+            <Moment className={styles.MsgTime} unix fromNow>{unixTimestamp}</Moment>
         </div>
         <div className="messageContent">
-            <p className="">{message.text}</p>
+            <p className={styles.msgText}>{message.text}</p>
             {message.img && <img
             src={message.img}
             alt=""

@@ -11,7 +11,7 @@ function AvatarUpload() {
   const [imageUpload, setImageUpload] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewURl] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("No image selected");
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0])
     const reader = new FileReader();
@@ -34,7 +34,7 @@ function AvatarUpload() {
     list(folderRef).then((res)=>{
       if (res.items.length === 0) {
         uploadBytes(imageRef, imageUpload).then(()=>{
-          alert("imgUploaded")
+          // alert("imgUploaded")
           getDownloadURL(imageRef).then((downloadURl) =>{
             setDoc(dbRef,
             {Profiles:{
@@ -47,11 +47,12 @@ function AvatarUpload() {
               ...profiles,
               avatarURL: downloadURl,
             });
-            alert("url: " + downloadURl);
+            // alert("url: " + downloadURl);
             setImageUpload(null);
             setSelectedFile(null);
             setPreviewURl(null);
-            setError("");
+            // setError("");
+            setError("Upload Successfully")
           })
         })
         return
@@ -60,7 +61,7 @@ function AvatarUpload() {
         deleteObject(itemRef).then(()=>{
           console.log("Old image deleted.");
           uploadBytes(imageRef, imageUpload).then(()=>{
-            alert("imgUploaded")
+            // alert("imgUploaded")
             getDownloadURL(imageRef).then((downloadURl) =>{
               setDoc(dbRef,
                 {Profiles:{
@@ -73,11 +74,12 @@ function AvatarUpload() {
                 ...profiles,
                 avatarURL: downloadURl,
               });
-              alert("url: " + downloadURl);
+              // alert("url: " + downloadURl);
               setImageUpload(null);
               setSelectedFile(null);
               setPreviewURl(null);
-              setError("");
+              // setError("");
+              setError("Upload Successfully")
             })
           })
         })
@@ -97,7 +99,7 @@ function AvatarUpload() {
         ) : (
           <div className={styles.wrapper}>
             <div className={styles.previewCon}>
-              <div className={styles.previewText}>No image selected</div>
+              <div className={styles.previewText}>{error}</div>
             </div>
         </div>
         )}
@@ -109,7 +111,7 @@ function AvatarUpload() {
               handleFileChange(e);
               }}></input>
           </label>
-          {error !== "" && <div className={styles.errorMsg}>{error}</div>}
+          {/* {error !== "" && <div className={styles.errorMsg}>{error}</div>} */}
           <button type='submit' className={styles.submitBtn} onClick={uploadImage}>
             <span className={styles.submitStr}>Submit</span>
           </button>

@@ -20,6 +20,8 @@ import Appointment from './Pages/Appointment';
 import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
 import { ChatContextProvider } from './Components/AuthContext/ChatContext';
+import BookMark from './Components/Member/BookMark';
+import PostsContainer from './Components/AD/ADs/PostsContainer';
 
 
 
@@ -36,8 +38,8 @@ const router = createBrowserRouter(
       element: <Gallery/>,
       children: [
         {
-          path: "next",
-          element: <Newpage/>,
+          path: ":ID",
+          element: <PostsContainer/>,
         },
       ],
     },
@@ -64,6 +66,10 @@ const router = createBrowserRouter(
         {
           path: "updateAvatar",
           element:<AvatarUpload/>,
+        },
+        {
+          path: "SavedPosts",
+          element: <BookMark/>,
         }
       ]
     },
@@ -94,6 +100,7 @@ const Index = () => {
     email: '',
     avatarURL: '',
     uid: '',
+    photographer: '',
   })
   const [postModalOpen, setPostModalOpen] = useState(false)
   const [orders, setOrders] = useState([]);
@@ -135,8 +142,8 @@ const Index = () => {
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
         console.log(profiles.data().Profiles)
-        const { birth, name, gender, email, avatarURL, uid } = profiles.data().Profiles;
-        console.log(birth, name, gender, email, avatarURL);
+        const { birth, name, gender, email, avatarURL, uid, photographer } = profiles.data().Profiles;
+        // console.log(birth, name, gender, email, avatarURL);
         setProfiles(
           {
             birth: birth,
@@ -145,6 +152,7 @@ const Index = () => {
             email: email,
             avatarURL: avatarURL,
             uid: uid,
+            photographer: photographer,
           }
         )
         // console.log(profiles)

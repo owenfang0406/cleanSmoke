@@ -25,6 +25,7 @@ function PostModal() {
 
         const docRef = await addDoc(collection(db, 'posts'), {
             username: profiles.name,
+            photographer: profiles.photographer,
             caption: captionRef.current.value,
             profileImg: profiles.avatarURL,
             timestamp: serverTimestamp(),

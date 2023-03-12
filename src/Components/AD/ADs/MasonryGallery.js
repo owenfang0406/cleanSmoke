@@ -8,19 +8,21 @@ import PostsContainer from './PostsContainer';
 import PostModal from './PostModal';
 import { db } from '../../firebase-config';
 import { collection, onSnapshot, orderBy, query, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
-const ArrowLeft = styled.div`
-  width: 30px;
-  height: 30px;
-  color: white;
-  border-radius: 5px;
-`
+// const ArrowLeft = styled.div`
+//   width: 30px;
+//   height: 30px;
+//   color: white;
+//   border-radius: 5px;
+// `
 
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState([])
   const [collectionPosts, setCollectionPosts] = useState([])
   const [clickedImgID, setClickedImgID] = useState("")
+  const navigate = useNavigate()
 
   useEffect(() => {
     const unsubscribe = onSnapshot(query(collection(db, 'posts'), orderBy('timestamp', 'desc')), snapshot => {
@@ -58,11 +60,12 @@ function MasonryGallery() {
 
   const showImgPage = (image, i) => {
     setOpen(true);
-    setClickedImgID(i)
-    console.log(clickedImgID)
-    console.log(collectionPosts)
-    const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
-    console.log(postToShow)
+    setClickedImgID(i);
+    navigate(`/gallery/${i}`);
+    // console.log(clickedImgID)
+    // console.log(collectionPosts)
+    // const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
+    // console.log(postToShow)
   }
 
   

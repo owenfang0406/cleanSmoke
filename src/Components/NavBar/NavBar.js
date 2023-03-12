@@ -12,7 +12,7 @@ import React, { useRef, useState, useContext } from 'react'
 function NavBar() {
     const { setPostModalOpen, authUser} = useContext(UserContext);
     const navRef = useRef();
-    const isSmall = useMediaQuery({maxWidth: 1000});
+    const isSmall = useMediaQuery({maxWidth: 700});
     const [isClicked, setIsClicked] = useState(false);
     const showNavBar = () => {
         setIsClicked(!isClicked);
@@ -47,38 +47,38 @@ function NavBar() {
             <button className={isSmall ? `${styles.navBtn} ${styles.smallNavBtn}` : `${styles.navBtn}`} onClick={showNavBar}>
                 <FaBars></FaBars>
             </button>
-            <div className="flex w-[150px] justify-between items-center bg-white-300 cursor-pointer">
+            {!isSmall && <div className="flex w-[150px] justify-between items-center bg-white-300 cursor-pointer">
                 {authUser ? (
                     <>
-                    <Link to="/gallery">
-                    <MdAddCircleOutline 
-                    onClick={() => setPostModalOpen(true)}
-                    className="w-[50px] text-4xl">
-                    </MdAddCircleOutline>
-                    </Link>
-                    <Link to="/chatting">
-                    <TbMessageCircle
-                    className="w-[50px] text-4xl"
-                    ></TbMessageCircle>
-                    </Link>
+                        <Link to="/gallery">
+                            <MdAddCircleOutline 
+                            onClick={() => setPostModalOpen(true)}
+                            className="w-[50px] text-4xl">
+                            </MdAddCircleOutline>
+                        </Link>
+                            <Link to="/chatting">
+                            <TbMessageCircle
+                            className="w-[50px] text-4xl"
+                            ></TbMessageCircle>
+                        </Link>
                     </>
                     ) : (
-                    <>
-                    <Link to="/login">
-                    <MdAddCircleOutline 
-                    className="w-[50px] text-4xl">
-                    </MdAddCircleOutline>
-                    </Link>
-                    <Link to="/login">
-                    <TbMessageCircle
-                    className="w-[50px] text-4xl"
-                    ></TbMessageCircle>
-                    </Link>
-                    </>
+                        <>
+                        <Link to="/login">
+                        <MdAddCircleOutline 
+                        className="w-[50px] text-4xl">
+                        </MdAddCircleOutline>
+                        </Link>
+                        <Link to="/login">
+                        <TbMessageCircle
+                        className="w-[50px] text-4xl"
+                        ></TbMessageCircle>
+                        </Link>
+                        </>
                 ) }
                 
                 <LogInButton></LogInButton>
-            </div>
+            </div>}
             </div>
         </header>
     );
