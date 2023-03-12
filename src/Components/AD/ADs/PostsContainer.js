@@ -5,15 +5,20 @@ import { MdClose } from 'react-icons/md';
 import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import Post from './Post';
+import { useParams } from 'react-router-dom';
+import { db } from '../../firebase-config';
+import { getDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 function PostsContainer({ posts, open, setOpen, clickedImgID }) {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [postToShow, setPostToShow] = useState(null);
   const containerRef = useRef(null);
-  const postToShow = posts.find((post) => post.id === clickedImgID)
+  const { ID } = useParams();
+  const navigate = useNavigate()
 
   const handleScroll = (event) => {
     setScrollPosition(event.target.scrollTop);
-    console.log(event)
   };
 
   useEffect(() => {
@@ -35,6 +40,27 @@ function PostsContainer({ posts, open, setOpen, clickedImgID }) {
     }
   }, [clickedImgID])
 
+  useEffect(() => {
+    if (clickedImgID) {
+      const post = posts.find((post) => post.id === clickedImgID);
+      setPostToShow(post);
+    } else if (ID) {
+      console.log(ID)
+      getDoc(doc(db, "posts", ID))
+        .then((doc) => {
+          if (doc.exists) {
+            setOpen(true)
+            setPostToShow(doc);
+          } else {
+            console.log("No such post found");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting post:", error);
+        });
+    }
+  }, [clickedImgID, ID, posts]);
+
 
     if(!open) return null
   return ReactDOM.createPortal (
@@ -44,7 +70,9 @@ function PostsContainer({ posts, open, setOpen, clickedImgID }) {
     >
       <MdClose
       className={styles.closeBtn}
-      onClick={()=>setOpen(false)}></MdClose>
+      onClick={()=> {
+        navigate("/gallery")
+        setOpen(false)}}></MdClose>
       <div className={`${styles.imgCon} overflow-y-scroll overflow-hidden`}>
         {postToShow && <Post
           key={postToShow.id}

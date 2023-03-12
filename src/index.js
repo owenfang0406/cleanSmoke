@@ -21,6 +21,7 @@ import Pay from './Components/AD/Pay/Pay';
 import BookingHistory from './Components/Member/BookingHistory';
 import { ChatContextProvider } from './Components/AuthContext/ChatContext';
 import BookMark from './Components/Member/BookMark';
+import PostsContainer from './Components/AD/ADs/PostsContainer';
 
 
 
@@ -37,8 +38,8 @@ const router = createBrowserRouter(
       element: <Gallery/>,
       children: [
         {
-          path: "next",
-          element: <Newpage/>,
+          path: ":ID",
+          element: <PostsContainer/>,
         },
       ],
     },
