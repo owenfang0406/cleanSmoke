@@ -21,6 +21,10 @@ Project Links: https://clearsome-d2515.web.app/
 ## Frontend Techniques
 <a id="frontendTechniques"></a>
 
+## Component Structure
+
+![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=e9f29c7f-bc6d-40cd-b6b6-e338594c5463)
+
 * React Router v6.9.0
     * RouterProvider
     * createBrowserRouter
@@ -50,10 +54,6 @@ Project Links: https://clearsome-d2515.web.app/
 
 ## Back-end Techniques (Firebase Cloud Service)
 <a id="backendtechniques"></a>
-
-## Component Structure
-
-![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=e9f29c7f-bc6d-40cd-b6b6-e338594c5463)
 
 
 ### Firebase Authentication
