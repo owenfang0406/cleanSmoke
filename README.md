@@ -7,7 +7,7 @@ Project Links: https://clearsome-d2515.web.app/
 
 ## Table of Contents 
 * [Introduction](#intro)
-* [Frontend Techniques]()
+* [Frontend Techniques](#FrontendTechniques)
 
 ## Main Feature
 
@@ -17,30 +17,32 @@ Project Links: https://clearsome-d2515.web.app/
 * Responsive Web Design (RWD) for desktop and mobile device.
 
 ## Frontend Techniques
-<style>
-  .sub-point {
-    background-color: gray;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 16px;
-  }
-</style>
+<a id="FrontendTechniques"></a>
 
 * React Router v6.9.0
-    * <span class="sub-point">RouterProvider</span>
-    * <span class="sub-point">createBrowserRouter</span>
-    * <span class="sub-point">Children / Outlet</span>
-    * <span class="sub-point">useNavigate</span>
-    * <span class="sub-point">useParams</span>
-    * <span class="sub-point">Link</span>
+    * RouterProvider
+    * createBrowserRouter
+    * Children / Outlet
+    * useNavigate
+    * useParams
+    * Link
 * Hook API
-    * <span class="sub-point">useContext</span>
-    * <span class="sub-point">useReducer</span>
-    * <span class="sub-point">useRef</span>
-    * <span class="sub-point">useState</span>
-    * <span class="sub-point">useEffect</span>
-    * <span class="sub-point">useMemo</span>
+    * useContext
+    * useReducer
+    * useRef
+    * useState
+    * useEffect
+    * useMemo
+* React-three/*
+    * /drei
+        * PerspectiveCamera
+        * RenderTexture
+        * Text
+        * OrbitControls
+        * Stage
 
+    * /firber
+        * useFrame
+        * Canvas
 
 ![Page Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2Fuser.png?alt=media&token=94360920-a87a-48cb-8222-0b3f66b36bb5 "this is page structure")
