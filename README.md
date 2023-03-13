@@ -7,7 +7,9 @@ Project Links: https://clearsome-d2515.web.app/
 
 ## Table of Contents 
 * [Introduction](#intro)
-* [Frontend Techniques](#FrontendTechniques)
+* [Frontend Techniques](#frontendTechniques)
+* [Backend Techniques](#backendtechniques)
+* [Feature Demo](#featureDemo)
 
 ## Main Feature
 
@@ -17,7 +19,7 @@ Project Links: https://clearsome-d2515.web.app/
 * Responsive Web Design (RWD) for desktop and mobile device.
 
 ## Frontend Techniques
-<a id="FrontendTechniques"></a>
+<a id="frontendTechniques"></a>
 
 * React Router v6.9.0
     * RouterProvider
@@ -41,8 +43,32 @@ Project Links: https://clearsome-d2515.web.app/
         * OrbitControls
         * Stage
 
-    * /firber
+    * /fiber
         * useFrame
         * Canvas
 
-![Page Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2Fuser.png?alt=media&token=94360920-a87a-48cb-8222-0b3f66b36bb5 "this is page structure")
+
+## Back-end Techniques (Firebase Cloud Service)
+<a id="backendtechniques"></a>
+
+## Component Structure
+
+![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=e9f29c7f-bc6d-40cd-b6b6-e338594c5463)
+
+
+### Firebase Authentication
+    * support login and sign up with email and password
+### Firebase Database
+    * support data in string forms to be collected and accessible by front-end.
+### Storage 
+    * support storing files and images and return a referenced URL.
+### Hosting
+    * Host static and dynamic contents of the web.
+
+
+## Feature Demo
+<a id="featureDemo"></a>
+
+## Contact
+    * Author: Wei-Xiang, Fang
+    * Email: ken5475ht@gmail.com
