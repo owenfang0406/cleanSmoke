@@ -23,7 +23,7 @@ Project Links: https://clearsome-d2515.web.app/
 
 ## Component Structure
 
-![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=1e37e3e1-deb6-4d8f-91d2-d7b6ad3b75d8)
+![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=c17233e1-495b-48f3-bbb2-17a6922b5287)
 
 * React Router v6.9.0
     * RouterProvider
