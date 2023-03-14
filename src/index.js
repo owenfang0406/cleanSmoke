@@ -22,6 +22,7 @@ import BookingHistory from './Components/Member/BookingHistory';
 import { ChatContextProvider } from './Components/AuthContext/ChatContext';
 import BookMark from './Components/Member/BookMark';
 import PostsContainer from './Components/AD/ADs/PostsContainer';
+import Loader from './Components/Loader/Loader';
 
 
 
@@ -105,6 +106,7 @@ const Index = () => {
   const [postModalOpen, setPostModalOpen] = useState(false)
   const [orders, setOrders] = useState([]);
   const [refreshOrders, setRefreshOrders] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleRefreshOrders = () => {
     setRefreshOrders(!refreshOrders);
@@ -136,12 +138,13 @@ const Index = () => {
     }
     return [];
   }, [getOrdersRef]);
-  console.log(orders)
+  // console.log(orders)
   const getProfiles = useMemo(async () => {
     if (dbProfileRef) {
+      // setIsLoading(true)
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
-        console.log(profiles.data().Profiles)
+        // console.log(profiles.data().Profiles)
         const { birth, name, gender, email, avatarURL, uid, photographer } = profiles.data().Profiles;
         // console.log(birth, name, gender, email, avatarURL);
         setProfiles(
@@ -156,9 +159,11 @@ const Index = () => {
           }
         )
         // console.log(profiles)
+        setIsLoading(false)
         return { birth, name, gender, email, avatarURL };
       } else {
         console.log("No such document!");
+        setIsLoading(false)
         return {};
       }
     }
@@ -167,10 +172,6 @@ const Index = () => {
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-      console.log("UseEffectStart")
-      console.log("useEffectauthUser"+authUser);
-      console.log("useEffectavatarURL"+avatarURL);
-      console.log("useEffectprofiles"+profiles)
       if (user) {
         setAuthUser(user);
       } else {
@@ -223,6 +224,7 @@ const Index = () => {
       ,handleRefreshOrders, toggleModal, setPostModalOpen, postModalOpen
     }}>
         <ChatContextProvider>
+          {isLoading && <Loader></Loader>}
           <RouterProvider router={router}></RouterProvider>
         </ChatContextProvider>
     </UserContext.Provider>

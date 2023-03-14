@@ -4,7 +4,6 @@ import Contact from './Contact'
 import Hero from './Hero'
 import Works from './Works'
 import Who from './Who'
-import Footer from '../Footer/Footer'
 
 const Container = styled.div`
 height: 100vh;

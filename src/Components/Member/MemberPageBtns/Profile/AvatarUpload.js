@@ -5,6 +5,7 @@ import { UserContext } from "../../../../index";
 import { v4 } from 'uuid';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import styles from "./AvatarUpload.module.css";
+import Loader from '../../../Loader/Loader';
 
 function AvatarUpload() {
   const { authUser, updateProfiles, profiles } = useContext(UserContext);
@@ -12,19 +13,23 @@ function AvatarUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewURl] = useState(null);
   const [error, setError] = useState("No image selected");
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0])
     const reader = new FileReader();
     reader.onload = function(e) {
       setPreviewURl(e.target.result);
-      console.log(e.target);
-      console.log(profiles)
+      // console.log(e.target);
+      // console.log(profiles)
     }
       reader.readAsDataURL(e.target.files[0]);
   }
   const uploadImage = () => {
+    setIsLoading(true)
     if (imageUpload == null) {
         setError("No photo selected");
+        setIsLoading(false)
         return
     };
     const dbCollection = collection(db, `${authUser.uid}`);
@@ -52,6 +57,7 @@ function AvatarUpload() {
             setSelectedFile(null);
             setPreviewURl(null);
             // setError("");
+            setIsLoading(false)
             setError("Upload Successfully")
           })
         })
@@ -59,7 +65,7 @@ function AvatarUpload() {
       }
       res.items.forEach((itemRef)=>{
         deleteObject(itemRef).then(()=>{
-          console.log("Old image deleted.");
+          // console.log("Old image deleted.");
           uploadBytes(imageRef, imageUpload).then(()=>{
             // alert("imgUploaded")
             getDownloadURL(imageRef).then((downloadURl) =>{
@@ -78,6 +84,7 @@ function AvatarUpload() {
               setImageUpload(null);
               setSelectedFile(null);
               setPreviewURl(null);
+              setIsLoading(false)
               // setError("");
               setError("Upload Successfully")
             })
@@ -90,6 +97,7 @@ function AvatarUpload() {
   return (
     <div>
       <div>
+        {isLoading && <Loader></Loader>}
         {previewUrl ? (
         <div className={styles.wrapper}>
           <div className={styles.previewCon}>
