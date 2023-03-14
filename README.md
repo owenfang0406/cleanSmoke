@@ -69,7 +69,9 @@ Project Links: https://clearsome-d2515.web.app/
 ## Feature Demo
 <a id="featureDemo"></a>
 
-![Demo1](src/elements/Demo1.gif)
+<!-- ![Demo1](src/elements/Demo1.gif) -->
+<img src="src/elements/Demo1.gif" alt="Demo1" style="width:100px; height:300px;">
+
 
 ## Contact
     * Author: Wei-Xiang, Fang
