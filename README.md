@@ -69,7 +69,7 @@ Project Links: https://clearsome-d2515.web.app/
 ## Feature Demo
 <a id="featureDemo"></a>
 
-![Demo1](https://firebasestorage.googleapis.com/v0/b/clearsome-d2515.appspot.com/o/ProjectMaterial%2Fezgif.com-video-to-gif%20(2).gif?alt=media&token=a218fafa-d49f-4b63-91a8-10480965c0ac)
+![Demo1](src/elements/Demo1.gif)
 
 ## Contact
     * Author: Wei-Xiang, Fang
