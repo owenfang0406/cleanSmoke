@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# ClearSmoke Introduction
+<a id="intro"></a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ClearSmoke is a photographer service provider platform where users can come here to register as a photographer to seek potential clients and vice versa. Furthermore, users can share posts with pics they took here as a social media and users registered as a photographer will be shown a badge when they upload posts so that other users can identify them at the very first glance. When the users are attracted by the post fed by photographers, users can reach out other users or photographers via chatroom and eventually make an appointment for photography through this website.
 
-## Available Scripts
+Project Links: https://clearsome-d2515.web.app/
 
-In the project directory, you can run:
+## Table of Contents 
+* [Introduction](#intro)
+* [Frontend Techniques](#frontendTechniques)
+* [Backend Techniques](#backendtechniques)
+* [Feature Demo](#featureDemo)
 
-### `npm start`
+## Main Feature
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Reproduce Instagram-like post interface with React hooks and CSS modules.
+* Enable real-time chat and img sending by connecting to Firebase database and storage.
+* Create impressive 3D models for landing page with Three.js.
+* Responsive Web Design (RWD) for desktop and mobile device.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Frontend Techniques
+<a id="frontendTechniques"></a>
 
-### `npm test`
+## Component Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Component Structure](https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2FComponent%20Structure.drawio.png?alt=media&token=c17233e1-495b-48f3-bbb2-17a6922b5287)
 
-### `npm run build`
+* React Router v6.9.0
+    * RouterProvider
+    * createBrowserRouter
+    * Children / Outlet
+    * useNavigate
+    * useParams
+    * Link
+* Hook API
+    * useContext
+    * useReducer
+    * useRef
+    * useState
+    * useEffect
+    * useMemo
+* React-three/*
+    * /drei
+        * PerspectiveCamera
+        * RenderTexture
+        * Text
+        * OrbitControls
+        * Stage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    * /fiber
+        * useFrame
+        * Canvas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Back-end Techniques (Firebase Cloud Service)
+<a id="backendtechniques"></a>
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Firebase Authentication
+    * support login and sign up with email and password
+### Firebase Database
+    * support data in string forms to be collected and accessible by front-end.
+### Storage 
+    * support storing files and images and return a referenced URL.
+### Hosting
+    * Host static and dynamic contents of the web.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Feature Demo
+<a id="featureDemo"></a>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Demo1](src/elements/Demo1.gif)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+    * Author: Wei-Xiang, Fang
+    * Email: ken5475ht@gmail.com
