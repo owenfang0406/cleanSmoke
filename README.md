@@ -69,8 +69,8 @@ Project Links: https://clearsome-d2515.web.app/
 ## Feature Demo
 <a id="featureDemo"></a>
 
-<img src="src/elements/Demo1.gif" alt="Demo1" style="width:300px; height:500px;">
-<img src="src/elements/Demo2.gif" alt="Demo2" style="width:300px; height:500px;">
+<img src="src/elements/Demo1.gif" alt="Demo1" style="width:200px; height:500px;">
+<img src="src/elements/Demo2.gif" alt="Demo2" style="width:200px; height:500px;">
 
 
 

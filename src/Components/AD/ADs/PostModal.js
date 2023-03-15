@@ -7,6 +7,7 @@ import { CameraIcon } from '@heroicons/react/24/outline'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase-config'
 import { ref, getDownloadURL, uploadString } from 'firebase/storage'
+import Loader from '../../Loader/Loader';
 
 function PostModal() {
     const { authUser, userSignOut, avatarURL, profiles, setPostModalOpen, postModalOpen, toggleModal } = useContext(UserContext);
@@ -15,9 +16,11 @@ function PostModal() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false)
     const captionRef = useRef(null)
+    // const [isLoading, setIsLoading] = useState(false)
     // console.log(avatarURL)
     // console.log(authUser)
-    console.log(profiles)
+    // console.log(profiles)
+    
 
     const uploadPost = async () => {
         if(loading) return;
@@ -71,6 +74,7 @@ function PostModal() {
     className={styles.wrapper}
     ref={popUpRef}
     >  
+        {loading && <Loader></Loader>}
         <div 
         className="flex relative flex-wrap justify-center items-center bg-white w-96 h-96">
             <MdClose className={styles.closeBtn}
