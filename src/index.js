@@ -166,6 +166,8 @@ const Index = () => {
         setIsLoading(false)
         return {};
       }
+    } else {
+      setIsLoading(false)
     }
     return null;
   }, [dbProfileRef]);
