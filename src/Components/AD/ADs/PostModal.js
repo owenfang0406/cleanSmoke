@@ -28,6 +28,7 @@ function PostModal() {
 
         const docRef = await addDoc(collection(db, 'posts'), {
             username: profiles.name,
+            uid: profiles.uid,
             photographer: profiles.photographer,
             caption: captionRef.current.value,
             profileImg: profiles.avatarURL,
@@ -53,13 +54,11 @@ function PostModal() {
     const addImageToPost = (e) => {
         const reader = new FileReader();
         if(e.target.files[0]) {
-            console.log(e.target.files)
             reader.readAsDataURL(e.target.files[0]);
         }
 
         reader.onload = (readerEvent) => {
             setSelectedFile(readerEvent.target.result)
-            console.log(selectedFile)
         }
     }
 

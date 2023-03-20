@@ -77,11 +77,12 @@ function PostsContainer({ posts, open, setOpen, clickedImgID }) {
         {postToShow && <Post
           key={postToShow.id}
           id={postToShow.id}
-          photographer={postToShow.data().photographer}
-          username = {postToShow.data().username}
-          userImg = {postToShow.data().profileImg}
-          img={postToShow.data().image}
-          caption={postToShow.data().caption}
+          photographer={postToShow.data()?.photographer}
+          username = {postToShow.data()?.username}
+          userImg = {postToShow.data()?.profileImg}
+          img={postToShow.data()?.image}
+          caption={postToShow.data()?.caption}
+          postOwnerId={postToShow.data()?.uid}
           ></Post>}
       </div>
     </div>,

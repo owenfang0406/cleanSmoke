@@ -5,11 +5,11 @@ import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import { BookmarkIcon as BookmarkIconFilled } from '@heroicons/react/24/solid'
 import { PaperAirplaneIcon, ChatBubbleOvalLeftEllipsisIcon, BookmarkIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
-import { addDoc, collection, serverTimestamp, onSnapshot, query, orderBy, setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, onSnapshot, query, orderBy, setDoc, doc, deleteDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import Moment from 'react-moment';
 
-function Post({username, photographer, img, id, userImg, caption}) {
+function Post({username, photographer, img, id, userImg, postOwnerId, caption}) {
    const { authUser, userSignOut, avatarURL, profiles, setPostModalOpen, postModalOpen, toggleModal } = useContext(UserContext);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
@@ -17,6 +17,8 @@ function Post({username, photographer, img, id, userImg, caption}) {
     const [marks, setMarks] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
     const [hasSaved, setHasSaved] = useState(false);
+    const [defaultImg, setDefaultImg] = useState('https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2Fuser.png?alt=media&token=94360920-a87a-48cb-8222-0b3f66b36bb5');
+    const [users, setUsers] = useState([]);
 
     const sendComment = async(e) => {
         e.preventDefault();
@@ -29,6 +31,7 @@ function Post({username, photographer, img, id, userImg, caption}) {
             username: profiles.name,
             userImg: profiles.avatarURL,
             timestamp: serverTimestamp(),
+            uid: profiles.uid,
         })
     }
 
@@ -52,6 +55,22 @@ function Post({username, photographer, img, id, userImg, caption}) {
             })
         }
     }
+
+    useEffect(()=>{
+        const fetchUsers = async () => {
+            const usersCollection = collection(db, 'users');
+            const usersSnapshot = await getDocs(usersCollection);
+            const usersData = usersSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }))
+            setUsers(usersData)
+            console.log(usersData)
+            console.log(postOwnerId)
+            console.log(users.find((user) => user.id === postOwnerId))
+        }
+        fetchUsers();
+    }, [])
 
     useEffect(() => {
         return onSnapshot(query(
@@ -101,7 +120,11 @@ function Post({username, photographer, img, id, userImg, caption}) {
     >     <div className='flex flex-wrap'>
             <div className="flex items-center p-5 w-full h-[10%]">
                 {photographer && <BsCamera2 className="h-5 w-5 mr-2"></BsCamera2>}
-                <img src={userImg}
+                <img src={
+                    // users.find((user) => user.id === postOwnerId)?.Profiles.avatarURL || defaultImg
+                    users.find((user) => user.id === postOwnerId)?.Profiles.avatarURL || defaultImg
+
+                }
                 className="rounded-full object-cover h-12 w-12 border p-1 mr-3"
                 ></img>
                 <p className="flex-1 font-bold">{username}</p>
@@ -143,7 +166,10 @@ function Post({username, photographer, img, id, userImg, caption}) {
                             >
                             <img 
                             className="h-7 w-7 rounded-full"
-                            src={comment.data().userImg}>
+                            src={
+                                users.find((user) => user.id === comment.data().uid)?.Profiles.avatarURL || defaultImg
+                            }
+                                >
                             </img>
                             <p
                             className="text-sm flex-1"
@@ -157,7 +183,10 @@ function Post({username, photographer, img, id, userImg, caption}) {
 
         {authUser && (<form className="flex items-center p-4 overflow-y-scroll">
                 {/* <FaceSmileIcon className="h-7"></FaceSmileIcon> */}
-                <img className="h-7 w-7 rounded-full" src={profiles.avatarURL}></img>
+                <img className="h-7 w-7 rounded-full" src={
+                    // users.find((user) => user.id === postOwnerId)?.Profiles.avatarURL || defaultImg
+                    profiles.avatarURL
+                }></img>
                 <input type="text" 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
@@ -202,7 +231,9 @@ function Post({username, photographer, img, id, userImg, caption}) {
                             >
                             <img 
                             className="h-7 w-7 rounded-full"
-                            src={comment.data().userImg}>
+                            src={
+                                users.find((user) => user.id === comment.data().uid)?.Profiles.avatarURL || defaultImg
+                                }>
                             </img>
                             <p
                             className="text-sm flex-1"
@@ -215,7 +246,10 @@ function Post({username, photographer, img, id, userImg, caption}) {
             )}
 
         {authUser && (<form className="flex items-center p-4 overflow-y-scroll">
-                <img className="h-9 w-9 rounded-full" src={profiles.avatarURL}></img>
+                <img className="h-9 w-9 rounded-full" src={
+                    // users.find((user) => user.id === postOwnerId)?.Profiles.avatarURL || defaultImg
+                    profiles.avatarURL
+                }></img>
                 <input type="text" 
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
