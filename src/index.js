@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from './Components/SignUp/SignUp';
 import SignIn from './Components/LogIn/LogInPage';
-import Newpage from './Pages/newpage';
 import MemberPage from './Components/Member/MemberPage';
 import { auth } from './Components/firebase-config';
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -138,15 +137,11 @@ const Index = () => {
     }
     return [];
   }, [getOrdersRef]);
-  // console.log(orders)
   const getProfiles = useMemo(async () => {
     if (dbProfileRef) {
-      // setIsLoading(true)
       const profiles = await getDoc(dbProfileRef);
       if (profiles.exists()) {
-        // console.log(profiles.data().Profiles)
         const { birth, name, gender, email, avatarURL, uid, photographer } = profiles.data().Profiles;
-        // console.log(birth, name, gender, email, avatarURL);
         setProfiles(
           {
             birth: birth,
@@ -158,11 +153,9 @@ const Index = () => {
             photographer: photographer,
           }
         )
-        // console.log(profiles)
         setIsLoading(false)
         return { birth, name, gender, email, avatarURL };
       } else {
-        console.log("No such document!");
         setIsLoading(false)
         return {};
       }
@@ -190,11 +183,9 @@ const Index = () => {
           setAvatarURL(avatarURL.data().avatarURL);
         } else {
           setAvatarURL(null);
-          console.log("No such document!");
         }
       }
       getAvatar();
-      // console.log(postModalOpen)
 
     }
     return () => {
@@ -212,13 +203,11 @@ const Index = () => {
 
   const updateProfiles = (newProfiles) => {
     setProfiles(newProfiles);
-    console.log(newProfiles);
   }
 
 
   const userSignOut = () => {
       signOut(auth).then(()=> {
-        console.log("Logged Out!")
       }).catch(err=> console.log(err))};
 
   return (

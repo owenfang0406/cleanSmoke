@@ -9,7 +9,7 @@ import { v4 } from 'uuid';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import { storage, db } from '../../firebase-config';
 import { UserContext } from "../../../index";
-
+import { useNavigate } from 'react-router-dom';
 
 function PricingCard({shadow="#a0c5fa", 
     background, 
@@ -23,10 +23,13 @@ function PricingCard({shadow="#a0c5fa",
     data
     }) {
       const { authUser, profiles} = useContext(UserContext);
-
       const [selectedPrice, SetSelectedPrice] = useState(0);
       const [selectedOption, setSelectedOption] = useState('');
+      const navigate = useNavigate();
       const handleButtonClick = (value, option) => {
+          if(authUser == null) {
+            navigate('/login')
+          }
           SetSelectedPrice(value);
           setSelectedOption(headerText);
           toggleAppointmentForm();
@@ -47,6 +50,7 @@ function PricingCard({shadow="#a0c5fa",
         toggleAppointmentForm={toggleAppointmentForm} />,
         portalContainer
       );
+
   return (
     <>
     <MainContainer>

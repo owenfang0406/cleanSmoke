@@ -36,7 +36,6 @@ function Post({username, photographer, img, id, userImg, postOwnerId, caption}) 
     }
 
     const likePost = async () => {
-        console.log(hasLiked)
         if (hasLiked) {
             await deleteDoc(doc(db, 'posts', id, 'likes', authUser.uid))
         } else {
@@ -65,9 +64,6 @@ function Post({username, photographer, img, id, userImg, postOwnerId, caption}) 
                 ...doc.data(),
             }))
             setUsers(usersData)
-            console.log(usersData)
-            console.log(postOwnerId)
-            console.log(users.find((user) => user.id === postOwnerId))
         }
         fetchUsers();
     }, [])

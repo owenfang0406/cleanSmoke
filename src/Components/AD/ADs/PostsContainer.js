@@ -2,8 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from "./MasonryGallery.module.css";
 import ReactDOM from 'react-dom';
 import { MdClose } from 'react-icons/md';
-import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
-import { IoMdClose } from "react-icons/io";
 import Post from './Post';
 import { useParams } from 'react-router-dom';
 import { db } from '../../firebase-config';
@@ -32,20 +30,12 @@ function PostsContainer({ posts, open, setOpen, clickedImgID }) {
     };
   }, [open]);
 
-  useEffect(() => {
-    if(clickedImgID) {
-      console.log(postToShow)
-      // const ele = document.getElementById(clickedImgID)
-      // ele.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [clickedImgID])
 
   useEffect(() => {
     if (clickedImgID) {
       const post = posts.find((post) => post.id === clickedImgID);
       setPostToShow(post);
     } else if (ID) {
-      console.log(ID)
       getDoc(doc(db, "posts", ID))
         .then((doc) => {
           if (doc.exists) {

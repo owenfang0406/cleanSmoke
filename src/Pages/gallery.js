@@ -16,14 +16,8 @@ function Gallery() {
   return (
     <>
     <NavBar></NavBar>
-    {/* <PricingMenu></PricingMenu> */}
     <PostModal></PostModal>
     <MasonryGallery></MasonryGallery>
-    {/* <PayForm></PayForm> */}
-    {/* <div>gallery</div>
-    <Link to="/gallery/next"><button>go to next page</button></Link>
-    <br></br>
-    <Outlet></Outlet> */}
     <BottomBar></BottomBar>
     {!isSmall && <Footer></Footer>}
     </>

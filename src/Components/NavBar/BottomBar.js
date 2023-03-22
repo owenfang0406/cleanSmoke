@@ -1,4 +1,3 @@
-import {FaBars, FaTimes} from "react-icons/fa";
 import { MdAddCircleOutline } from "react-icons/md";
 import { TbMessageCircle } from "react-icons/tb";
 import "../../Styles/main.css"

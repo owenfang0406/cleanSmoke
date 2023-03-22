@@ -11,50 +11,10 @@ import { useMediaQuery } from 'react-responsive';
 function ChatRoom() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const isSmall = useMediaQuery({maxWidth: 700});
-  // const [isResizing, setIsResizing] = useState(false)
-  // const [lastX, setLastX] = useState(null)
-  // const [leftWidth, setLeftWidth] = useState(300)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-
-  // const handleMouseDown = (event) => {
-  //   setIsResizing(true)
-  //   setLastX(event.clientX)
-  // }
-  // const handleMouseUp = () => {
-  //   setIsResizing(false);
-  // };
-
-  // const handleMouseMove = (event) => {
-  //   if (!isResizing) {
-  //     return;
-  //   }
-
-  //   const deltaX = event.clientX - lastX;
-  //   setLastX(event.clientX);
-  //   setLeftWidth((prevLeftWidth) => prevLeftWidth + deltaX);
-  // };
-
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const windowWidth = window.innerWidth;
-
-  //     if (windowWidth < 768) {
-  //       setIsMenuOpen(false);
-  //     } else {
-  //       setIsMenuOpen(true);
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
 
   return (
     <>

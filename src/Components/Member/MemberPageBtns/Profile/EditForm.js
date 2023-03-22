@@ -21,8 +21,6 @@ function EditForm({LabelName, type, ShouldShow, formActions }) {
     gender: gender,
   }
 
-  console.log(profiles)
-  console.log(authUser.uid)
 
   const updateProfile = (e) => {
     const updatedRef = doc(db, "users", `${authUser.uid}`);

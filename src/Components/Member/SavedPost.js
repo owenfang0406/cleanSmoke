@@ -29,9 +29,6 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost, postO
                 ...doc.data(),
             }))
             setUsers(usersData)
-            console.log(usersData)
-            console.log(postOwnerId)
-            console.log(users.find((user) => user.id === postOwnerId))
         }
         fetchUsers();
     }, [])
@@ -52,7 +49,6 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost, postO
     }
 
     const likePost = async () => {
-        console.log(hasLiked)
         if (hasLiked) {
             await deleteDoc(doc(db, 'posts', id, 'likes', authUser.uid))
         } else {

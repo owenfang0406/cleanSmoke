@@ -11,7 +11,6 @@ function Chat({ toggleMenu, isMenuOpen }) {
   const { data, user } = useContext(ChatContext);
   const { profiles } = useContext(UserContext);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
-  // console.log(data.user)
   return (
     <div className={`${styles.chat} ${!isMenuOpen ? styles.chatSlideOut : ""}`}>
       <div className={styles.chatInfo}>

@@ -1,20 +1,15 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {UserContext} from "../../../../index";
 import styles from "./ProfilePage.module.css";
-import AvatarUpload from './AvatarUpload';
 import { MdModeEdit, MdArrowForwardIos } from "react-icons/md";
-import { doc, setDoc, collection, addDoc, updateDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import EditForm from './EditForm';
-import { db } from '../../../firebase-config';
 
 function ProfileInfo() {
   const { authUser, userSignOut, profiles } = useContext(UserContext);
   const [email, setEmail] = useState(authUser? authUser.email : "");
-  // const [wouldUpdate, setWouldUpdate] = useState("");
   const [showEditForm, setShowEditForm] = useState(false)
   const shouldShowNameForm = showEditForm;
-  console.log(profiles)
   const formActions = (action) => {
     if (!action) {
       setShowEditForm(false)
@@ -23,9 +18,7 @@ function ProfileInfo() {
 
   useEffect(() => {
     if (authUser){
-      console.log(authUser)
       setEmail(authUser.email)
-      console.log(authUser.email);
     }}, [authUser]);
 
   return (

@@ -16,10 +16,6 @@ function PostModal() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false)
     const captionRef = useRef(null)
-    // const [isLoading, setIsLoading] = useState(false)
-    // console.log(avatarURL)
-    // console.log(authUser)
-    // console.log(profiles)
     
 
     const uploadPost = async () => {
@@ -35,7 +31,6 @@ function PostModal() {
             timestamp: serverTimestamp(),
         })
 
-        // console.log("New doc added wit ID", docRef.id)
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
 

@@ -15,10 +15,6 @@ import { useMediaQuery } from 'react-responsive';
 function MemberPage() {
   const { authUser, userSignOut } = useContext(UserContext);
   const isSmall = useMediaQuery({maxWidth: 700});
-  // console.log(userSignOut)
-  // if (authUser) {
-  //   console.log(authUser)
-  // }
   return (
     <>
     <NavBar/>
