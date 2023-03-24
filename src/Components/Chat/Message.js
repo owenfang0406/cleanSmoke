@@ -7,7 +7,6 @@ import 'moment-timezone';
 import styles from "./ChatRoom.module.css"
 
 function Message({message}) {
-  // console.log(message)
   const { profiles } = useContext(UserContext);
   const { data } = useContext(ChatContext);
   const ref = useRef();
@@ -41,22 +40,4 @@ function Message({message}) {
 }
 
 export default Message
-
-
-// function Message({ type }) {
-//     const isOwner = type === "owner";
-    
-//     return (
-//       <div className={`${styles.message} ${isOwner ? styles.owner : styles.recipient}`}>
-//           <div className={styles.messageInfo}>
-//               <img className={styles.messageInfoAvatar} src="" alt="" />
-//               <span>just now</span>
-//           </div>
-//           <div className={`${styles.messageContent} ${isOwner ? styles.ownerMessageContent : styles.recipientMessageContent}`}>
-//               <p className={`${styles.messageContentBox} ${isOwner ? styles.ownerMessageContentBox : styles.recipientMessageContentBox}`}>hello</p>
-//               <img className={styles.messageContentImg} src="" alt="" />
-//           </div>
-//       </div>
-//     );
-//   }
   

@@ -5,11 +5,11 @@ import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import { BookmarkIcon as BookmarkIconFilled } from '@heroicons/react/24/solid'
 import { PaperAirplaneIcon, ChatBubbleOvalLeftEllipsisIcon, BookmarkIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
-import { addDoc, collection, serverTimestamp, onSnapshot, query, orderBy, setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, onSnapshot, query, orderBy, setDoc, doc, deleteDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import Moment from 'react-moment';
 
-function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
+function SavedPost({username, img , id, userImg, caption, removeSavedPost, postOwnerId}) {
    const { authUser, profiles } = useContext(UserContext);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
@@ -17,6 +17,21 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
     const [marks, setMarks] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
     const [hasSaved, setHasSaved] = useState(false);
+    const [defaultImg, setDefaultImg] = useState('https://firebasestorage.googleapis.com/v0/b/reactpracticewehelp.appspot.com/o/avatar%2Fuser.png?alt=media&token=94360920-a87a-48cb-8222-0b3f66b36bb5');
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>{
+        const fetchUsers = async () => {
+            const usersCollection = collection(db, 'users');
+            const usersSnapshot = await getDocs(usersCollection);
+            const usersData = usersSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }))
+            setUsers(usersData)
+        }
+        fetchUsers();
+    }, [])
 
     const sendComment = async(e) => {
         e.preventDefault();
@@ -29,11 +44,11 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
             username: profiles.name,
             userImg: profiles.avatarURL,
             timestamp: serverTimestamp(),
+            uid: profiles.uid,
         })
     }
 
     const likePost = async () => {
-        console.log(hasLiked)
         if (hasLiked) {
             await deleteDoc(doc(db, 'posts', id, 'likes', authUser.uid))
         } else {
@@ -101,7 +116,9 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
     id={id}
     >     <div className='flex flex-wrap'>
             <div className="flex items-center p-5 w-full h-[10%]">
-                <img src={userImg}
+                <img src={
+                    users.find((user) => user.id === postOwnerId)?.Profiles.avatarURL || defaultImg
+                }
                 className="rounded-full object-cover h-12 w-12 border p-1 mr-3"
                 ></img>
                 <p className="flex-1 font-bold">{username}</p>
@@ -144,7 +161,9 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
                             >
                             <img 
                             className="h-7 w-7 rounded-full"
-                            src={comment.data().userImg}>
+                            src={
+                                users.find((user) => user.id === comment.data().uid)?.Profiles.avatarURL || defaultImg
+                            }>
                             </img>
                             <p
                             className="text-sm flex-1"
@@ -158,7 +177,9 @@ function SavedPost({username, img , id, userImg, caption, removeSavedPost}) {
 
         {authUser && (<form className="flex items-center p-4 overflow-y-scroll">
                 {/* <FaceSmileIcon className="h-7"></FaceSmileIcon> */}
-                <img src={userImg}
+                <img src={
+                    profiles.avatarURL
+                }
                 className="rounded-full object-cover h-12 w-12 p-1 mr-3"
                 ></img>
                 <input type="text" 

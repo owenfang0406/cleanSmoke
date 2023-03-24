@@ -25,10 +25,8 @@ function Search() {
     
     try {
       setUser([]);
-      // console.log(=username)
       const queryResults = await getDocs(q)
       queryResults.forEach((doc) => {
-        // console.log(doc.data())
         setUser((prev) => [...prev, doc.data().Profiles])
       })
     }catch(err) {
@@ -36,15 +34,9 @@ function Search() {
       setErr(true)
     }
   }
-  // const handleKey = (e) => {
-  //   e.code == "ENTER" && handleSearch();
-  // }
 
   const handleSelect = async(user) => {
-    //check whether the group exists
-    // console.log(user)
     const combinedID = profiles.uid > user.uid ? profiles.uid + user.uid : user.uid + profiles.uid;
-    // console.log(combinedID)
     try {
       const res = await getDoc(doc(db, "chats", combinedID));
       const res2 = await getDoc(doc(db, "UserChats", profiles.uid))
@@ -89,10 +81,8 @@ function Search() {
     setUser([]);
     setUsername("");
     setShowUserQuery(false);
-    //create userChats for both
   }
 
-  // console.log(profiles.uid)
   const handleClickOutside = (e) => {
     if (searchRef.current && !searchRef.current.contains(e.target)) {
       if (e.target.classList.contains(styles.searchFormInput)) {
@@ -114,7 +104,6 @@ function Search() {
         <div className={styles.searchForm}>
             <input className={styles.searchFormInput} type="text"
              placeholder='find a user'
-            //  onKeyDown={handleKey}
              onChange={(e) => {
               handleSearch(e);
             }}

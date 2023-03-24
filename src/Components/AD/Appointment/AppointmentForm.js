@@ -189,7 +189,7 @@ function AppointmentForm({
                         className={styles.queryBox}
                         onClick={(e) => handleSelectChange(photographer, e)}
                         >
-                            <img src={photographer.avatarURL} className="w-6 h-6 mr-4"></img>
+                            <img src={photographer.avatarURL} className="w-6 h-6 mr-4 rounded-full"></img>
                             <span>{photographer.name}</span>
                         </div>
                     ))}

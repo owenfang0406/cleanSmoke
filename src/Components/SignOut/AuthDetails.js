@@ -27,7 +27,6 @@ function AuthDetails() {
       }).catch(err=> console.log(err));
   }
 
-  console.log(authUser);
 
   return (
     <>

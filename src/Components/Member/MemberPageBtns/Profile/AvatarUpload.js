@@ -20,8 +20,6 @@ function AvatarUpload() {
     const reader = new FileReader();
     reader.onload = function(e) {
       setPreviewURl(e.target.result);
-      // console.log(e.target);
-      // console.log(profiles)
     }
       reader.readAsDataURL(e.target.files[0]);
   }
@@ -39,7 +37,6 @@ function AvatarUpload() {
     list(folderRef).then((res)=>{
       if (res.items.length === 0) {
         uploadBytes(imageRef, imageUpload).then(()=>{
-          // alert("imgUploaded")
           getDownloadURL(imageRef).then((downloadURl) =>{
             setDoc(dbRef,
             {Profiles:{
@@ -52,11 +49,9 @@ function AvatarUpload() {
               ...profiles,
               avatarURL: downloadURl,
             });
-            // alert("url: " + downloadURl);
             setImageUpload(null);
             setSelectedFile(null);
             setPreviewURl(null);
-            // setError("");
             setIsLoading(false)
             setError("Upload Successfully")
           })
@@ -65,9 +60,7 @@ function AvatarUpload() {
       }
       res.items.forEach((itemRef)=>{
         deleteObject(itemRef).then(()=>{
-          // console.log("Old image deleted.");
           uploadBytes(imageRef, imageUpload).then(()=>{
-            // alert("imgUploaded")
             getDownloadURL(imageRef).then((downloadURl) =>{
               setDoc(dbRef,
                 {Profiles:{
@@ -80,12 +73,10 @@ function AvatarUpload() {
                 ...profiles,
                 avatarURL: downloadURl,
               });
-              // alert("url: " + downloadURl);
               setImageUpload(null);
               setSelectedFile(null);
               setPreviewURl(null);
               setIsLoading(false)
-              // setError("");
               setError("Upload Successfully")
             })
           })
@@ -119,7 +110,6 @@ function AvatarUpload() {
               handleFileChange(e);
               }}></input>
           </label>
-          {/* {error !== "" && <div className={styles.errorMsg}>{error}</div>} */}
           <button type='submit' className={styles.submitBtn} onClick={uploadImage}>
             <span className={styles.submitStr}>Submit</span>
           </button>

@@ -3,12 +3,10 @@ import NavBar from '../Components/NavBar/NavBar'
 import Footer from '../Components/Footer/Footer'
 import PricingCard from '../Components/AD/Pricing/PricingCard'
 import styled from 'styled-components'
-import { Outlet } from 'react-router-dom'
 import BottomBar from '../Components/NavBar/BottomBar'
 import { useMediaQuery } from 'react-responsive';
 
 const MainCon = styled.div`
-    /* height: 100vh; */
     width: 100%;
     display: flex;
     justify-content: space-around;

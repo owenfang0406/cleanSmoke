@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
 import styles from "./ChatRoom.module.css"
-import {IoMdAttach} from "react-icons/io"
 import {BiImageAdd} from "react-icons/bi"
 import { UserContext } from '../../index'
 import { ChatContext } from '../AuthContext/ChatContext'
@@ -55,10 +54,8 @@ function Input() {
   const handleSend = async() => {
       const messageUid = v4();
       let ImgURL;
-      // if (text.trim() === "") return
       if (isSending || !text.trim()) return
       if(data.chatId) {
-        // console.log("0")
         setIsSending(true)
         const sendImg = async(URL) => {
           updateDoc(doc(db, "chats", data.chatId), {
@@ -72,13 +69,10 @@ function Input() {
         })};
 
         if (img) {
-          // console.log("1")
           const ImgStorageRef = ref(storage, `chatting/${data.chatId}/images/${messageUid}`)
           uploadBytes(ImgStorageRef, img).then((snapshot) => {
-            // console.log("uploaded!")
             getDownloadURL(snapshot.ref).then((downloadURL) => {
-              ImgURL = downloadURL
-              console.log(downloadURL)              
+              ImgURL = downloadURL            
               sendImg(downloadURL);
               setImg(null)
               setText("")
@@ -94,8 +88,6 @@ function Input() {
           })
           }
         else {
-        // console.log("2")
-        // console.log(data.chatId)
         await updateDoc(doc(db, "chats", data.chatId), {
           messages: arrayUnion({
             id: messageUid,

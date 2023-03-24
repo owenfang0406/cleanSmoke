@@ -10,7 +10,6 @@ function NavBar() {
         <div className={styles.user}>
             <img className={styles.userImg} src={profiles.avatarURL} alt=''></img>
             <span className={styles.currentUserName}>{profiles.name}</span>
-            {/* <button className={styles.logOutBtn}>logOut</button> */}
         </div>
     </div>
   )

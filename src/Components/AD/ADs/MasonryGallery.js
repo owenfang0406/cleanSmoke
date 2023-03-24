@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import styles from "./MasonryGallery.module.css";
-import styled from '@emotion/styled'
-import { BiChevronLeft, BiChevronRight } from"react-icons/bi";
-import { IoMdClose } from "react-icons/io";
 import PostsContainer from './PostsContainer';
-import PostModal from './PostModal';
 import { db } from '../../firebase-config';
 import { collection, onSnapshot, orderBy, query, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-// const ArrowLeft = styled.div`
-//   width: 30px;
-//   height: 30px;
-//   color: white;
-//   border-radius: 5px;
-// `
 
 function MasonryGallery() {
   const [open, setOpen] = useState(false);
@@ -37,7 +27,6 @@ function MasonryGallery() {
           Post: doc.data()
         }
         setCollectionPosts((prev) => [...prev, PostObject])
-        console.log(doc.id, " => ", doc.data());
       })
     }
     fetchPosts();
@@ -47,25 +36,12 @@ function MasonryGallery() {
     }
   }, [db])
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const docsSnapshot = await getDocs(collection(db, "posts"))
-  //     docsSnapshot.forEach((doc) => {
-  //       console.log(doc.id, " => ", doc.data());
-  //     })
-  //   }
-  //   fetchPosts();
-  // }, [])
 
 
   const showImgPage = (image, i) => {
     setOpen(true);
     setClickedImgID(i);
     navigate(`/gallery/${i}`);
-    // console.log(clickedImgID)
-    // console.log(collectionPosts)
-    // const postToShow = collectionPosts.find((post) => post.PostId === "XMw4bDMtnWpRNWRH4vxS")
-    // console.log(postToShow)
   }
 
   

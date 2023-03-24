@@ -6,7 +6,6 @@ import styles from "./LoginPage.module.css";
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import { db } from '../firebase-config';
-import { v4 } from 'uuid';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 
 function SignUp() {

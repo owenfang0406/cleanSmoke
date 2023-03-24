@@ -16,10 +16,6 @@ function PostModal() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false)
     const captionRef = useRef(null)
-    // const [isLoading, setIsLoading] = useState(false)
-    // console.log(avatarURL)
-    // console.log(authUser)
-    // console.log(profiles)
     
 
     const uploadPost = async () => {
@@ -28,13 +24,13 @@ function PostModal() {
 
         const docRef = await addDoc(collection(db, 'posts'), {
             username: profiles.name,
+            uid: profiles.uid,
             photographer: profiles.photographer,
             caption: captionRef.current.value,
             profileImg: profiles.avatarURL,
             timestamp: serverTimestamp(),
         })
 
-        // console.log("New doc added wit ID", docRef.id)
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
@@ -53,13 +49,11 @@ function PostModal() {
     const addImageToPost = (e) => {
         const reader = new FileReader();
         if(e.target.files[0]) {
-            console.log(e.target.files)
             reader.readAsDataURL(e.target.files[0]);
         }
 
         reader.onload = (readerEvent) => {
             setSelectedFile(readerEvent.target.result)
-            console.log(selectedFile)
         }
     }
 

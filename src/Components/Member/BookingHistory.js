@@ -25,13 +25,11 @@ function BookingHistory() {
   };
 
   const deleteOrder = async(orderId) => {
-    console.log(profiles)
     const orderRef = doc(db, "users", profiles.uid, "Orders", orderId)
     await deleteDoc(orderRef)
     handleRefreshOrders();
   }
 
-    console.log(orders)
     const rows = orders.map((order, index) => {
       const isDropdownOpen = selectedRows.includes(order.OrderID);
         return (

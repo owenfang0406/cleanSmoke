@@ -9,7 +9,6 @@ function Chats() {
     const { profiles } = useContext(UserContext);
     const { dispatch } = useContext(ChatContext);
     const[chats, setChats] = useState([]);
-    // console.log(profiles)
 
     useEffect(() => {
         let unsubscribe;
@@ -29,12 +28,8 @@ function Chats() {
     }, [profiles])
 
     const handleSelect = (u) => {
-        // console.log(u)
         dispatch({type:"CHANGE_USER", payload: u})
     }
-    // // console.log(profiles.uid)
-    // console.log(Object.entries(chats))
-    // console.log(Object.entries(chats).sort((a,b) => b[1]?.date - a[1]?.date))
     return (
         <div className={styles.chats}>
           {chats && Object.entries(chats)?.sort((a,b) => b[1]?.date - a[1]?.date).map((chat) => (
@@ -53,13 +48,3 @@ function Chats() {
 }
 
 export default Chats
-
-        {/* {Object.entries(chats)?.sort((a,b) => a[1]?.date - b[1]?.date).map((chat) => (
-        <div key={chat[0]} className={styles.userChat} onClick={() => handleSelect(chat[1].TheOtherUserInfo)}>
-            <img className={styles.userChatImg} src={chat[1].TheOtherUserInfo?.avatarURL} alt=''></img>
-            <div className={styles.userChatInfo}>
-                <span className={styles.userChatInfoName}>{chat[1].TheOtherUserInfo?.displayName}</span>
-                <p className={styles.userChatInfoMsg}>{chat[1].lastMessage?.text}</p>
-            </div>
-        </div>
-        ))} */}

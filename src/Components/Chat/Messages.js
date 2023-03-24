@@ -13,7 +13,6 @@ function Messages({ setShowDeletePopup, showDeletePopup }) {
   const { data, dispatch } = useContext(ChatContext)
   const Disclaimer = "Your chat history will be permanently deleted, Are you going to proceed?"
   const [ isDeleting, setIsDeleting] = useState(false)
-  // console.log(data)
  
   const DeleteChatHistory = async() => {
     if(!isDeleting){
@@ -30,20 +29,15 @@ function Messages({ setShowDeletePopup, showDeletePopup }) {
       setIsDeleting(false);
       dispatch({type:"RESET"})
       setMessages([])
-      // setMessages([]);
     }
   }
 
-//  console.log(data)
-//  console.log(messages)
   useEffect(() => {
     let unSub
     if(data.chatId) {
       unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
         if(doc.exists()) {
-        // console.log(doc.data().messages)
         setMessages(()=>doc.data().messages)
-        // console.log(messages)
         }
       })
 

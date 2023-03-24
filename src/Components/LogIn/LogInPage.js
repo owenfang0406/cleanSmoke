@@ -19,8 +19,6 @@ function SignIn() {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 if (email === userCredential.user.email){
-                    console.log(userCredential)
-                    console.log(userCredential.user.email);
                     navigate("/")
                 }
             }).catch(error => {

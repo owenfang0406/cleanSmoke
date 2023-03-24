@@ -56,19 +56,13 @@ function BookMark() {
           setSavedPosts(savedPostsData);
     }, [collectionPosts, savedPostsId])
 
-    // if (!savedPosts.length) {
-    //     return <div>Loading...</div>
-    //   }
-
     const removeSavedPost = (Id) => {
-        console.log(savedPosts)
         setSavedPosts(savedPosts.filter(post => post.PostId !== Id))
         setSavedPostsId(savedPostsID => {
             const newSet = new Set(savedPostsID);
             newSet.delete(Id)
             return newSet;
         });
-        console.log(savedPosts)
     };
 
   return (
@@ -82,6 +76,7 @@ function BookMark() {
               userImg = {post.Post.profileImg}
               img={post.Post.image}
               caption={post.Post.caption}
+              postOwnerId={post.Post.uid}
             ></SavedPost>
         ))}
     </div>
