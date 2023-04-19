@@ -160,7 +160,7 @@ function AppointmentForm({
             <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Your option: </label>
+                <label className={styles.labels}>Set: </label>
                 <input type="text" className={styles.inputs} value={selectedOption} disabled></input>
             </div>
             <div className={styles.inputCon}>
@@ -246,12 +246,13 @@ function AppointmentForm({
         (
              <form className={styles.confirmFormCon} onSubmit={handlePayFormSubmit}>
                 <div className={styles.formHeader}>
+                Your Order Information
                 <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
                 </div>
                 <div className={styles.dataPreviewCon}>
-                    <div className={styles.title}>Your Order Information</div>
+                    {/* <div className={styles.title}>Your Order Information</div> */}
                     <div className={styles.orderDetailRow}>
-                        Option: {selectedOption}
+                        Set: {selectedOption}
                     </div>
                     <div className={styles.orderDetailRow}>
                         Date: {selectedDate}

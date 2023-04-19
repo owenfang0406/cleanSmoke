@@ -75,13 +75,14 @@ const Title = styled.h1`
         font-size: 60px;
      }
       @media only screen and (max-width: 768px) {
-        font-size: 50px;
+        font-size: 40px;
      }
      `;
      const WhatWeDo = styled.div`
       display: flex;
       align-items: center;
       gap: 10px;
+      margin: 20px 0px;
      `;
      const Desc = styled.p`
      font-size: 24px;

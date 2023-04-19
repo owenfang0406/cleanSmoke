@@ -103,6 +103,7 @@ const MainContainer = styled.div`
   height:max-content;
   background-color: #ffffff;
   display:flex;
+  margin: 20px;
   flex-direction: column;
   color: #1d3557;
   box-shadow: 0 8px 14px -6px ${(props) => props.shadow};

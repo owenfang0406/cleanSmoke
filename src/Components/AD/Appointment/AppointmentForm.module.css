@@ -247,13 +247,15 @@
     .confirmFormCon {
       width: 90%;
       height: 90%;
-      padding-top: 200px;
+      /* padding-top: 200px; */
       justify-content: flex-start;
     }
     .FormCon {
       width: 90%;
       height: 90%;
       padding-top: 60px;
+      overflow-y: scroll;
+      padding-top: 100px;
     }
     .formHeader {
       font-size: 28px;
@@ -264,18 +266,21 @@
       align-items: center;
       width: 100%;
       padding-left: 30px;
+      flex-wrap: wrap;
     }
+
     .labels {
       margin: 10px 0;
     }
     .inputs {
-      width: 50%
+      width: 80%;
+      margin-left: 0px;
     }
     .customizedInput {
-      width: 50%;
+      width: 80%;
     }
     .dateInput{
-      width: 70%;
+      width: 80%;
     }
     .buttonCon {
       display: flex;
@@ -289,7 +294,7 @@
     }
 
     .searchDropDown{
-      top: 50px;
+      top: 100px;
       left: 30px;
       right: inherit;
     }
