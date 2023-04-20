@@ -1,0 +1,29 @@
+.emptyNoteCon {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto;
+    padding-top: 100px;
+}
+
+.note1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 2.4rem;
+}
+
+.note2 {
+    cursor: pointer;
+    margin-top: 50px;
+    font-weight: 400;
+    transition: all 0.5s ease-in;
+}
+
+
+.note2:hover {
+    scale: 1.2;
+    background-color: var(--mainColor);
+    color: var(--textColor);
+}
