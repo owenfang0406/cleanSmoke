@@ -29,7 +29,7 @@
   position: relative;
   background-color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   width: 50%;
@@ -66,6 +66,28 @@
     justify-content: flex-start;
     align-items: center;
     line-height: 3rem;
+}
+
+.customizedInput {
+  border: 1px gray solid;
+  line-height: 1.5rem;
+  font-size: 20px;
+  font-family: 'Sulphur Point';
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.dateInput {
+  border: 1px gray solid;
+  line-height: 1.5rem;
+  font-size: 20px;
+  font-family: 'Sulphur Point';
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 15px;
 }
 
 .labels {
@@ -192,6 +214,10 @@
 .title {
   border-bottom: 2px solid #777474;
 }
+
+.orderDetailRow {
+  line-height: 3rem;
+}
   
 @keyframes fadeIn {
     0% {
@@ -221,13 +247,15 @@
     .confirmFormCon {
       width: 90%;
       height: 90%;
-      padding-top: 200px;
+      /* padding-top: 200px; */
       justify-content: flex-start;
     }
     .FormCon {
       width: 90%;
       height: 90%;
       padding-top: 60px;
+      overflow-y: scroll;
+      padding-top: 100px;
     }
     .formHeader {
       font-size: 28px;
@@ -238,12 +266,21 @@
       align-items: center;
       width: 100%;
       padding-left: 30px;
+      flex-wrap: wrap;
     }
+
     .labels {
       margin: 10px 0;
     }
     .inputs {
-      width: 50%
+      width: 80%;
+      margin-left: 0px;
+    }
+    .customizedInput {
+      width: 80%;
+    }
+    .dateInput{
+      width: 80%;
     }
     .buttonCon {
       display: flex;
@@ -257,7 +294,7 @@
     }
 
     .searchDropDown{
-      top: 50px;
+      top: 100px;
       left: 30px;
       right: inherit;
     }

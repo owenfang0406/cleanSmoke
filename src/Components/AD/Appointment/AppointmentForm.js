@@ -37,8 +37,21 @@ function AppointmentForm({
         const regex = /^[0-9]{10,}$/;
         const isNumber = regex.test(phone);
         const isPhotographer = selectedPhotographer != null;
-        setIsFormDataValid(isNameValid && isNumber && isPhotographer);
-      }, [participants, phone, selectedPhotographer]);
+        setIsFormDataValid(isDateValid(selectedDate) && isNameValid && isNumber && isPhotographer);
+      }, [participants, phone, selectedPhotographer, selectedDate]);
+
+    const isInputValid = (regex) => (inputValue) => {
+        return regex.test(inputValue)
+    }
+
+    const numericRegex = /^[0-9]{10,}$/;
+
+    const greaterThanZeroRegex = /^(?=.*[1-9])[0-9]+$/;
+
+    const isDateValid = (dateStr) => {
+        const today = new Date().toISOString().slice(0, 10);
+        return dateStr > today;
+    }
 
     const handleInputFocus = () => {
         setShowDropdown(true);
@@ -55,7 +68,7 @@ function AppointmentForm({
         const querySnapshot = await getDocs(q);
         const photographerData = querySnapshot.docs.map((doc) => doc.data().Profiles);
         setPhotographers(photographerData);
-        console.log(photographers)
+        // console.log(photographers)
       };
 
     const handleInputChange = (event) => {
@@ -88,14 +101,14 @@ function AppointmentForm({
     const handleSelectChange = (photographer, event) => {
         setSelectedPhotographer(photographer);
         setSearchTerm(photographer.name);
-        setShowDropdown(false);
+        // setShowDropdown(!showDropdown);
         event.stopPropagation()
     }
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
         SetSelectedPrice(event.target.value);
-        console.log(event.target.value);
+        // console.log(event.target.value);
       }
     const handlePayButtonClick = () => {
         setShowPage1(false);
@@ -147,30 +160,27 @@ function AppointmentForm({
             <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Your option: </label>
-                {/* <select className={styles.selector} value={selectedOption} onChange={handleOptionChange}>
-                    <option className={styles.options} value={3000}>Option1</option>
-                    <option className={styles.options} value={5000}>Option2</option>
-                    <option className={styles.options} value={12000}>Option3</option>
-                </select> */}
+                <label className={styles.labels}>Set: </label>
                 <input type="text" className={styles.inputs} value={selectedOption} disabled></input>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Date: </label>
+                <label className={styles.labels}>Date:
                 <input 
-                className={styles.inputs}
+                className={styles.dateInput}
                 type="date"
                 value={selectedDate.substr(0, 10)}
                 onChange={(e) => {setSelectedDate(e.target.value)}}
                 ></input>
+                {isDateValid(selectedDate)? null : <span className="text-red-700">   *</span>}
+                </label>
             </div>
             <div className={styles.inputCon}>
-                <label>photographer: </label>
+                <label>Photographer: 
                 <input 
                 onFocus={handleInputFocus}
                 // onBlur={handleInputBlur}
                 ref={inputRef}
-                className={styles.inputs} 
+                className={styles.customizedInput}
                 value={searchTerm} 
                 type="text" 
                 placeholder='Search Photographer' 
@@ -178,6 +188,7 @@ function AppointmentForm({
                     handleInputChange(e)
                     }}>
                 </input>
+                {!searchTerm && <span className="text-red-700">   *</span>}
 
                 {showDropdown && (<div className={styles.searchDropDown}
                 ref={dropdownRef}
@@ -187,31 +198,42 @@ function AppointmentForm({
                         key={photographer.uid} 
                         value={photographer.uid} 
                         className={styles.queryBox}
-                        onClick={(e) => handleSelectChange(photographer, e)}
+                        onClick={
+                            (e) => {
+                                handleSelectChange(photographer, e)
+                                inputRef.current.blur()
+                                setShowDropdown(false);
+                            }
+                        }
                         >
                             <img src={photographer.avatarURL} className="w-6 h-6 mr-4 rounded-full"></img>
                             <span>{photographer.name}</span>
                         </div>
                     ))}
                 </div>)}
+                </label>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Phone: </label>
-                <input className={styles.inputs} type="text"
+                <label className={styles.labels}>Phone:
+                <input className={styles.customizedInput} type="text"
                 onChange={(e) => {
                     setPhone(e.target.value)}}
                 placeholder="Ex 0912345678"
                 value={phone}
                 ></input>
+                {isInputValid(numericRegex)(phone) ? null : <span className="text-red-700">   *</span>}
+                </label>
             </div>
             <div className={styles.inputCon}>
-                <label className={styles.labels}>Participant: </label>
-                <input className={styles.inputs} type="number"
+                <label className={styles.labels}>Participant:
+                <input className={styles.customizedInput} type="number"
                 value={participants}
                 onChange={(e) => {
                     setParticipant(e.target.value)}}
                 placeholder="Ex 2"
                 ></input>
+                {!isInputValid(greaterThanZeroRegex)(participants) && <span className="text-red-700">   *</span>}
+                </label>
             </div>
             <div className={styles.inputCon}>
                 <label className={styles.labels}>Price: </label>
@@ -224,26 +246,27 @@ function AppointmentForm({
         (
              <form className={styles.confirmFormCon} onSubmit={handlePayFormSubmit}>
                 <div className={styles.formHeader}>
+                Your Order Information
                 <MdOutlineClose className={styles.closeBtn} onClick={toggleAppointmentForm}></MdOutlineClose>
                 </div>
                 <div className={styles.dataPreviewCon}>
-                    <div className={styles.title}>Your Order Information</div>
-                    <div>
-                        Option: {selectedOption}
+                    {/* <div className={styles.title}>Your Order Information</div> */}
+                    <div className={styles.orderDetailRow}>
+                        Set: {selectedOption}
                     </div>
-                    <div>
+                    <div className={styles.orderDetailRow}>
                         Date: {selectedDate}
                     </div>
-                    <div>
+                    <div className={styles.orderDetailRow}>
                         Price: {selectedPrice}
                     </div>
-                    <div>
+                    <div className={styles.orderDetailRow}>
                         Phone Number: {phone}
                     </div>
-                    <div>
+                    <div className={styles.orderDetailRow}>
                         Photographer Name: {selectedPhotographer?.name}
                     </div>
-                    <div>
+                    <div className={styles.orderDetailRow}>
                         Photographer E-mail: {selectedPhotographer?.email}
                     </div>
                 </div>

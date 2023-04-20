@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import Map from "./Map"
 import emailjs from '@emailjs/browser';
+import './Contact.css'
 
     const Section = styled.div`
       height: 100vh;
@@ -70,19 +71,22 @@ import emailjs from '@emailjs/browser';
      }
     `;
 
-    const Button = styled.button`
-      background-color: var(--mainColor);
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      padding: 20px;
-      @media only screen and (max-width: 768px) {
-        height: 30px;
-        padding: 0px;
-     }
-    `;
+    // const Button = styled.button`
+    //   border: none;
+    //   font-weight: bold;
+    //   cursor: pointer;
+    //   border-radius: 5px;
+    //   padding: 20px;
+    //   font-size: 1.5rem;
+    //   font-weight: 800;
+    //   color: black;
+    //   border: 1px gray solid;
+    //   width: 150px;
+    //   @media only screen and (max-width: 768px) {
+    //     height: 30px;
+    //     padding: 0px;
+    //  }
+    // `;
 
     const SendMsg = styled.div`
       color: red;
@@ -117,7 +121,10 @@ function Contact() {
             <Input placeholder="Name" name='name'></Input>
             <Input placeholder="Email" name='email'></Input>
             <TextArea rows="10" name='message' placeholder="You are welcome to provide us any feedback or issue for us to improve our user experience"></TextArea>
-            <Button type='submit'>Send</Button>
+            {/* <Button type='submit'>Send</Button> */}
+            <div className='btnCon'>
+              <button type='submit' className='sendBtn'>Send</button>
+            </div>
             <SendMsg>
             {success && 
             "Your message has been sent. We will get back to you soon"}

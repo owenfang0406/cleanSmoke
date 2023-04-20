@@ -4,23 +4,27 @@
 .wrapper {
     width: 100%;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    /* align-items:center; */
-    flex-wrap: wrap;
-    margin: 30px 0px;
+    margin: 30px auto;
     padding-bottom: 50vh;
     overflow: scroll;
+}
+
+.subWrapper {
+    max-width: 1400px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .outerCon {
     font-family: 'Sulphur Point';
     position: relative;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin: 20px 0px;
 }
 
 .orderTitle {
@@ -97,6 +101,7 @@
 
 .photogTitle {
     display: flex;
+    align-items: center;
 }
 
 .photogAvatar {
@@ -125,6 +130,8 @@
     display: flex;
     justify-content: flex-start;
     max-width: 100%;
+    margin: 10px 0px;
+
 }
 
 .tableCon {
@@ -158,9 +165,9 @@
     font-weight: bold;
 }
 
-/* .tds {
-    text-align: center;
-} */
+.historyCon {
+    width: 80%;
+}
 
 .tdHeader {
     text-align: center;
@@ -169,4 +176,33 @@
     font-weight: bold;
     font-size: 24px;
     padding: 0px 10px;
+}
+
+.emptyNoteCon {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto;
+}
+
+.note1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 2.4rem;
+}
+
+.note2 {
+    cursor: pointer;
+    margin-top: 50px;
+    font-weight: 400;
+    transition: all 0.5s ease-in;
+}
+
+
+.note2:hover {
+    scale: 1.2;
+    background-color: var(--mainColor);
+    color: var(--textColor);
 }

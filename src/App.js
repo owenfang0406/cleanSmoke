@@ -26,23 +26,8 @@ function App() {
   const [showFooter, setShowFooter] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
+
   
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollPos = window.pageYOffset;
-  //     if (currentScrollPos < prevScrollPos) {
-  //       setShowFooter(true)
-  //     } else {
-  //       setShowFooter(false)
-  //     }
-  //     setPrevScrollPos(currentScrollPos);
-  //   };
-  
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [prevScrollPos]);
 
 
   useEffect(() => {
@@ -66,7 +51,8 @@ const containerStyles = {
   return (
       <React.Fragment>
         <div className="scrollbar-none">
-          <NavBar parentWidth={viewportWidth}></NavBar>
+          <NavBar parentWidth={viewportWidth}
+          ></NavBar>
           <HomePage></HomePage>
         </div>
         <BottomBar></BottomBar>

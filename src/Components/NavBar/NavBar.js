@@ -7,13 +7,14 @@ import styles from "./NavBar.module.css";
 import { Link } from "react-router-dom";
 import LogInButton from "../LogIn/LogInButton";
 import {UserContext} from "../../index";
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 
 function NavBar() {
     const { setPostModalOpen, authUser} = useContext(UserContext);
     const navRef = useRef();
     const isSmall = useMediaQuery({maxWidth: 700});
     const [isClicked, setIsClicked] = useState(false);
+    const [shouldShowNavbar, setShouldShowNavbar] = useState(true)
     const showNavBar = () => {
         setIsClicked(!isClicked);
     }
@@ -22,19 +23,30 @@ function NavBar() {
         setIsClicked(!isClicked);
     }
     
-    const LogoPath = "./Logo.png"
 
+    useEffect(() => {
+        let prevScrollPos = window.pageYOffset;
+        const handleScroll = () => {
+          const currentScrollPos = window.pageYOffset;
+          setShouldShowNavbar(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+          prevScrollPos = currentScrollPos;
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+      
     const responsiveNavBar = isClicked ? [styles.responsive_nav,] : [];
     const shouldChangeNav = isSmall ? [styles.smallHeaderNav,] : [styles.header,];
+    const nav =[styles.nav]
 
     return(
-        <header className={isSmall ? `${styles.header}` : `${styles.header}`} >
+        <header className={`${styles.header} ${shouldShowNavbar ? styles.fixedNav : styles.hidden}`}>
             <Link to="/">
                 <div className={styles.LogoContainer}>
                         <img className={styles.LogoImg} src={require("./Logo.png")} alt="清煙"></img>
                 </div>
             </Link>
-            <nav className={[...responsiveNavBar, ...shouldChangeNav].join(' ')}  ref={navRef} onClick={hideNavbar}>
+            <nav className={[...responsiveNavBar, ...shouldChangeNav, ...nav].join(' ')}  ref={navRef} onClick={hideNavbar}>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/">Home</Link>
                 <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/gallery" >Gallery</Link>
                 {/* <Link className={isSmall ? `${styles.NavAnchor} ${styles.smallNavAnchor}` : `${styles.NavAnchor }`} to="/chatting">Chats</Link> */}

@@ -7,12 +7,23 @@ import { UserContext } from "../../index";
 function Search() {
   const [username, setUsername] = useState("")
   const [user, setUser] = useState([])
+  const [users, setUsers] = useState([])
+  const [searchedUsers, setSearchedUsers] = useState([])
   const [err, setErr] = useState(false)
   const { profiles } = useContext(UserContext);
   const [showUserQuery, setShowUserQuery] = useState(false);
   const searchRef = useRef();
 
+  const handleUsersSearch = (searchTerm) => {
+    setShowUserQuery(true)
+    setUsername(()=> searchTerm)
+    const filteredArray = searchTerm === "" 
+    ? users 
+    : users.filter(user => new RegExp(`\\b${searchTerm}`, 'gi').test(user.name))
 
+    setSearchedUsers(filteredArray);
+    return filteredArray
+  }
   const handleSearch = async(e) => {
     setShowUserQuery(true)
     setUsername(()=>e.target.value)
@@ -95,18 +106,41 @@ function Search() {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    async function getAllUsers () {
+      const q = query(
+        collection(db, "users"),
+      );
+      
+      try {
+        setUsers([]);
+        const queryResults = await getDocs(q)
+        queryResults.forEach((doc) => {
+          setUsers((prev) => [...prev, doc.data().Profiles])
+          setSearchedUsers((prev) => [...prev, doc.data().Profiles])
+        })
+      }catch(err) {
+        console.log(err)
+        setErr(true)
+      }
+    }
+
+    getAllUsers();
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  
   return (
     <div ref={searchRef} className={styles.search}>
         <div className={styles.searchForm}>
             <input className={styles.searchFormInput} type="text"
              placeholder='find a user'
              onChange={(e) => {
-              handleSearch(e);
+              handleUsersSearch(e.target.value);
             }}
+            onFocus={() => setShowUserQuery(true)}
              value={username}
              ></input>
         </div>
@@ -114,7 +148,7 @@ function Search() {
         {err && <span>User not found!</span>}
         </div>
         {showUserQuery && <div className={styles.userQueryCon}>
-          {user && user.map((user) => 
+          {searchedUsers && searchedUsers.map((user) => 
               (<div className={styles.userQueryUserChat} onClick={
                 ()=>{
                 handleSelect(user)}

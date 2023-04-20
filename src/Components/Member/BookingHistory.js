@@ -4,6 +4,7 @@ import styles from "./BookingHistory.module.css"
 import { MdDeleteOutline } from "react-icons/md"
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase-config';
+import { Link } from 'react-router-dom';
 
 
 function BookingHistory() {
@@ -28,6 +29,14 @@ function BookingHistory() {
     const orderRef = doc(db, "users", profiles.uid, "Orders", orderId)
     await deleteDoc(orderRef)
     handleRefreshOrders();
+  }
+  const emptyNote = () => {
+      return (
+      <div className={styles.emptyNoteCon}>
+        <div className={styles.note1}>No booking history</div>
+        <div className={styles.note2}><Link to="/appoint">Click here to make one</Link></div>
+      </div>
+    )
   }
 
     const rows = orders.map((order, index) => {
@@ -76,14 +85,19 @@ function BookingHistory() {
           }
         </div>)
     })
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.batchOperationBtnCon}>
-        <button onClick={batchOperation}>
-          {selectedRows.length === orders.length ? "Close all" : "Open all"}
-        </button>
+      <div className={styles.subWrapper}>
+        <div className={styles.batchOperationBtnCon}>
+          <button onClick={batchOperation}>
+            {selectedRows.length === orders.length ? "Close all" : "Open all"}
+          </button>
+        </div>
+        <div className={styles.historyCon}>
+          {orders.length > 0 ? rows : emptyNote() }
+        </div>
       </div>
-      {rows}
     </div>
   )
 }

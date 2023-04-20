@@ -6,7 +6,7 @@ import Works from './Works'
 import Who from './Who'
 
 const Container = styled.div`
-height: 100vh;
+height: 100%;
 max-width: 1400px;
 padding: 0px 50px;
 margin: auto;
