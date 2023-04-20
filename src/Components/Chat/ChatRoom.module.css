@@ -139,19 +139,28 @@
 
 .userQueryCon {
     position: relative;
+    /* top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px; */
     z-index: 200;
+    /* max-height: 100%; */
     max-height: 510px;
+    /* padding-bottom: 100px; */
     background-color: black;
     overflow-y: scroll;
 }
 
 .userQueryUserChat {
+    /* height: 50px; */
     padding: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
     color: white;
     cursor: pointer;
+    /* height: 100%; */
+    /* overflow-y: scroll; */
     z-index: 10;
 }
 
@@ -194,8 +203,8 @@
 }
 
 .userChatImg {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }

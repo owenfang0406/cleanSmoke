@@ -45,86 +45,75 @@ function Input() {
     
   }
 
-  const shouldSendMsg = () => {
-    if (isSending) {
-      return false
-    } 
-    if (!text.trim() && !img) {
-      return false
+  useEffect(() => {
+    if(data) {
+      console.log(data)
     }
-    return true
-  }
+  },[data])
 
-  const sendMsg = async() => {
-    const messageUid = v4();
-    let ImgURL;
+  const handleSend = async() => {
+      const messageUid = v4();
+      let ImgURL;
+      if (isSending || !text.trim()) return
+      if(data.chatId) {
+        setIsSending(true)
+        const sendImg = async(URL) => {
+          updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: messageUid,
+            text,
+            senderId: profiles.uid,
+            data: Timestamp.now(),
+            img:URL,
+          })
+        })};
 
-    if(data.chatId) {
-      setIsSending(true)
-      const sendImg = async(URL) => {
-        updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: messageUid,
-          text,
-          senderId: profiles.uid,
-          data: Timestamp.now(),
-          img:URL,
-        })
-      })};
+        if (img) {
+          const ImgStorageRef = ref(storage, `chatting/${data.chatId}/images/${messageUid}`)
+          uploadBytes(ImgStorageRef, img).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((downloadURL) => {
+              ImgURL = downloadURL            
+              sendImg(downloadURL);
+              setImg(null)
+              setText("")
+              setPreviewImg(null)
+              setShowPreview(false)
+              setIsSending(false)
+            }).catch((err) => {
+              console.error(err)
+            })
 
-      if (img) {
-        const ImgStorageRef = ref(storage, `chatting/${data.chatId}/images/${messageUid}`)
-        uploadBytes(ImgStorageRef, img).then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((downloadURL) => {
-            ImgURL = downloadURL            
-            sendImg(downloadURL);
-            setImg(null)
-            setText("")
-            setPreviewImg(null)
-            setShowPreview(false)
-            setIsSending(false)
           }).catch((err) => {
             console.error(err)
           })
+          }
+        else {
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: messageUid,
+            text,
+            senderId: profiles.uid,
+            data: Timestamp.now(),
+          })
+        }) 
+        await setDoc(doc(db, "UserChats", profiles.uid), {
+          [data.chatId]: {
+            lastMessage: {text},
+            date: serverTimestamp(),
+          },
+        },{ merge: true })
 
-        }).catch((err) => {
-          console.error(err)
-        })
-        }
-      else {
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: messageUid,
-          text,
-          senderId: profiles.uid,
-          data: Timestamp.now(),
-        })
-      }) 
-      await setDoc(doc(db, "UserChats", profiles.uid), {
-        [data.chatId]: {
-          lastMessage: {text},
-          date: serverTimestamp(),
-        },
-      },{ merge: true })
+        await setDoc(doc(db, "UserChats", data.user.uid), {
+          [data.chatId]: {
+            lastMessage: {text},
+            date: serverTimestamp(),
+          },
+        },{ merge: true })
 
-      await setDoc(doc(db, "UserChats", data.user.uid), {
-        [data.chatId]: {
-          lastMessage: {text},
-          date: serverTimestamp(),
-        },
-      },{ merge: true })
-
-      setText("")
-      setIsSending(false)
+        setText("")
+        setIsSending(false)
       }
-    }
-  }
-
-  const handleSend = async() => {
-      if (shouldSendMsg()) {
-        sendMsg();
-      }
-      else {
+      }else {
         console.log("Chat ID not found");
       }
   }
