@@ -3,6 +3,8 @@ import React, {useEffect, useContext, useState} from 'react'
 import { db } from '../firebase-config'
 import { UserContext } from '../../index';
 import SavedPost from './SavedPost';
+import styles from "./BookMark.module.css"
+import { Link } from 'react-router-dom';
 
 function BookMark() {
     const [savedPostsId, setSavedPostsId] = useState(new Set());
@@ -67,7 +69,12 @@ function BookMark() {
 
   return (
     <div className="flex flex-col items-center pb-60">
-        {savedPosts && savedPosts.map((post) => (
+        {savedPosts !== null ? 
+          <div className={styles.emptyNoteCon}>
+            <div className={styles.note1}>No posts saved</div>
+            <div className={styles.note2}><Link to="/gallery">Click here to view posts</Link></div>
+          </div>
+        : savedPosts.map((post) => (
             <SavedPost
               removeSavedPost={() => removeSavedPost(post.PostId)}
               key={post.id}
