@@ -20,6 +20,7 @@ Project Links: https://clearsome-d2515.web.app/
 - Create impressive 3D models for landing page with Three.js.
 - Responsive Web Design (RWD) for desktop and mobile device.
 - Infinite scrolling with intersectionObserver.
+- Introduce Debounce and Throttle techniques.
 
 ## Frontend Techniques
 
