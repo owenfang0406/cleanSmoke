@@ -1,91 +1,96 @@
 .wrapper {
-    padding: 10px;
-    position: relative;
+  padding: 10px;
+  position: relative;
+}
+
+.card {
+  width: 100%;
+  display: block;
+  cursor: pointer;
 }
 
 .closeBtn {
-    position: absolute;
-    top: 10px;
-    right: 5%;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
+  position: absolute;
+  top: 10px;
+  right: 5%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
 
 .closeBtn:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .arrows {
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .arrows:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .mainCon {
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.9);
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-y: scroll;
-    z-index: 3;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  z-index: 3;
 }
 
 .imgCon {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: max-content;
-    width: 90%;
-    height: 90%;
-    overflow-y: scroll;
-    scrollbar-width: none; /* hide the scrollbar */
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  width: 90%;
+  height: 90%;
+  overflow-y: scroll;
+  scrollbar-width: none; /* hide the scrollbar */
   -ms-overflow-style: none; /* hide the scrollbar in IE 10+ */
 }
 
 .imgCon::-webkit-scrollbar {
-    display: none; /* hide the scrollbar in WebKit-based browsers */
+  display: none; /* hide the scrollbar in WebKit-based browsers */
 }
 
 .imgs {
-    height: 100%;   
-    width: 100%;
-    object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
-
 @media screen and (max-width: 1200px) {
-    .imgCon {
-        width:90%;
-        height: 90%;
-    }
+  .imgCon {
+    width: 90%;
+    height: 90%;
+  }
 
-    .closeBtn {
-        right: 10px;
-    }
+  .closeBtn {
+    right: 10px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .imgCon {
-        width:90%;
-        height: 90%;
-    }
+  .imgCon {
+    width: 90%;
+    height: 90%;
+  }
 
-    .closeBtn {
-        width: 20px;
-        height: 20px;
-    }
+  .closeBtn {
+    width: 20px;
+    height: 20px;
+  }
 }
