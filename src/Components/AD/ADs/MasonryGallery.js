@@ -18,11 +18,9 @@ import { useNavigate } from "react-router-dom"
 function MasonryGallery() {
   const [open, setOpen] = useState(false)
   const [posts, setPosts] = useState([])
-  const [collectionPosts, setCollectionPosts] = useState([])
   const [clickedImgID, setClickedImgID] = useState("")
   const navigate = useNavigate()
   const containerRef = useRef(null)
-  const [observer, setObserver] = useState(null)
 
   const fetchMore = async () => {
     const q = query(
@@ -41,8 +39,7 @@ function MasonryGallery() {
     })
   }
 
-  const throttleFetchMore = useThrottle(fetchMore, 3000)
-  const cards = window.document.querySelector("#card")
+  const throttleFetchMore = useThrottle(fetchMore, 1000)
 
   useEffect(() => {
     const lastCard = window.document.querySelector("#card:last-child")
@@ -72,18 +69,6 @@ function MasonryGallery() {
         setPosts(snapshot.docs)
       }
     )
-
-    const fetchPosts = async () => {
-      const docsSnapshot = await getDocs(collection(db, "posts"))
-      docsSnapshot.forEach((doc) => {
-        const PostObject = {
-          PostId: doc.id,
-          Post: doc.data(),
-        }
-        setCollectionPosts((prev) => [...prev, PostObject])
-      })
-    }
-    fetchPosts()
 
     return () => {
       unsubscribe()
