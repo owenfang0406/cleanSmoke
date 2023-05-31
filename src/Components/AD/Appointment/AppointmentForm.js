@@ -12,6 +12,10 @@ import {
 } from "firebase/firestore"
 import { v4 } from "uuid"
 import { MdOutlineClose } from "react-icons/md"
+import DatePicker from "react-datepicker"
+import { parseISO } from "date-fns"
+import "./react-datepicker.css"
+// import "./Calendar.css"
 
 function AppointmentForm({
   selectedOption,
@@ -56,6 +60,7 @@ function AppointmentForm({
     const month = String(today.getMonth() + 1).padStart(2, "0")
     const day = String(today.getDate()).padStart(2, "0")
     const formattedDate = `${year}-${month}-${day}`
+
     return formattedDate
   }
 
@@ -189,6 +194,12 @@ function AppointmentForm({
           <div className={styles.inputCon}>
             <label className={styles.labels}>
               Date:
+              {/* <DatePicker
+                selected={parseISO(selectedDate)}
+                onChange={(date) => setSelectedDate(date)}
+                // className={styles.dateInput}
+                minDate={new Date()}
+              /> */}
               <input
                 className={styles.dateInput}
                 type="date"
